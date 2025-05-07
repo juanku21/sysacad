@@ -1,0 +1,30 @@
+{
+  "name": "sysacad-project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juanku21/sysacad.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/juanku21/sysacad/issues"
+  },
+  "homepage": "https://github.com/juanku21/sysacad#readme",
+  "description": "",
+  "devDependencies": {
+    "prisma": "^6.7.0"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "^6.7.0",
+    "@prisma/client": "^6.7.0"
+  }
+}

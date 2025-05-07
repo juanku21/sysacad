@@ -1,2 +1,4 @@
 /database/data-postgres
 .env
+node_modules
+package-lock.json
