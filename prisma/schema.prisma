@@ -22,30 +22,258 @@ model User {
   password String
   cuil BigInt @unique
   gender String? 
-  phone Int @unique
+  phone BigInt @unique
+  facultyId Int 
+  faculty Faculty @relation(fields: [facultyId], references: [id], onDelete: Restrict, onUpdate: Restrict)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   student Student?
   teacher Teacher?
-  administer Administrator?
+  administrator Administrator?
 } 
 
 model Student {
   id Int @id
-  user User @relation(fields: [id], references: [id])
+  user User @relation(fields: [id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   legajo Int
+  career_id Int
+  career Career @relation(fields: [career_id], references: [id], onDelete: Restrict, onUpdate: Restrict)
+  quealifications Qualification[]
+  course_registrations CourseRegistration[]
+  exam_registrations FinalExamRegistration[]
 }
 
 model Teacher {
   id Int @id
-  user User @relation(fields: [id], references: [id])
+  user User @relation(fields: [id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   tuition BigInt
-  specialty String? 
+  specialty String?
+  final_exam_assigments FinalExamAssignment[]
+  dictation_assigments SubjectDictationAssignment[] 
 }
 
 model Administrator {
   id Int @id
-  user User @relation(fields: [id], references: [id])
+  user User @relation(fields: [id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   area String
   position String? 
+}
+
+model Faculty {
+  id Int @id @default(autoincrement())
+  name String
+  code Int @unique
+  description String?
+  city String
+  zip_code String
+  street String
+  email String @unique
+  number Int
+  phone BigInt @unique
+  web String?
+  users User[]
+  educational_offers EducationalOffer[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model EducationalOffer {
+  id Int @id @default(autoincrement())
+  year Int
+  facultyId Int
+  careerId Int
+  price Float
+  faculty Faculty @relation(fields: [facultyId], references: [id], onDelete: Restrict, onUpdate: Restrict)
+  career Career @relation(fields: [careerId], references: [id], onDelete: Restrict, onUpdate: Restrict)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Career {
+  id Int @id @default(autoincrement())
+  name String
+  code Int @unique
+  description String
+  level Level
+  educational_offers EducationalOffer[]
+  study_plans StudyPlan[]
+  students Student[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Level {
+  Course
+  Engineering
+  Postgraduate
+  Technicality
+  Degree
+  Doctorate
+}
+
+model StudyPlan {
+  id Int @id @default(autoincrement())
+  description String
+  effective_from Int
+  code Int @unique
+  duration Int
+  careerId Int
+  career Career @relation(fields: [careerId], references: [id], onDelete: Restrict, onUpdate: Restrict)
+  subject_assignments SubjectAssignment[]
+  correlativities Correlativity[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model CourseRegistration {
+  id Int @id @default(autoincrement())
+  state CourseState
+  studentId Int
+  subjectId Int
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  subject SubjectDictation @relation(fields: [subjectId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum CourseState {
+  Irregular
+  Regular
+  Aprroved
+}
+
+model FinalExamRegistration {
+  id Int @id @default(autoincrement())
+  qualification Int
+  state ExamState
+  studentId Int
+  examId Int
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  exam FinalExam @relation(fields: [examId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum ExamState {
+  Disapproved
+  Aprroved
+}
+
+model Subject {
+  id Int @id @default(autoincrement())
+  name String
+  code Int @unique
+  description String
+  assignments SubjectAssignment[]
+  correlativities Correlativity[] @relation("MainSubject")
+  required Correlativity[] @relation("CorrelativeSubject")
+  quealifications Qualification[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SubjectAssignment {
+  id Int @id @default(autoincrement())
+  hours Int
+  type SubjectType
+  subjectId Int
+  study_plan_id Int
+  subject Subject @relation(fields: [subjectId], references: [id], onDelete: Restrict, onUpdate: Restrict)
+  study_plan StudyPlan @relation(fields: [study_plan_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  final_exams FinalExam[]
+  dictations SubjectDictation[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum SubjectType {
+  HalfYearly
+  Yearly
+}
+
+model Correlativity {
+  id Int @id @default(autoincrement())
+  course Boolean
+  aprrove Boolean
+  subject_id Int
+  correlativitie_id Int
+  study_plan_id Int
+  subject Subject @relation("MainSubject", fields: [subject_id], references: [id], onDelete: Restrict, onUpdate: Restrict)
+  correlativitie Subject @relation("CorrelativeSubject", fields: [correlativitie_id], references: [id], onDelete: Restrict, onUpdate: Restrict)
+  study_plan StudyPlan @relation(fields: [study_plan_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Qualification {
+  id Int @id @default(autoincrement())
+  value Int
+  student_id Int
+  subject_id Int
+  student Student @relation(fields: [student_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  subject Subject @relation(fields: [subject_id], references: [id], onDelete: Restrict, onUpdate: Restrict)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model FinalExam {
+  id Int @id @default(autoincrement())
+  date DateTime
+  subject_id Int
+  classroom_id Int?
+  subject SubjectAssignment @relation(fields: [subject_id], references: [id], onDelete: Restrict, onUpdate: Restrict)
+  classroom ClassRoom? @relation(fields: [classroom_id], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  registrations FinalExamRegistration[]
+  assignments FinalExamAssignment[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model FinalExamAssignment {
+  id Int @id @default(autoincrement())
+  final_exam_id Int
+  teacher_id Int
+  final_exam FinalExam @relation(fields: [final_exam_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  teacher Teacher @relation(fields: [teacher_id], references: [id], onDelete: Restrict, onUpdate: Restrict)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SubjectDictation {
+  id Int @id @default(autoincrement())
+  year Int
+  subject_id Int
+  classroom_id Int?
+  subject SubjectAssignment @relation(fields: [subject_id], references: [id], onDelete: Restrict, onUpdate: Restrict)
+  classroom ClassRoom? @relation(fields: [classroom_id], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  registrations CourseRegistration[]
+  assigments SubjectDictationAssignment[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SubjectDictationAssignment {
+  id Int @id @default(autoincrement())
+  teacher_id Int
+  dictation_id Int
+  teacher Teacher @relation(fields: [teacher_id], references: [id], onDelete: Restrict, onUpdate: Restrict)
+  dictation SubjectDictation @relation(fields: [dictation_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ClassRoom {
+  id Int @id @default(autoincrement())
+  name String
+  code Int @unique
+  capacity Int
+  projector Boolean
+  board Boolean
+  air_conditioning Boolean
+  heating Boolean
+  wifi Boolean
+  subject_dictatios SubjectDictation[]
+  final_exams FinalExam[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
