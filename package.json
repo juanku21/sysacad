@@ -21,7 +21,15 @@
   "homepage": "https://github.com/juanku21/sysacad#readme",
   "description": "",
   "devDependencies": {
-    "prisma": "^6.7.0"
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.15.17",
+    "jest": "^29.7.0",
+    "jest-mock-extended": "^4.0.0-beta1",
+    "prisma": "^6.7.0",
+    "supertest": "^7.1.0",
+    "ts-jest": "^29.3.2",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^6.7.0",

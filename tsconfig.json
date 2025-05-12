@@ -1,0 +1,41 @@
+
+{
+    "compilerOptions": {
+      // Lenguage and envioronment
+      "target": "ES2020",
+  
+      // Módules
+      "baseUrl": "./src",
+      "module": "ES2020",
+      "moduleResolution": "node",
+    //   "paths": {
+    //     "@src/*": ["src/*"],
+    //     "@middlewares/*": ["middlewares/*"],
+    //     "@routes/*": ["routes/*"],
+    //     "@controllers/*": ["controllers/*"],
+    //     "@models/*": ["models/*"],
+    //     "@config/*": ["config/*"]
+    //   },
+  
+  
+      // Emit
+      "outDir": "./build",
+      "rootDir": "./src",
+      "sourceMap": true,
+  
+      // test
+      "strictNullChecks": true,
+  
+      // Interop Constraint
+      "esModuleInterop": true,
+      "noUnusedLocals": true,
+      "noUnusedParameters": true,
+      // "strict": true,
+  
+      "skipLibCheck": true,
+  
+    },
+  
+    "include": ["src/**/*", "src/config/client.ts", "test/singleton.ts"],
+    "exclude": ["node_modules", "build"]
+  }
