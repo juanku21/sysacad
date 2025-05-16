@@ -72,6 +72,7 @@ model Faculty {
   web String?
   users User[]
   educational_offers EducationalOffer[]
+  class_rooms ClassRoom[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -271,8 +272,10 @@ model ClassRoom {
   air_conditioning Boolean
   heating Boolean
   wifi Boolean
+  faculty_id Int
   subject_dictatios SubjectDictation[]
   final_exams FinalExam[]
+  faculty Faculty @relation(fields: [faculty_id], references: [id], onUpdate: Cascade, onDelete: Restrict)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
