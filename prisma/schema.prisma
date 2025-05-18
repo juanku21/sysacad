@@ -79,6 +79,8 @@ model University {
   name String
   acronym String
   faculty Faculty[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("universities")
 }
@@ -111,6 +113,8 @@ model City {
   name String
   zip_code String
   faculty Faculty[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("cities")
 }
