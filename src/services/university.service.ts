@@ -1,14 +1,19 @@
 
-import { UniversityRepositorie } from "../repositories/university.repositorie"
+
 import { Prisma, University } from "@prisma/client"
-import { UniversityWithRelations } from "models/university.model"
+import { UniversityWithRelations } from "types"
+import { UniversityRepository } from "../repositories/university.repository"
+
+
+const repository = new UniversityRepository()
 
 export class UniversityService {
 
 
     public static async get() : Promise<University[]> {
+
         try {
-            const result = await UniversityRepositorie.get()
+            const result = await repository.get()
             return result
         } 
         catch (error : any) {
@@ -18,7 +23,7 @@ export class UniversityService {
 
     public static async findById(id : number) : Promise<UniversityWithRelations | null> {
         try {
-            const result = await UniversityRepositorie.getById(id)
+            const result = await repository.getById(id)
             return result
         } 
         catch (error : any) {
@@ -29,7 +34,7 @@ export class UniversityService {
     public static async create(university : Prisma.UniversityCreateInput) {
 
         try {
-            const result = await UniversityRepositorie.create(university)
+            const result = await repository.create(university)
             return result
         } 
         catch (error : any) {
@@ -41,13 +46,13 @@ export class UniversityService {
     public static async update(id : number, university : Prisma.UniversityUpdateInput) : Promise<University> {
 
         try {
-            const universityExists = await UniversityRepositorie.getById(id)
+            const universityExists = await repository.getById(id)
 
             if (universityExists === null) {
                 throw new Error("El usuario que desea actualizar no existe")    
             }
 
-            const result = await UniversityRepositorie.update(id, university)
+            const result = await repository.update(id, university)
             return result
 
         } 
@@ -60,13 +65,13 @@ export class UniversityService {
     public static async delete(id: number) : Promise<University> {
 
         try {
-            const universityExists = await UniversityRepositorie.getById(id)
+            const universityExists = await repository.getById(id)
 
             if (universityExists === null) {
                 throw new Error("El usuario que desea eliminar no existe")    
             }
 
-            const result = await UniversityRepositorie.delete(id)
+            const result = await repository.delete(id)
             return result
         } 
         catch (error : any) {

@@ -1,7 +1,7 @@
 
 import { UniversityService } from "../src/services/university.service"
 import { Prisma, University } from "@prisma/client"
-import { UniversityWithRelations } from "../src/models/university.model"
+import { UniversityWithRelations } from "../src/types"
 import { prismaMock } from "../src/config/singleton"
 
 
