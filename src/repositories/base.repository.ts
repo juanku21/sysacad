@@ -1,8 +1,5 @@
 
 
-import { Prisma, PrismaClient } from "@prisma/client";
-import prisma from "config/client";
-
 
 export abstract class BaseRepository <TModel, TEntity, TCreate, TUpdate> {
 

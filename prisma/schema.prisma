@@ -1,3 +1,4 @@
+
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
@@ -23,9 +24,11 @@ model User {
   gender Gender? 
   phone BigInt @unique
   facultyId Int 
-  faculty Faculty @relation(fields: [facultyId], references: [id], onDelete: Restrict, onUpdate: Restrict)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  faculty Faculty @relation(fields: [facultyId], references: [id], onDelete: Restrict, onUpdate: Restrict)
+
   student Student?
   authority Authority?
 
@@ -43,7 +46,9 @@ model Student {
   userId Int @unique
   legajo Int
   career_id Int
+
   career Career @relation(fields: [career_id], references: [id], onDelete: Restrict, onUpdate: Restrict)
+
   quealifications Qualification[]
   course_registrations CourseRegistration[]
   exam_registrations FinalExamRegistration[]
@@ -71,8 +76,8 @@ model AuthorityPosition {
   authorityId Int
   positionId Int
 
-  authority Authority @relation(fields: [authorityId], references: [id])
-  position Position @relation(fields: [positionId], references: [id])
+  authority Authority @relation(fields: [authorityId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  position Position @relation(fields: [positionId], references: [id], onUpdate: Cascade, onDelete: Cascade)
 
   @@id([authorityId, positionId])
   @@map("authority-position")
@@ -88,7 +93,7 @@ model Position {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  category PositionCategory @relation(fields: [categoryId], references: [id])
+  category PositionCategory @relation(fields: [categoryId], references: [id], onUpdate: Cascade, onDelete: Cascade)
 
   authority AuthorityPosition[] 
 
@@ -135,8 +140,8 @@ model Faculty {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   
-  city City @relation(fields: [cityId], references: [id])
-  university University @relation(fields: [universityId], references: [id])
+  city City @relation(fields: [cityId], references: [id], onUpdate: Restrict, onDelete: Restrict)
+  university University @relation(fields: [universityId], references: [id], onUpdate: Cascade, onDelete: Cascade)
 
   educational_offers EducationalOffer[]
   class_rooms ClassRoom[]
