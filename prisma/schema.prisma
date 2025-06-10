@@ -27,8 +27,7 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   student Student?
-  teacher Teacher?
-  administrator Administrator?
+  authority Authority?
 
   @@map("users")
 }
@@ -52,35 +51,70 @@ model Student {
   @@map("students")
 }
 
-model Teacher {
+
+model Authority {
   id Int @id @default(autoincrement())
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   userId Int @unique
   tuition BigInt
-  specialty String?
+  recruitment DateTime
+
+  user User @relation(fields: [userId], references: [id])
+
+  position AuthorityPosition[]
   final_exam TeacherFinalExam[]
   dictation TeacherSubjectDictation[]
 
-  @@map("teachers") 
+  @@map("authorities")
 }
 
-model Administrator {
-  id Int @id @default(autoincrement())
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  userId Int @unique 
-  area String
-  position String?
+model AuthorityPosition {
+  authorityId Int
+  positionId Int
 
-  @@map("administrators") 
+  authority Authority @relation(fields: [authorityId], references: [id])
+  position Position @relation(fields: [positionId], references: [id])
+
+  @@id([authorityId, positionId])
+  @@map("authority-position")
+}
+
+model Position {
+  id Int @id @default(autoincrement())
+  name String
+  description String
+  puntaje Float
+  area String
+  categoryId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  category PositionCategory @relation(fields: [categoryId], references: [id])
+
+  authority AuthorityPosition[] 
+
+  @@map("positions")
+}
+
+model PositionCategory {
+  id Int @id @default(autoincrement())
+  name String
+  description String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  positions Position[]
+
+  @@map("categories-position")
 }
 
 model University {
   id Int @id @default(autoincrement())
   name String
   acronym String
-  faculty Faculty[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  faculty Faculty[]
 
   @@map("universities")
 }
@@ -95,15 +129,18 @@ model Faculty {
   number Int
   phone BigInt @unique
   web String?
-  users User[]
   cityId Int
   universityId Int
-  educational_offers EducationalOffer[]
-  class_rooms ClassRoom[]
-  city City @relation(fields: [cityId], references: [id])
-  university University @relation(fields: [universityId], references: [id])
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  
+  city City @relation(fields: [cityId], references: [id])
+  university University @relation(fields: [universityId], references: [id])
+
+  educational_offers EducationalOffer[]
+  class_rooms ClassRoom[]
+  users User[]
 
   @@map("faculties")
 }
@@ -112,9 +149,10 @@ model City {
   id Int @id @default(autoincrement())
   name String
   zip_code String
-  faculty Faculty[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  
+  faculty Faculty[]
 
   @@map("cities")
 }
@@ -125,10 +163,11 @@ model EducationalOffer {
   facultyId Int
   careerId Int
   price Float
-  faculty Faculty @relation(fields: [facultyId], references: [id], onDelete: Restrict, onUpdate: Restrict)
-  career Career @relation(fields: [careerId], references: [id], onDelete: Restrict, onUpdate: Restrict)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  faculty Faculty @relation(fields: [facultyId], references: [id], onDelete: Restrict, onUpdate: Restrict)
+  career Career @relation(fields: [careerId], references: [id], onDelete: Restrict, onUpdate: Restrict)
 
   @@map("educational_offers")
 }
@@ -138,12 +177,13 @@ model Career {
   name String
   code Int @unique
   description String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   level Level
   educational_offers EducationalOffer[]
   study_plans StudyPlan[]
   students Student[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 
   @@map("careers")
 }
@@ -164,11 +204,13 @@ model StudyPlan {
   code Int @unique
   duration Int
   careerId Int
-  career Career @relation(fields: [careerId], references: [id], onDelete: Restrict, onUpdate: Restrict)
-  subject_assignments SubjectInfo[]
-  correlativities Correlativity[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  career Career @relation(fields: [careerId], references: [id], onDelete: Restrict, onUpdate: Restrict)
+
+  subject_assignments SubjectInfo[]
+  correlativities Correlativity[]
 
   @@map("study_plans")
 }
@@ -178,10 +220,11 @@ model CourseRegistration {
   state CourseState
   studentId Int
   subjectId Int
-  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  subject SubjectDictation @relation(fields: [subjectId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  subject SubjectDictation @relation(fields: [subjectId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   @@map("course_registrations")
 }
@@ -198,10 +241,11 @@ model FinalExamRegistration {
   state ExamState
   studentId Int
   examId Int
-  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  exam FinalExam @relation(fields: [examId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  exam FinalExam @relation(fields: [examId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   @@map("final_exam_registrations")
 }
@@ -216,12 +260,13 @@ model Subject {
   name String
   code Int @unique
   description String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   dictation SubjectInfo[]
   correlativities Correlativity[] @relation("MainSubject")
   required Correlativity[] @relation("CorrelativeSubject")
   quealifications Qualification[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 
   @@map("subjects")
 }
@@ -232,12 +277,14 @@ model SubjectInfo {
   type SubjectType
   subjectId Int
   study_plan_id Int
-  subject Subject @relation(fields: [subjectId], references: [id], onDelete: Restrict, onUpdate: Restrict)
-  study_plan StudyPlan @relation(fields: [study_plan_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  final_exam FinalExam[]
-  dictation SubjectDictation[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  subject Subject @relation(fields: [subjectId], references: [id], onDelete: Restrict, onUpdate: Restrict)
+  study_plan StudyPlan @relation(fields: [study_plan_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  final_exam FinalExam[]
+  dictation SubjectDictation[]
 
   @@map("subjects_info")
 }
@@ -254,11 +301,12 @@ model Correlativity {
   subject_id Int
   correlativitie_id Int
   study_plan_id Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   subject Subject @relation("MainSubject", fields: [subject_id], references: [id], onDelete: Restrict, onUpdate: Restrict)
   correlativitie Subject @relation("CorrelativeSubject", fields: [correlativitie_id], references: [id], onDelete: Restrict, onUpdate: Restrict)
   study_plan StudyPlan @relation(fields: [study_plan_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 
   @@map("correlativities")
 }
@@ -268,10 +316,11 @@ model Qualification {
   value Int
   student_id Int
   subject_id Int
-  student Student @relation(fields: [student_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  subject Subject @relation(fields: [subject_id], references: [id], onDelete: Restrict, onUpdate: Restrict)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  student Student @relation(fields: [student_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  subject Subject @relation(fields: [subject_id], references: [id], onDelete: Restrict, onUpdate: Restrict)
 
   @@map("qualifications")
 }
@@ -281,12 +330,14 @@ model FinalExam {
   date DateTime
   subject_id Int
   classroom_id Int?
-  subject SubjectInfo @relation(fields: [subject_id], references: [id], onDelete: Restrict, onUpdate: Restrict)
-  classroom ClassRoom? @relation(fields: [classroom_id], references: [id], onDelete: SetNull, onUpdate: Cascade)
-  registrations FinalExamRegistration[]
-  teacher TeacherFinalExam[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  subject SubjectInfo @relation(fields: [subject_id], references: [id], onDelete: Restrict, onUpdate: Restrict)
+  classroom ClassRoom? @relation(fields: [classroom_id], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  
+  registrations FinalExamRegistration[]
+  teacher TeacherFinalExam[]
 
   @@map("final_exams")
 }
@@ -294,8 +345,9 @@ model FinalExam {
 model TeacherFinalExam {
   final_exam_id Int
   teacher_id Int
+
   final_exam FinalExam @relation(fields: [final_exam_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  teacher Teacher @relation(fields: [teacher_id], references: [id], onDelete: Restrict, onUpdate: Restrict)
+  teacher Authority @relation(fields: [teacher_id], references: [id], onDelete: Restrict, onUpdate: Restrict)
 
   @@id([final_exam_id, teacher_id])
   @@map("teachers_finals_exams")
@@ -306,12 +358,14 @@ model SubjectDictation {
   year Int
   subject_id Int
   classroom_id Int?
-  subject SubjectInfo @relation(fields: [subject_id], references: [id], onDelete: Restrict, onUpdate: Restrict)
-  classroom ClassRoom? @relation(fields: [classroom_id], references: [id], onDelete: SetNull, onUpdate: Cascade)
-  registrations CourseRegistration[]
-  teacher TeacherSubjectDictation[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  subject SubjectInfo @relation(fields: [subject_id], references: [id], onDelete: Restrict, onUpdate: Restrict)
+  classroom ClassRoom? @relation(fields: [classroom_id], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  
+  registrations CourseRegistration[]
+  teacher TeacherSubjectDictation[]
 
   @@map("subjects_dictations")
 }
@@ -319,7 +373,8 @@ model SubjectDictation {
 model TeacherSubjectDictation {
   teacher_id Int
   dictation_id Int
-  teacher Teacher @relation(fields: [teacher_id], references: [id], onDelete: Restrict, onUpdate: Restrict)
+  
+  teacher Authority @relation(fields: [teacher_id], references: [id], onDelete: Restrict, onUpdate: Restrict)
   dictation SubjectDictation @relation(fields: [dictation_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   @@id([teacher_id, dictation_id])
@@ -337,11 +392,13 @@ model ClassRoom {
   heating Boolean?
   wifi Boolean?
   faculty_id Int
-  subject_dictation SubjectDictation[]
-  final_exams FinalExam[]
-  faculty Faculty @relation(fields: [faculty_id], references: [id], onUpdate: Cascade, onDelete: Restrict)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  subject_dictation SubjectDictation[]
+  final_exams FinalExam[]
+  
+  faculty Faculty @relation(fields: [faculty_id], references: [id], onUpdate: Cascade, onDelete: Restrict)
 
   @@map("class_rooms")
 }
