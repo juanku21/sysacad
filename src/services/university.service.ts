@@ -21,7 +21,7 @@ export class UniversityService {
         }
     }
 
-    public static async findById(id : number) : Promise<UniversityWithRelations | null> {
+    public static async getById(id : number) : Promise<UniversityWithRelations | null> {
         try {
             const result = await repository.getById(id)
             return result

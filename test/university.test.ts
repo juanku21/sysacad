@@ -1,7 +1,7 @@
 
 import { BaseServiceTest } from "./utils/base-test"
 import { prismaMock } from "../src/config/singleton"
-import { Prisma, PrismaClient } from "@prisma/client"
+import { Prisma } from "@prisma/client"
 import { University } from "@prisma/client"
 import { UniversityService } from "../src/services/university.service"
 import { UniversityWithRelations } from "../src/types" 
@@ -18,7 +18,7 @@ class UniversityServiceTest extends BaseServiceTest
 
         this.mock.findUnique.mockResolvedValue(mockUniversity)
 
-        const result = await (this.service as any).findById(1)
+        const result = await (this.service as any).getById(1)
 
         expect(result).toEqual(mockUniversity)
         expect(this.mock.findUnique).toHaveBeenCalled()
