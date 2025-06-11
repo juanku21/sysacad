@@ -2,7 +2,7 @@
 services:
   database:
     container_name: postgres-sql-server
-    image: postgres
+    image: postgres:17.5-bullseye
     networks:
       - sysacad-network
     ports:
