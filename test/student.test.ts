@@ -95,7 +95,7 @@ const mockStudentWithRelations : StudentWithRelations = {
             id: 1,
             state: "Irregular",
             studentId: 1,
-            subjectId: 1,
+            dicatationId: 1,
             createdAt: expect.any(Date),
             updatedAt: expect.any(Date)
         }

@@ -109,26 +109,26 @@ describe("Educational Offer service test", () => {
 
     })
 
-    test("should return one educational offers with all relations", async () => {
+    test("should return one educational offer with all relations", async () => {
 
         await educationalOfferTest.findById(mockEducationalOfferWithRelations)
 
     })
 
-    test("should create a new educational offers", async () => {
+    test("should create a new educational offer", async () => {
 
         await educationalOfferTest.create(mockEducationalOffer, inputCreate)
 
     })
 
-    test("should update educational offers data", async () => {
+    test("should update educational offer data", async () => {
 
         await educationalOfferTest.update(mockEducationalOffer, inputUpdate)
 
     })
 
 
-    test("should delete a educational offers", async () => {
+    test("should delete a educational offer", async () => {
 
         await educationalOfferTest.delete(mockEducationalOffer)
 

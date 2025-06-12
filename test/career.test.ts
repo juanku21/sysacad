@@ -59,7 +59,7 @@ const inputCreate : Prisma.CareerCreateInput = {
     name: "Ingeniería en Sistemas",
     code: 300,
     level: "Engineering",
-    description: "An excelent career for the futuro"
+    description: "An excelent career for the future"
 }
 
 const inputUpdate : Prisma.CareerUpdateInput = {
