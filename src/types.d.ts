@@ -19,9 +19,9 @@ export type ClassRoomWithRelations = Prisma.ClassRoomGetPayload<{
 
 export type FacultyWithRelations = Prisma.FacultyGetPayload<{
     include: {
-        users: true,
-        class_rooms: true,
-        educational_offers: true
+        educational_offers: true,
+        university: true,
+        city: true
     }
 }>
 
@@ -55,8 +55,70 @@ export type SubjectDictationWithRelations = Prisma.SubjectDictationGetPayload<{
     }
 }>
 
+export type CityWithRelations = Prisma.CityGetPayload<{
+    include: {
+        faculty: true
+    }
+}>
+
+
 export type UniversityWithRelations = Prisma.UniversityGetPayload<{
     include: {
         faculty: true
+    }
+}>
+
+export type PositionWithRelations = Prisma.PositionGetPayload<{
+    include: {
+        authority: {
+            include: {
+                authority: {
+                    true
+                }
+            }
+        }
+    }
+}>
+
+export type PositionCategoryWithRelations = Prisma.PositionCategoryGetPayload<{
+    include: {
+        positions: true
+    }
+}>
+
+
+export type StudentWithRelations = Prisma.StudentGetPayload<{
+    include: {
+        user: true,
+        quealifications: true,
+        course_registrations: true,
+        exam_registrations: true
+    }
+}>
+
+export type AuthorityWithRelations = Prisma.AuthorityGetPayload<{
+    include: {
+        user: true,
+        final_exam: {
+            include: {
+                final_exam: true
+            }
+        },
+        dictation: {
+            include: {
+                dictation: true
+            }
+        },
+        position: {
+            include: {
+                position: true
+            }
+        }
+    }
+}>
+
+export type EducationalOfferWithRelations = Prisma.EducationalOfferGetPayload<{
+    include: {
+        career: true
     }
 }>
