@@ -8,15 +8,6 @@
       "baseUrl": "./src",
       "module": "ES2020",
       "moduleResolution": "node",
-    //   "paths": {
-    //     "@src/*": ["src/*"],
-    //     "@middlewares/*": ["middlewares/*"],
-    //     "@routes/*": ["routes/*"],
-    //     "@controllers/*": ["controllers/*"],
-    //     "@models/*": ["models/*"],
-    //     "@config/*": ["config/*"]
-    //   },
-  
   
       // Emit
       "outDir": "./build",
@@ -36,6 +27,6 @@
   
     },
   
-    "include": ["src/**/*", "src/config/client.ts", "test/singleton.ts"],
+    "include": ["src", "src/config/client.ts", "test/singleton.ts"],
     "exclude": ["node_modules", "build"]
   }

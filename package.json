@@ -6,7 +6,11 @@
     "test": "test"
   },
   "scripts": {
-    "test": ""
+    "dev": "tsx --watch src/index.ts",
+    "test": "npx jest",
+    "build": "tsc",
+    "start": "node build/index.js",
+    "clean": "rmdir /s /q build"
   },
   "repository": {
     "type": "git",
