@@ -243,8 +243,8 @@ enum CourseState {
 
 model FinalExamRegistration {
   id Int @id @default(autoincrement())
-  qualification Int
-  state ExamState
+  qualification Int?
+  state ExamState @default(NotTaken)
   studentId Int
   examId Int
   createdAt DateTime @default(now())
@@ -259,6 +259,7 @@ model FinalExamRegistration {
 enum ExamState {
   Disapproved
   Aprroved
+  NotTaken
 }
 
 model Subject {
@@ -304,6 +305,7 @@ model Correlativity {
   id Int @id @default(autoincrement())
   course Boolean
   aprrove Boolean
+  type TypeCorrelativie
   subject_id Int
   correlativitie_id Int
   study_plan_id Int
@@ -315,6 +317,11 @@ model Correlativity {
   study_plan StudyPlan @relation(fields: [study_plan_id], references: [id])
 
   @@map("correlativities")
+}
+
+enum TypeCorrelativie {
+  Attend
+  TakeExam
 }
 
 model Qualification {

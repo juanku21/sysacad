@@ -27,8 +27,17 @@ export type FacultyWithRelations = Prisma.FacultyGetPayload<{
 
 export type FinalExamWithRelations = Prisma.FinalExamGetPayload<{
     include: {
-        assignments: true,
-        registrations: true
+        teacher: {
+            include: {
+                teacher: true
+            }
+        },
+        registrations: true,
+        subject: {
+            include: {
+                subject: true
+            }
+        }
     }
 }>
 
@@ -43,14 +52,30 @@ export type StudyPlanWithRelations = Prisma.StudyPlanGetPayload<{
     }
 }> 
 
+
 export type SubjectWithRelations = Prisma.SubjectGetPayload<{
     include: {
-        assignments: true,
-        correlativities: true,
-        quealifications: true,
-        required: true
+        correlativities: {
+            include: {
+                study_plan: {
+                    include: {
+                        career: true
+                    }
+                }
+            }
+        },
+        required: {
+            include: {
+                study_plan: {
+                    include: {
+                        career: true
+                    }
+                }
+            }
+        }
     }
 }>
+
 
 export type SubjectDictationWithRelations = Prisma.SubjectDictationGetPayload<{
     include: {
@@ -137,3 +162,17 @@ export type CourseRegistrationWithRelations = Prisma.CourseRegistrationGetPayloa
         dictation: true
     }
 }>
+
+
+export type FinalExamRegistrationWithRelations = Prisma.FinalExamRegistrationGetPayload<{
+    include: {
+        student: {
+            include: {
+                user: true
+            }
+        },
+        exam: true
+    }
+}>
+
+
