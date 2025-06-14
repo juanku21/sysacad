@@ -37,8 +37,8 @@ const mockFinalExamRegistrationArray : FinalExamRegistration[] = [
         id: 1,
         state: "Aprroved",
         qualification: 10,
-        studentId: 3,
-        examId: 2,
+        student_id: 3,
+        final_exam_id: 2,
         createdAt: expect.any(Date),
         updatedAt: expect.any(Date)
     }
@@ -48,8 +48,8 @@ const mockFinalExamRegistration : FinalExamRegistration = {
     id: 1,
     state: "Aprroved",
     qualification: 10,
-    studentId: 3,
-    examId: 2,
+    student_id: 3,
+    final_exam_id: 2,
     createdAt: expect.any(Date),
     updatedAt: expect.any(Date)
 }
@@ -79,14 +79,14 @@ const mockFinalExamRegistrationWithRelations : FinalExamRegistrationWithRelation
     id: 1,
     state: "Aprroved",
     qualification: 10,
-    studentId: 3,
-    examId: 2,
+    student_id: 3,
+    final_exam_id: 2,
     createdAt: expect.any(Date),
     updatedAt: expect.any(Date),
 
     student: {
         id: 1,
-        userId: 1,
+        user_id: 1,
         career_id: 1,
         legajo: 10000,
         user: {
@@ -108,7 +108,7 @@ const mockFinalExamRegistrationWithRelations : FinalExamRegistrationWithRelation
         id: 2,
         date: expect.any(Date),
         classroom_id: null,
-        subject_id: 4,
+        subject_info_id: 4,
         createdAt: expect.any(Date),
         updatedAt: expect.any(Date)
     }

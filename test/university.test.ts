@@ -77,7 +77,7 @@ const mockUniversityWithRelations : UniversityWithRelations = {
             email: "utnfrsr@mail.com",
             phone: expect.any(BigInt),
             web: null,
-            universityId: 1,
+            university_id: 1,
             cityId: 50,
             createdAt: expect.any(Date),
             updatedAt: expect.any(Date)

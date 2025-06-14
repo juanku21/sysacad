@@ -76,23 +76,23 @@ const mockCareerWithRelations : CareerWithRelations = {
     createdAt: expect.any(Date),
     updatedAt: expect.any(Date),
 
-    educational_offers: [
+    educationalOffers: [
         {
             id: 1,
             year: 2022,
-            careerId: 1,
-            facultyId: 3,
+            career_id: 1,
+            faculty_id: 3,
             price: 0,
             createdAt: expect.any(Date),
             updatedAt: expect.any(Date)
         }
     ],
 
-    study_plans: [
+    studyPlans: [
         {
             id: 1,
             code: 300,
-            careerId: 1,
+            career_id: 1,
             effective_from: 2023,
             duration: 5,
             description: "El mejor plan de estudios",
@@ -104,7 +104,7 @@ const mockCareerWithRelations : CareerWithRelations = {
     students: [
         {
             id: 1,
-            userId: 1,
+            user_id: 1,
             legajo: 10000,
             career_id: 1
         }

@@ -36,7 +36,7 @@ const studentTest = new StudentServiceTest()
 const mockStudentArray : Student[] = [
     {
         id: 1,
-        userId: 1,
+        user_id: 1,
         career_id: 1,
         legajo: 10000,
     }
@@ -44,7 +44,7 @@ const mockStudentArray : Student[] = [
 
 const mockStudent : Student = {
     id: 1,
-    userId: 1,
+    user_id: 1,
     career_id: 1,
     legajo: 10000,
 }
@@ -86,28 +86,28 @@ const inputUpdate : Prisma.StudentUpdateInput = {
 
 const mockStudentWithRelations : StudentWithRelations = {
     id: 1,
-    userId: 1,
+    user_id: 1,
     career_id: 1,
     legajo: 10000,
 
-    course_registrations: [
+    courseRegistrations: [
         {
             id: 1,
             state: "Irregular",
-            studentId: 1,
-            dicatationId: 1,
+            student_id: 1,
+            dicatation_id: 1,
             createdAt: expect.any(Date),
             updatedAt: expect.any(Date)
         }
     ],
 
-    exam_registrations: [
+    examRegistrations: [
         {
             id: 1,
             qualification: 10,
             state: "Aprroved",
-            studentId: 1,
-            examId: 4,
+            student_id: 1,
+            final_exam_id: 4,
             createdAt: expect.any(Date),
             updatedAt: expect.any(Date)
         }

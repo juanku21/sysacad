@@ -121,7 +121,21 @@ const mockFinalExamWithRelations : FinalExamWithRelations = {
                 id: 1,
                 userId: 1,
                 tuition: 32000,
-                recruitment: expect.any(Date)
+                recruitment: expect.any(Date),
+
+                user: {
+                    id: 1,
+                    name: "Martin",
+                    last_name: "Montes",
+                    email: "tinchomo@gmail.com",
+                    password: "654321",
+                    gender: "F",
+                    cuil: 20727828372,
+                    phone: 2618009675,
+                    facultyId: 3,
+                    createdAt: expect.any(Date),
+                    updatedAt: expect.any(Date)
+                }
             }
         }
     ]

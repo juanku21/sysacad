@@ -111,13 +111,24 @@ const mockStudyPlanWithRelations : StudyPlanWithRelations = {
             id: 2,
             study_plan_id: 1,
             course: true,
+            type: "TakeExam",
             aprrove: false,
             subject_id: 6,
             correlativitie_id: 3,
             createdAt: expect.any(Date),
             updatedAt: expect.any(Date)
         }
-    ]
+    ],
+
+    career: {
+        id: 1,
+        name: "Ingeniería en Sistemas",
+        code: 300,
+        level: "Engineering",
+        description: "An excelent career for the futuro",
+        createdAt: expect.any(Date),
+        updatedAt: expect.any(Date)
+    }
 
 }
 

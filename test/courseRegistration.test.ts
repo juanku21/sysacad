@@ -36,8 +36,8 @@ const mockCourseRegistrationArray : CourseRegistration[] = [
     {
         id: 1,
         state: "Attending",
-        studentId: 1,
-        dicatationId: 4,
+        student_id: 1,
+        dicatation_id: 4,
         createdAt: expect.any(Date),
         updatedAt: expect.any(Date)
     }
@@ -46,8 +46,8 @@ const mockCourseRegistrationArray : CourseRegistration[] = [
 const mockCourseRegistration : CourseRegistration = {
     id: 1,
     state: "Attending",
-    studentId: 1,
-    dicatationId: 4,
+    student_id: 1,
+    dicatation_id: 4,
     createdAt: expect.any(Date),
     updatedAt: expect.any(Date)
 }
@@ -75,14 +75,14 @@ const inputUpdate : Prisma.CourseRegistrationUpdateInput = {
 const mockCourseRegistrationWithRelations : CourseRegistrationWithRelations = {
     id: 1,
     state: "Attending",
-    studentId: 1,
-    dicatationId: 2,
+    student_id: 1,
+    dicatation_id: 2,
     createdAt: expect.any(Date),
     updatedAt: expect.any(Date),
 
     student: {
         id: 1,
-        userId: 1,
+        user_id: 1,
         career_id: 1,
         legajo: 10000,
         user: {
@@ -103,7 +103,7 @@ const mockCourseRegistrationWithRelations : CourseRegistrationWithRelations = {
     dictation: {
         id: 2,
         year: 2024,
-        subject_id: 4,
+        subject_info_id: 4,
         classroom_id: null,
         createdAt: expect.any(Date),
         updatedAt: expect.any(Date)

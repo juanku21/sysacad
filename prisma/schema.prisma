@@ -42,16 +42,16 @@ enum Gender {
 
 model Student {
   id Int @id @default(autoincrement())
-  user User @relation(fields: [userId], references: [id])
-  userId Int @unique
+  user User @relation(fields: [user_id], references: [id])
+  user_id Int @unique
   legajo Int
   career_id Int
 
   career Career @relation(fields: [career_id], references: [id])
 
   quealifications Qualification[]
-  course_registrations CourseRegistration[]
-  exam_registrations FinalExamRegistration[]
+  courseRegistrations CourseRegistration[]
+  examRegistrations FinalExamRegistration[]
 
   @@map("students")
 }
@@ -59,27 +59,27 @@ model Student {
 
 model Authority {
   id Int @id @default(autoincrement())
-  userId Int @unique
+  user_id Int @unique
   tuition Int
   recruitment DateTime
 
-  user User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [user_id], references: [id])
 
   position AuthorityPosition[]
-  final_exam TeacherFinalExam[]
+  finalExam TeacherFinalExam[]
   dictation TeacherSubjectDictation[]
 
   @@map("authorities")
 }
 
 model AuthorityPosition {
-  authorityId Int
-  positionId Int
+  authority_id Int
+  position_id Int
 
-  authority Authority @relation(fields: [authorityId], references: [id])
-  position Position @relation(fields: [positionId], references: [id])
+  authority Authority @relation(fields: [authority_id], references: [id])
+  position Position @relation(fields: [position_id], references: [id])
 
-  @@id([authorityId, positionId])
+  @@id([authority_id, position_id])
   @@map("authority-position")
 }
 
@@ -89,11 +89,11 @@ model Position {
   description String
   puntaje Float
   area String
-  categoryId Int
+  category_id Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  category PositionCategory @relation(fields: [categoryId], references: [id])
+  category PositionCategory @relation(fields: [category_id], references: [id])
 
   authority AuthorityPosition[] 
 
@@ -135,16 +135,16 @@ model Faculty {
   phone Int @unique
   web String?
   cityId Int
-  universityId Int
+  university_id Int
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   
   city City @relation(fields: [cityId], references: [id])
-  university University @relation(fields: [universityId], references: [id])
+  university University @relation(fields: [university_id], references: [id])
 
-  educational_offers EducationalOffer[]
-  class_rooms ClassRoom[]
+  educationalOffers EducationalOffer[]
+  classRooms ClassRoom[]
   users User[]
 
   @@map("faculties")
@@ -165,14 +165,14 @@ model City {
 model EducationalOffer {
   id Int @id @default(autoincrement())
   year Int
-  facultyId Int
-  careerId Int
+  faculty_id Int
+  career_id Int
   price Float
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  faculty Faculty @relation(fields: [facultyId], references: [id])
-  career Career @relation(fields: [careerId], references: [id])
+  faculty Faculty @relation(fields: [faculty_id], references: [id])
+  career Career @relation(fields: [career_id], references: [id])
 
   @@map("educational_offers")
 }
@@ -186,8 +186,8 @@ model Career {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  educational_offers EducationalOffer[]
-  study_plans StudyPlan[]
+  educationalOffers EducationalOffer[]
+  studyPlans StudyPlan[]
   students Student[]
 
   @@map("careers")
@@ -208,13 +208,13 @@ model StudyPlan {
   effective_from Int
   code Int @unique
   duration Int
-  careerId Int
+  career_id Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  career Career @relation(fields: [careerId], references: [id])
+  career Career @relation(fields: [career_id], references: [id])
 
-  subject_assignments SubjectInfo[]
+  subjectInfo SubjectInfo[]
   correlativities Correlativity[]
 
   @@map("study_plans")
@@ -223,13 +223,13 @@ model StudyPlan {
 model CourseRegistration {
   id Int @id @default(autoincrement())
   state CourseState @default(Attending)
-  studentId Int
-  dicatationId Int
+  student_id Int
+  dicatation_id Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  student Student @relation(fields: [studentId], references: [id])
-  dictation SubjectDictation @relation(fields: [dicatationId], references: [id])
+  student Student @relation(fields: [student_id], references: [id])
+  dictation SubjectDictation @relation(fields: [dicatation_id], references: [id])
 
   @@map("course_registrations")
 }
@@ -245,13 +245,13 @@ model FinalExamRegistration {
   id Int @id @default(autoincrement())
   qualification Int?
   state ExamState @default(NotTaken)
-  studentId Int
-  examId Int
+  student_id Int
+  final_exam_id Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  student Student @relation(fields: [studentId], references: [id])
-  exam FinalExam @relation(fields: [examId], references: [id])
+  student Student @relation(fields: [student_id], references: [id])
+  exam FinalExam @relation(fields: [final_exam_id], references: [id])
 
   @@map("final_exam_registrations")
 }
@@ -270,7 +270,7 @@ model Subject {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  dictation SubjectInfo[]
+  subjectInfo SubjectInfo[]
   correlativities Correlativity[] @relation("MainSubject")
   required Correlativity[] @relation("CorrelativeSubject")
   quealifications Qualification[]
@@ -282,15 +282,15 @@ model SubjectInfo {
   id Int @id @default(autoincrement())
   hours Int
   type SubjectType
-  subjectId Int
+  subject_id Int
   study_plan_id Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  subject Subject @relation(fields: [subjectId], references: [id])
-  study_plan StudyPlan @relation(fields: [study_plan_id], references: [id])
+  subject Subject @relation(fields: [subject_id], references: [id])
+  studyPlan StudyPlan @relation(fields: [study_plan_id], references: [id])
 
-  final_exam FinalExam[]
+  finalExam FinalExam[]
   dictation SubjectDictation[]
 
   @@map("subjects_info")
@@ -313,8 +313,8 @@ model Correlativity {
   updatedAt DateTime @updatedAt
 
   subject Subject @relation("MainSubject", fields: [subject_id], references: [id])
-  correlativitie Subject @relation("CorrelativeSubject", fields: [correlativitie_id], references: [id])
-  study_plan StudyPlan @relation(fields: [study_plan_id], references: [id])
+  correlativity Subject @relation("CorrelativeSubject", fields: [correlativitie_id], references: [id])
+  studyPlan StudyPlan @relation(fields: [study_plan_id], references: [id])
 
   @@map("correlativities")
 }
@@ -341,12 +341,12 @@ model Qualification {
 model FinalExam {
   id Int @id @default(autoincrement())
   date DateTime
-  subject_id Int
+  subject_info_id Int
   classroom_id Int?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  subject SubjectInfo @relation(fields: [subject_id], references: [id])
+  subjectInfo SubjectInfo @relation(fields: [subject_info_id], references: [id])
   classroom ClassRoom? @relation(fields: [classroom_id], references: [id])
   
   registrations FinalExamRegistration[]
@@ -359,7 +359,7 @@ model TeacherFinalExam {
   final_exam_id Int
   teacher_id Int
 
-  final_exam FinalExam @relation(fields: [final_exam_id], references: [id])
+  finalExam FinalExam @relation(fields: [final_exam_id], references: [id])
   teacher Authority @relation(fields: [teacher_id], references: [id])
 
   @@id([final_exam_id, teacher_id])
@@ -369,12 +369,12 @@ model TeacherFinalExam {
 model SubjectDictation {
   id Int @id @default(autoincrement())
   year Int
-  subject_id Int
+  subject_info_id Int
   classroom_id Int?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  subject SubjectInfo @relation(fields: [subject_id], references: [id])
+  subjectInfo SubjectInfo @relation(fields: [subject_info_id], references: [id])
   classroom ClassRoom? @relation(fields: [classroom_id], references: [id])
   
   registrations CourseRegistration[]
@@ -408,8 +408,8 @@ model ClassRoom {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  subject_dictation SubjectDictation[]
-  final_exams FinalExam[]
+  subjectDictation SubjectDictation[]
+  finalExams FinalExam[]
   
   faculty Faculty @relation(fields: [faculty_id], references: [id])
 

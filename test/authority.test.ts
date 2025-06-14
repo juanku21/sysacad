@@ -36,7 +36,7 @@ const authorityTest = new AuthorityServiceTest()
 const mockAuthorityArray : Authority[] = [
     {
         id: 1,
-        userId: 1,
+        user_id: 1,
         tuition: 32000,
         recruitment: expect.any(Date)
     }
@@ -44,7 +44,7 @@ const mockAuthorityArray : Authority[] = [
 
 const mockAuthority : Authority = {
     id: 1,
-    userId: 1,
+    user_id: 1,
     tuition: 32000,
     recruitment: expect.any(Date)
 }
@@ -82,7 +82,7 @@ const inputUpdate : Prisma.AuthorityUpdateInput = {
 
 const mockAuthorityWithRelations : AuthorityWithRelations = {
     id: 1,
-    userId: 1,
+    user_id: 1,
     tuition: 32000,
     recruitment: expect.any(Date),
 
@@ -102,30 +102,30 @@ const mockAuthorityWithRelations : AuthorityWithRelations = {
 
     position: [
         {
-            authorityId: 1,
-            positionId: 2,
+            authority_id: 1,
+            position_id: 2,
             position: {
                 id: 2,
                 name: "Profesor de Física",
                 description: "Excelente cargo",
                 puntaje: 3000,
                 area: "Ciencias Básicas",
-                categoryId: 2,
+                category_id: 2,
                 createdAt: expect.any(Date),
                 updatedAt: expect.any(Date)
             }
         }
     ],
 
-    final_exam: [
+    finalExam: [
         {
             final_exam_id: 4,
             teacher_id: 1,
-            final_exam: {
+            finalExam: {
                 id: 4,
                 classroom_id: null,
                 date: expect.any(Date),
-                subject_id: 5,
+                subject_info_id: 5,
                 createdAt: expect.any(Date),
                 updatedAt: expect.any(Date)
             }
@@ -140,7 +140,7 @@ const mockAuthorityWithRelations : AuthorityWithRelations = {
                 id: 6,
                 year: 2018,
                 classroom_id: 9,
-                subject_id: 5,
+                subject_info_id: 5,
                 createdAt: expect.any(Date),
                 updatedAt: expect.any(Date)
             }

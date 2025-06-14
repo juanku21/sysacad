@@ -44,7 +44,7 @@ const mockFacultyArray : Faculty[] = [
         street: "Urquiza",
         number: 100,
         cityId: 5,
-        universityId: 1,
+        university_id: 1,
         web: null,
         createdAt: expect.any(Date),
         updatedAt: expect.any(Date)
@@ -61,7 +61,7 @@ const mockFaculty : Faculty = {
     street: "Urquiza",
     number: 100,
     cityId: 5,
-    universityId: 1,
+    university_id: 1,
     web: null,
     createdAt: expect.any(Date),
     updatedAt: expect.any(Date)
@@ -114,7 +114,7 @@ const mockFacultyWithRelations : FacultyWithRelations = {
     street: "Urquiza",
     number: 100,
     cityId: 5,
-    universityId: 1,
+    university_id: 1,
     web: null,
     createdAt: expect.any(Date),
     updatedAt: expect.any(Date),
@@ -135,13 +135,13 @@ const mockFacultyWithRelations : FacultyWithRelations = {
         updatedAt: expect.any(Date)
     },
 
-    educational_offers: [
+    educationalOffers: [
         {
             id: 1,
             year: 2022,
-            careerId: 5,
+            career_id: 5,
             price: 0,
-            facultyId: 1,
+            faculty_id: 1,
             createdAt: expect.any(Date),
             updatedAt: expect.any(Date)
         }

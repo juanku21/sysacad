@@ -74,7 +74,7 @@ const mockPositionCategoryWithRelations : PositionCategoryWithRelations = {
             puntaje: 5000,
             area: "Departamento de Ciencias Básicas",
             description: "Excelente cargo",
-            categoryId: 1,
+            category_id: 1,
             createdAt: expect.any(Date),
             updatedAt: expect.any(Date),
 

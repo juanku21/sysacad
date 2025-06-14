@@ -39,8 +39,8 @@ const mockEducationalOfferArray : EducationalOffer[] = [
         id: 1,
         year: 2022,
         price: 0,
-        facultyId: 1,
-        careerId: 1,
+        faculty_id: 1,
+        career_id: 1,
         createdAt: expect.any(Date),
         updatedAt: expect.any(Date)
     }
@@ -50,8 +50,8 @@ const mockEducationalOffer : EducationalOffer = {
     id: 1,
     year: 2022,
     price: 0,
-    facultyId: 1,
-    careerId: 1,
+    faculty_id: 1,
+    career_id: 1,
     createdAt: expect.any(Date),
     updatedAt: expect.any(Date)
 }
@@ -81,8 +81,8 @@ const mockEducationalOfferWithRelations : EducationalOfferWithRelations = {
     id: 1,
     year: 2022,
     price: 0,
-    facultyId: 1,
-    careerId: 1,
+    faculty_id: 1,
+    career_id: 1,
     createdAt: expect.any(Date),
     updatedAt: expect.any(Date),
 

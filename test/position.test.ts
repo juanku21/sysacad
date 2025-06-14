@@ -41,7 +41,7 @@ const mockPositionArray : Position[] = [
         description: "Una excelente posicion",
         puntaje: 1500,
         area: "Administración",
-        categoryId: 1,
+        category_id: 1,
         createdAt: expect.any(Date),
         updatedAt: expect.any(Date)
     }
@@ -53,7 +53,7 @@ const mockPosition : Position = {
     description: "Una excelente posicion",
     puntaje: 1500,
     area: "Administración",
-    categoryId: 1,
+    category_id: 1,
     createdAt: expect.any(Date),
     updatedAt: expect.any(Date)
 }
@@ -82,17 +82,17 @@ const mockPositionWithRelations : PositionWithRelations = {
     description: "Una excelente posicion",
     puntaje: 1500,
     area: "Administración",
-    categoryId: 1,
+    category_id: 1,
     createdAt: expect.any(Date),
     updatedAt: expect.any(Date),
 
     authority: [
         {
-            authorityId: 1,
-            positionId: 1,
+            authority_id: 1,
+            position_id: 1,
             authority: {
                 id: 1,
-                userId: 1,
+                user_id: 1,
                 tuition: 37328,
                 recruitment: expect.any(Date)
             }
