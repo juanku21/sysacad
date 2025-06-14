@@ -38,7 +38,7 @@ const mockSubjectDictationArray : SubjectDictation[] = [
     {
         id: 1,
         year: 2019,
-        subject_id: 1,
+        subject_info_id: 1,
         classroom_id: null,
         createdAt: expect.any(Date),
         updatedAt: expect.any(Date)
@@ -48,7 +48,7 @@ const mockSubjectDictationArray : SubjectDictation[] = [
 const mockSubjectDictation : SubjectDictation = {
     id: 1,
     year: 2019,
-    subject_id: 1,
+    subject_info_id: 1,
     classroom_id: null,
     createdAt: expect.any(Date),
     updatedAt: expect.any(Date)
@@ -57,7 +57,7 @@ const mockSubjectDictation : SubjectDictation = {
 const inputCreate : Prisma.SubjectDictationCreateInput = {
     year: 2019,
 
-    subject: {
+    subjectInfo: {
         connect: {
             id: 1
         }
@@ -71,7 +71,7 @@ const inputUpdate : Prisma.SubjectDictationUpdateInput = {
 const mockSubjectDictationWithRelations : SubjectDictationWithRelations = {
     id: 1,
     year: 2019,
-    subject_id: 1,
+    subject_info_id: 1,
     classroom_id: null,
     createdAt: expect.any(Date),
     updatedAt: expect.any(Date),
@@ -80,8 +80,8 @@ const mockSubjectDictationWithRelations : SubjectDictationWithRelations = {
         {
             id: 1,
             state: "Attending",
-            studentId: 1,
-            dicatationId: 4,
+            student_id: 1,
+            dicatation_id: 4,
             createdAt: expect.any(Date),
             updatedAt: expect.any(Date)
         }
@@ -94,7 +94,7 @@ const mockSubjectDictationWithRelations : SubjectDictationWithRelations = {
 
             teacher: {
                 id: 1,
-                userId: 1,
+                user_id: 1,
                 tuition: 32000,
                 recruitment: expect.any(Date),
 
@@ -115,11 +115,11 @@ const mockSubjectDictationWithRelations : SubjectDictationWithRelations = {
         }
     ],
 
-    subject: {
+    subjectInfo: {
         id: 1,
         hours: 4,
         type: "Yearly",
-        subjectId: 2,
+        subject_id: 2,
         study_plan_id: 1,
         createdAt: expect.any(Date),
         updatedAt: expect.any(Date)

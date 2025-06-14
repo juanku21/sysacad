@@ -38,7 +38,7 @@ const mockSubjectInfoArray : SubjectInfo[] = [
         id: 1,
         hours: 4,
         type: "Yearly",
-        subjectId: 2,
+        subject_id: 2,
         study_plan_id: 1,
         createdAt: expect.any(Date),
         updatedAt: expect.any(Date)
@@ -49,7 +49,7 @@ const mockSubjectInfo : SubjectInfo = {
     id: 1,
     hours: 4,
     type: "Yearly",
-    subjectId: 2,
+    subject_id: 2,
     study_plan_id: 1,
     createdAt: expect.any(Date),
     updatedAt: expect.any(Date)
@@ -65,7 +65,7 @@ const inputCreate : Prisma.SubjectInfoCreateInput = {
         }
     },
 
-    study_plan: {
+    studyPlan: {
         connect: {
             id: 1
         }
@@ -81,7 +81,7 @@ const mockSubjectInfoWithRelations : SubjectInfoWithRelations = {
     id: 1,
     hours: 4,
     type: "Yearly",
-    subjectId: 2,
+    subject_id: 2,
     study_plan_id: 1,
     createdAt: expect.any(Date),
     updatedAt: expect.any(Date),
@@ -90,18 +90,18 @@ const mockSubjectInfoWithRelations : SubjectInfoWithRelations = {
         {
             id: 1,
             year: 2019,
-            subject_id: 1,
+            subject_info_id: 1,
             classroom_id: null,
             createdAt: expect.any(Date),
             updatedAt: expect.any(Date)
         }
     ],
 
-    final_exam: [
+    finalExam: [
         {
             id: 1,
             date: expect.any(Date),
-            subject_id: 1,
+            subject_info_id: 1,
             classroom_id: null,
             createdAt: expect.any(Date),
             updatedAt: expect.any(Date)
@@ -117,13 +117,13 @@ const mockSubjectInfoWithRelations : SubjectInfoWithRelations = {
         updatedAt: expect.any(Date),
     },
 
-    study_plan: {
+    studyPlan: {
         id: 1,
         description: "Una excelente plan de estudios",
         effective_from: 2023,
         code: 800,
         duration: 5,
-        careerId: 1,
+        career_id: 1,
         createdAt: expect.any(Date),
         updatedAt: expect.any(Date),
 

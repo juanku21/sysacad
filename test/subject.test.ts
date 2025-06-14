@@ -83,13 +83,13 @@ const mockSubjectWithRelations : SubjectWithRelations = {
             createdAt: expect.any(Date),
             updatedAt: expect.any(Date),
 
-            study_plan: {
+            studyPlan: {
                 id: 1,
                 description: "Una excelente plan de estudios",
                 effective_from: 2023,
                 code: 800,
                 duration: 5,
-                careerId: 1,
+                career_id: 1,
                 createdAt: expect.any(Date),
                 updatedAt: expect.any(Date),
 
@@ -118,13 +118,13 @@ const mockSubjectWithRelations : SubjectWithRelations = {
             createdAt: expect.any(Date),
             updatedAt: expect.any(Date),
 
-            study_plan: {
+            studyPlan: {
                 id: 1,
                 description: "Una excelente plan de estudios",
                 effective_from: 2023,
                 code: 800,
                 duration: 5,
-                careerId: 1,
+                career_id: 1,
                 createdAt: expect.any(Date),
                 updatedAt: expect.any(Date),
 

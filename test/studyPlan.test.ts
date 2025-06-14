@@ -40,7 +40,7 @@ const mockStudyPlanArray : StudyPlan[] = [
         effective_from: 2023,
         code: 800,
         duration: 5,
-        careerId: 1,
+        career_id: 1,
         createdAt: expect.any(Date),
         updatedAt: expect.any(Date)
     }
@@ -52,7 +52,7 @@ const mockStudyPlan : StudyPlan = {
     effective_from: 2023,
     code: 800,
     duration: 5,
-    careerId: 1,
+    career_id: 1,
     createdAt: expect.any(Date),
     updatedAt: expect.any(Date)
 }
@@ -81,16 +81,16 @@ const mockStudyPlanWithRelations : StudyPlanWithRelations = {
     effective_from: 2023,
     code: 800,
     duration: 5,
-    careerId: 1,
+    career_id: 1,
     createdAt: expect.any(Date),
     updatedAt: expect.any(Date),
 
-    subject_assignments: [
+    subjectInfo: [
         {
             id: 1,
             hours: 4,
             type: "Yearly",
-            subjectId: 6,
+            subject_id: 6,
             study_plan_id: 1,
             createdAt: expect.any(Date),
             updatedAt: expect.any(Date),

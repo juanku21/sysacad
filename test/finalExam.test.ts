@@ -38,7 +38,7 @@ const mockFinalExamArray : FinalExam[] = [
         id: 2,
         date: expect.any(Date),
         classroom_id: null,
-        subject_id: 4,
+        subject_info_id: 4,
         createdAt: expect.any(Date),
         updatedAt: expect.any(Date)
     }
@@ -48,7 +48,7 @@ const mockFinalExam : FinalExam = {
     id: 2,
     date: expect.any(Date),
     classroom_id: null,
-    subject_id: 4,
+    subject_info_id: 4,
     createdAt: expect.any(Date),
     updatedAt: expect.any(Date)
 }
@@ -56,7 +56,7 @@ const mockFinalExam : FinalExam = {
 const inputCreate : Prisma.FinalExamCreateInput = {
     date: expect.any(Date),
 
-    subject: {
+    subjectInfo: {
         connect: {
             id: 4
         }
@@ -77,15 +77,15 @@ const mockFinalExamWithRelations : FinalExamWithRelations = {
     id: 2,
     date: expect.any(Date),
     classroom_id: null,
-    subject_id: 4,
+    subject_info_id: 4,
     createdAt: expect.any(Date),
     updatedAt: expect.any(Date),
 
-    subject: {
+    subjectInfo: {
         id: 1,
         hours: 4,
         type: "Yearly",
-        subjectId: 6,
+        subject_id: 6,
         study_plan_id: 1,
         createdAt: expect.any(Date),
         updatedAt: expect.any(Date),
@@ -105,8 +105,8 @@ const mockFinalExamWithRelations : FinalExamWithRelations = {
             id: 1,
             state: "Aprroved",
             qualification: 10,
-            studentId: 3,
-            examId: 2,
+            student_id: 3,
+            final_exam_id: 2,
             createdAt: expect.any(Date),
             updatedAt: expect.any(Date)
         }
@@ -119,7 +119,7 @@ const mockFinalExamWithRelations : FinalExamWithRelations = {
 
             teacher: {
                 id: 1,
-                userId: 1,
+                user_id: 1,
                 tuition: 32000,
                 recruitment: expect.any(Date),
 
