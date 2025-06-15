@@ -1,11 +1,11 @@
 
 
-import { BaseServiceTest } from "./utils/base-test"
-import { prismaMock } from "../src/config/singleton"
+import { BaseServiceTest } from "../utils/baseServiceTest"
+import { prismaMock } from "../../src/config/singleton"
 import { Prisma } from "@prisma/client"
 import { PositionCategory } from "@prisma/client"
-import { PositionCategoryService } from "../src/services/positionCategory.service"
-import { PositionCategoryWithRelations } from "../src/types" 
+import { PositionCategoryService } from "../../src/services/positionCategory.service"
+import { PositionCategoryWithRelations } from "../../src/types" 
 
 
 class PositionCategoryServiceTest extends BaseServiceTest 

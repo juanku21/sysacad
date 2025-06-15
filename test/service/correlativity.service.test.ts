@@ -1,11 +1,11 @@
 
 
-import { BaseServiceTest } from "./utils/base-test"
-import { prismaMock } from "../src/config/singleton"
+import { BaseServiceTest } from "../utils/baseServiceTest"
+import { prismaMock } from "../../src/config/singleton"
 import { Prisma } from "@prisma/client"
 import { Correlativity } from "@prisma/client"
-import { CorrelativityService } from "../src/services/correlativity.service"
-import { CorrelativityWithRelations } from "../src/types" 
+import { CorrelativityService } from "../../src/services/correlativity.service"
+import { CorrelativityWithRelations } from "../../src/types" 
 
 
 class CorrelativityServiceTest extends BaseServiceTest 

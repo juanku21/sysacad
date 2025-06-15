@@ -1,11 +1,11 @@
 
 
-import { BaseServiceTest } from "./utils/base-test"
-import { prismaMock } from "../src/config/singleton"
+import { BaseServiceTest } from "../utils/baseServiceTest"
+import { prismaMock } from "../../src/config/singleton"
 import { Prisma } from "@prisma/client"
 import { FinalExam } from "@prisma/client"
-import { FinalExamService } from "../src/services/finalExam.service"
-import { FinalExamWithRelations } from "../src/types" 
+import { FinalExamService } from "../../src/services/finalExam.service"
+import { FinalExamWithRelations } from "../../src/types" 
 
 
 class FinalExamServiceTest extends BaseServiceTest 

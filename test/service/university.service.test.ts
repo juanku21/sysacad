@@ -1,10 +1,10 @@
 
-import { BaseServiceTest } from "./utils/base-test"
-import { prismaMock } from "../src/config/singleton"
+import { BaseServiceTest } from "../utils/baseServiceTest"
+import { prismaMock } from "../../src/config/singleton"
 import { Prisma } from "@prisma/client"
 import { University } from "@prisma/client"
-import { UniversityService } from "../src/services/university.service"
-import { UniversityWithRelations } from "../src/types" 
+import { UniversityService } from "../../src/services/university.service"
+import { UniversityWithRelations } from "../../src/types" 
 
 
 class UniversityServiceTest extends BaseServiceTest 
@@ -32,7 +32,7 @@ const universityTest = new UniversityServiceTest()
 
 // mocks and input data
 
-const mockUniversityArray : University[] = [
+export const mockUniversityArray : University[] = [
     {
         id: 1,
         name: 'Universidad Tecnológica Nacional',
@@ -42,7 +42,7 @@ const mockUniversityArray : University[] = [
     }
 ]
 
-const mockUniversity : University = {
+export const mockUniversity : University = {
     id: 1,
     name: 'Universidad Tecnológica Nacional',
     acronym: "UTN",
@@ -50,17 +50,17 @@ const mockUniversity : University = {
     updatedAt: expect.any(Date)
 }
 
-const inputCreate : Prisma.UniversityCreateInput = {
+export const inputCreate : Prisma.UniversityCreateInput = {
     name: 'Universidad Tecnológica Nacional',
     acronym: "UTN"
 }
 
-const inputUpdate : Prisma.UniversityUpdateInput = {
+export const inputUpdate : Prisma.UniversityUpdateInput = {
     name: 'Universidad Tecnológica Nacional',
     acronym: "UTN"
 }
 
-const mockUniversityWithRelations : UniversityWithRelations = {
+export const mockUniversityWithRelations : UniversityWithRelations = {
     id: 1,
     name: 'Universidad Tecnológica Nacional',
     acronym: "UTN",

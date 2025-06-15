@@ -1,11 +1,11 @@
 
 
-import { BaseServiceTest } from "./utils/base-test"
-import { prismaMock } from "../src/config/singleton"
+import { BaseServiceTest } from "../utils/baseServiceTest"
+import { prismaMock } from "../../src/config/singleton"
 import { Prisma } from "@prisma/client"
 import { City } from "@prisma/client"
-import { CityService } from "../src/services/city.service"
-import { CityWithRelations } from "../src/types" 
+import { CityService } from "../../src/services/city.service"
+import { CityWithRelations } from "../../src/types" 
 
 
 class CityServiceTest extends BaseServiceTest 

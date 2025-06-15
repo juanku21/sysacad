@@ -1,11 +1,10 @@
 
-
-import { BaseServiceTest } from "./utils/base-test"
-import { prismaMock } from "../src/config/singleton"
+import { BaseServiceTest } from "../utils/baseServiceTest"
+import { prismaMock } from "../../src/config/singleton"
 import { Prisma } from "@prisma/client"
 import { StudyPlan } from "@prisma/client"
-import { StudyPlanService } from "../src/services/studyPlan.service"
-import { StudyPlanWithRelations } from "../src/types" 
+import { StudyPlanService } from "../../src/services/studyPlan.service"
+import { StudyPlanWithRelations } from "../../src/types" 
 
 
 class StudyPlanServiceTest extends BaseServiceTest 

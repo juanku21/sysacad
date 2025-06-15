@@ -1,11 +1,11 @@
 
 
-import { BaseServiceTest } from "./utils/base-test"
-import { prismaMock } from "../src/config/singleton"
+import { BaseServiceTest } from "../utils/baseServiceTest"
+import { prismaMock } from "../../src/config/singleton"
 import { Prisma } from "@prisma/client"
 import { SubjectInfo } from "@prisma/client"
-import { SubjectInfoService } from "../src/services/subjectInfo.service"
-import { SubjectInfoWithRelations } from "../src/types" 
+import { SubjectInfoService } from "../../src/services/subjectInfo.service"
+import { SubjectInfoWithRelations } from "../../src/types" 
 
 
 class SubjectInfoServiceTest extends BaseServiceTest 

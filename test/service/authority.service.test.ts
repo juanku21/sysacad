@@ -1,11 +1,11 @@
 
 
-import { BaseServiceTest } from "./utils/base-test"
-import { prismaMock } from "../src/config/singleton"
+import { BaseServiceTest } from "../utils/baseServiceTest"
+import { prismaMock } from "../../src/config/singleton"
 import { Prisma } from "@prisma/client"
 import { Authority } from "@prisma/client"
-import { AuthorityService } from "../src/services/authority.service"
-import { AuthorityWithRelations } from "../src/types" 
+import { AuthorityService } from "../../src/services/authority.service"
+import { AuthorityWithRelations } from "../../src/types" 
 
 
 class AuthorityServiceTest extends BaseServiceTest 

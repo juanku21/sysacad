@@ -1,12 +1,10 @@
 
-
-
-import { BaseServiceTest } from "./utils/base-test"
-import { prismaMock } from "../src/config/singleton"
+import { BaseServiceTest } from "../utils/baseServiceTest"
+import { prismaMock } from "../../src/config/singleton"
 import { Prisma } from "@prisma/client"
 import { SubjectDictation } from "@prisma/client"
-import { SubjectDictationService } from "../src/services/subjectDictation.service"
-import { SubjectDictationWithRelations } from "../src/types" 
+import { SubjectDictationService } from "../../src/services/subjectDictation.service"
+import { SubjectDictationWithRelations } from "../../src/types" 
 
 
 class SubjectDictationServiceTest extends BaseServiceTest 

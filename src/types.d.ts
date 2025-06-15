@@ -2,6 +2,8 @@
 import { Prisma } from "@prisma/client";
 
 
+// tipos correspondientes a objetos del ORM
+
 export type CareerWithRelations = Prisma.CareerGetPayload<{
     include: {
         educationalOffers: true,

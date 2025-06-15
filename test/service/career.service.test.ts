@@ -1,11 +1,11 @@
 
 
-import { BaseServiceTest } from "./utils/base-test"
-import { prismaMock } from "../src/config/singleton"
+import { BaseServiceTest } from "../utils/baseServiceTest"
+import { prismaMock } from "../../src/config/singleton"
 import { Prisma } from "@prisma/client"
 import { Career } from "@prisma/client"
-import { CareerService } from "../src/services/career.service"
-import { CareerWithRelations } from "../src/types" 
+import { CareerService } from "../../src/services/career.service"
+import { CareerWithRelations } from "../../src/types" 
 
 
 class CareerServiceTest extends BaseServiceTest 
