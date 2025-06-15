@@ -34,7 +34,7 @@ export class AuthorityService {
             return result
         } 
         catch (error : any) {
-            throw new Error(`No fue posible crear una nueva universidad: ${error}`)
+            throw new Error(`No fue posible crear una nueva autoridad: ${error}`)
         }
     }
 
