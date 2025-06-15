@@ -31,7 +31,7 @@ export class UniversityService {
         }
     }
 
-    public static async create(university : Prisma.UniversityCreateInput) {
+    public static async create(university : Prisma.UniversityCreateInput) : Promise<University> {
 
         try {
             const result = await repository.create(university)
@@ -49,7 +49,7 @@ export class UniversityService {
             const universityExists = await repository.getById(id)
 
             if (universityExists === null) {
-                throw new Error("El usuario que desea actualizar no existe")    
+                throw new Error("La universidad que desea actualizar no existe")    
             }
 
             const result = await repository.update(id, university)
@@ -68,7 +68,7 @@ export class UniversityService {
             const universityExists = await repository.getById(id)
 
             if (universityExists === null) {
-                throw new Error("El usuario que desea eliminar no existe")    
+                throw new Error("La universidad que desea eliminar no existe")    
             }
 
             const result = await repository.delete(id)
