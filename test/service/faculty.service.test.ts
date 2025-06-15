@@ -6,6 +6,13 @@ import { Prisma } from "@prisma/client"
 import { Faculty } from "@prisma/client"
 import { FacultyService } from "../../src/services/faculty.service"
 import { FacultyWithRelations } from "../../src/types" 
+import { 
+    mockFaculty, 
+    mockFacultyWithRelations, 
+    mockFacultyArray,
+    inputCreate,
+    inputUpdate
+ } from "../mocks/faculty.mock"
 
 
 class FacultyServiceTest extends BaseServiceTest 
@@ -29,124 +36,6 @@ class FacultyServiceTest extends BaseServiceTest
 }
 
 const facultyTest = new FacultyServiceTest()
-
-
-// mocks and input data
-
-const mockFacultyArray : Faculty[] = [
-    {
-        id: 1,
-        name: "FRSR",
-        code: 500,
-        description: null,
-        email: "utnfrsr@gmail.com",
-        phone: 2609876543,
-        street: "Urquiza",
-        number: 100,
-        cityId: 5,
-        university_id: 1,
-        web: null,
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date)
-    }
-]
-
-const mockFaculty : Faculty = {
-    id: 1,
-    name: "FRSR",
-    code: 500,
-    description: null,
-    email: "utnfrsr@gmail.com",
-    phone: 2609876543,
-    street: "Urquiza",
-    number: 100,
-    cityId: 5,
-    university_id: 1,
-    web: null,
-    createdAt: expect.any(Date),
-    updatedAt: expect.any(Date)
-}
-
-const inputCreate : Prisma.FacultyCreateInput = {
-
-    name: "FRSR",
-    code: 500,
-    email: "utnfrsr@gmail.com",
-    phone: 2609876543,
-    street: "Urquiza",
-    number: 100,
-
-    city: {
-        connect: {
-            id: 5
-        }
-    },
-
-    university: {
-        connect: {
-            id: 1
-        }
-    }
-
-}
-
-const inputUpdate : Prisma.FacultyUpdateInput = {
-    
-    street: "San Martin",
-    number: 123,
-
-    city: {
-        update: {
-            id: 2
-        }
-    }
-
-}
-
-
-const mockFacultyWithRelations : FacultyWithRelations = {
-    id: 1,
-    name: "FRSR",
-    code: 500,
-    description: null,
-    email: "utnfrsr@gmail.com",
-    phone: 2609876543,
-    street: "Urquiza",
-    number: 100,
-    cityId: 5,
-    university_id: 1,
-    web: null,
-    createdAt: expect.any(Date),
-    updatedAt: expect.any(Date),
-
-    university: {
-        id: 1,
-        name: 'Universidad Tecnológica Nacional',
-        acronym: "UTN",
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date)
-    },
-
-    city: {
-        id: 5,
-        name: "San Rafael",
-        zip_code: "5600",
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date)
-    },
-
-    educationalOffers: [
-        {
-            id: 1,
-            year: 2022,
-            career_id: 5,
-            price: 0,
-            faculty_id: 1,
-            createdAt: expect.any(Date),
-            updatedAt: expect.any(Date)
-        }
-    ]
-}
 
 
 // tests

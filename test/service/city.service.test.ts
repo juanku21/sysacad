@@ -5,7 +5,14 @@ import { prismaMock } from "../../src/config/singleton"
 import { Prisma } from "@prisma/client"
 import { City } from "@prisma/client"
 import { CityService } from "../../src/services/city.service"
-import { CityWithRelations } from "../../src/types" 
+import { CityWithRelations } from "../../src/types"
+import { 
+    mockCity, 
+    mockCityWithRelations, 
+    mockCityArray,
+    inputCreate,
+    inputUpdate
+ } from "../mocks/city.mock" 
 
 
 class CityServiceTest extends BaseServiceTest 
@@ -29,63 +36,6 @@ class CityServiceTest extends BaseServiceTest
 }
 
 const cityTest = new CityServiceTest()
-
-
-// mocks and input data
-
-const mockCityArray : City[] = [
-    {
-        id: 1,
-        name: 'Mendoza',
-        zip_code: "5500",
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date)
-    }
-]
-
-const mockCity : City = {
-    id: 1,
-    name: 'Mendoza',
-    zip_code: "5500",
-    createdAt: expect.any(Date),
-    updatedAt: expect.any(Date)
-}
-
-const inputCreate : Prisma.CityCreateInput = {
-    name: 'Mendoza',
-    zip_code: "5500"
-}
-
-const inputUpdate : Prisma.CityUpdateInput = {
-    zip_code: "5520"
-}
-
-const mockCityWithRelations : CityWithRelations = {
-    id: 1,
-    name: 'Mendoza',
-    zip_code: "5500",
-    createdAt: expect.any(Date),
-    updatedAt: expect.any(Date),
-
-    faculty: [
-        {
-            id: 1,
-            name: "Facultad Regional San Rafael",
-            code: 25,
-            description: null,
-            street: "Urquiza",
-            number: 876,
-            email: "utnfrsr@mail.com",
-            phone: expect.any(BigInt),
-            web: null,
-            university_id: 1,
-            cityId: 50,
-            createdAt: expect.any(Date),
-            updatedAt: expect.any(Date)
-        }
-    ]
-}
-
 
 // tests
 

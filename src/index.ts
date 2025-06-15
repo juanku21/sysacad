@@ -1,14 +1,14 @@
 
-
+import { Server } from "http"
 import express, { Application } from "express"
 import { RouterManager } from "./routes/routerManager"
 import config from "./config/config"
 import compression from 'compression'
 
-export class Server {
+export class ServerHTTP {
 
-    private static instance : Server
-
+    private static instance : ServerHTTP
+    server : Server
     private readonly app : Application
     private readonly port : string
 
@@ -19,12 +19,12 @@ export class Server {
         this.routes()
     }
 
-    // aplicación del patrón de diseño singleton (una única instancia)
+    // // aplicación del patrón de diseño singleton (una única instancia)
 
-    public static getInstance() : Server {
+    public static getInstance() : ServerHTTP {
 
-        if (!Server.instance) {
-            this.instance = new Server()
+        if (!ServerHTTP.instance) {
+            this.instance = new ServerHTTP()
         }
 
         return this.instance
@@ -36,9 +36,11 @@ export class Server {
     }
 
     public start() : void {
-        this.app.listen(this.port, () => {
-            console.log("Servidor ejecuntandose correctamente")
-        })
+        if (!this.server) {
+            this.server = this.app.listen(this.port, () => {
+                console.log("Servidor ejecuntandose correctamente")
+            })
+        }
     }
 
     public middlewares() : void {
@@ -46,14 +48,25 @@ export class Server {
         this.app.use(express.json())
     }
 
-    public routes() : void{
+    public routes() : void {
         // this.app.use(handleErrorMiddlewere)
 
         const manager = new RouterManager(this.app)
         manager.loadRoutes()
     }
 
+    public stop() : void {
+        if (this.server) {
+            this.server.close()
+        }
+    }
+
 }
 
-const server = Server.getInstance()
+const server = ServerHTTP.getInstance()
 server.start()
+
+
+setTimeout(() => {
+    server.stop()
+}, 5000)

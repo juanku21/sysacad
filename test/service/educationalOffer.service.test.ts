@@ -5,6 +5,13 @@ import { Prisma } from "@prisma/client"
 import { EducationalOffer } from "@prisma/client"
 import { EducationalOfferService } from "../../src/services/educationalOffer.service"
 import { EducationalOfferWithRelations } from "../../src/types" 
+import { 
+    mockEducationalOffer, 
+    mockEducationalOfferWithRelations, 
+    mockEducationalOfferArray,
+    inputCreate,
+    inputUpdate
+ } from "../mocks/educationalOffer.mock"
 
 
 class EducationalOfferServiceTest extends BaseServiceTest 
@@ -28,72 +35,6 @@ class EducationalOfferServiceTest extends BaseServiceTest
 }
 
 const educationalOfferTest = new EducationalOfferServiceTest()
-
-
-// mocks and input data
-
-const mockEducationalOfferArray : EducationalOffer[] = [
-    {
-        id: 1,
-        year: 2022,
-        price: 0,
-        faculty_id: 1,
-        career_id: 1,
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date)
-    }
-]
-
-const mockEducationalOffer : EducationalOffer = {
-    id: 1,
-    year: 2022,
-    price: 0,
-    faculty_id: 1,
-    career_id: 1,
-    createdAt: expect.any(Date),
-    updatedAt: expect.any(Date)
-}
-
-const inputCreate : Prisma.EducationalOfferCreateInput = {
-    year: 2022,
-    price: 0,
-
-    faculty: {
-        connect: {
-            id: 1
-        }
-    },
-
-    career: {
-        connect: {
-            id: 1
-        }
-    }
-}
-
-const inputUpdate : Prisma.EducationalOfferUpdateInput = {
-    price: 1000
-}
-
-const mockEducationalOfferWithRelations : EducationalOfferWithRelations = {
-    id: 1,
-    year: 2022,
-    price: 0,
-    faculty_id: 1,
-    career_id: 1,
-    createdAt: expect.any(Date),
-    updatedAt: expect.any(Date),
-
-    career: {
-        id: 1,
-        name: "Ingeniería en Sistemas",
-        code: 540,
-        description: "La carrera del futuro",
-        level: "Engineering",
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date),
-    }
-}
 
 
 // tests

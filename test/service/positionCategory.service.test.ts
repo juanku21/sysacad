@@ -5,7 +5,14 @@ import { prismaMock } from "../../src/config/singleton"
 import { Prisma } from "@prisma/client"
 import { PositionCategory } from "@prisma/client"
 import { PositionCategoryService } from "../../src/services/positionCategory.service"
-import { PositionCategoryWithRelations } from "../../src/types" 
+import { PositionCategoryWithRelations } from "../../src/types"
+import { 
+    mockPositionCategory, 
+    mockPositionCategoryWithRelations, 
+    mockPositionCategoryArray,
+    inputCreate,
+    inputUpdate
+ } from "../mocks/positionCategory.mock"
 
 
 class PositionCategoryServiceTest extends BaseServiceTest 
@@ -29,58 +36,6 @@ class PositionCategoryServiceTest extends BaseServiceTest
 }
 
 const positionCategoryTest = new PositionCategoryServiceTest()
-
-
-// mocks and input data
-
-const mockPositionCategoryArray : PositionCategory[] = [
-    {
-        id: 1,
-        name: 'Administrador',
-        description: "Realiza tareas administrativas en la universidad",
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date)
-    }
-]
-
-const mockPositionCategory : PositionCategory = {
-    id: 1,
-    name: 'Administrador',
-    description: "Realiza tareas administrativas en la universidad",
-    createdAt: expect.any(Date),
-    updatedAt: expect.any(Date)
-}
-
-const inputCreate : Prisma.PositionCategoryCreateInput = {
-    name: 'Administrador',
-    description: "Realiza tareas administrativas en la universidad",
-}
-
-const inputUpdate : Prisma.PositionCategoryUpdateInput = {
-    description: "Realiza actividades administrativas en la universidad"
-}
-
-const mockPositionCategoryWithRelations : PositionCategoryWithRelations = {
-    id: 1,
-    name: 'Administrador',
-    description: "Realiza tareas administrativas en la universidad",
-    createdAt: expect.any(Date),
-    updatedAt: expect.any(Date),
-
-    positions: [
-        {
-            id: 1,
-            name: "Profesor de Análisis Matemático",
-            puntaje: 5000,
-            area: "Departamento de Ciencias Básicas",
-            description: "Excelente cargo",
-            category_id: 1,
-            createdAt: expect.any(Date),
-            updatedAt: expect.any(Date),
-
-        }
-    ]
-}
 
 
 // tests

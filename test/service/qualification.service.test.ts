@@ -5,6 +5,12 @@ import { prismaMock } from "../../src/config/singleton"
 import { Prisma } from "@prisma/client"
 import { Qualification } from "@prisma/client"
 import { QualificationService } from "../../src/services/qualification.service"
+import { 
+    mockQualification, 
+    mockQualificationArray,
+    inputCreate,
+    inputUpdate
+ } from "../mocks/qualification.mock"
 
 
 class QualificationServiceTest extends BaseServiceTest 
@@ -28,49 +34,6 @@ class QualificationServiceTest extends BaseServiceTest
 }
 
 const qualificationTest = new QualificationServiceTest()
-
-
-// mocks and input data
-
-const mockQualificationArray : Qualification[] = [
-    {
-        id: 1,
-        value: 10,
-        student_id: 1,
-        subject_id: 1,
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date)
-    }
-]
-
-const mockQualification : Qualification = {
-    id: 1,
-    value: 10,
-    student_id: 1,
-    subject_id: 1,
-    createdAt: expect.any(Date),
-    updatedAt: expect.any(Date)
-}
-
-const inputCreate : Prisma.QualificationCreateInput = {
-    value: 10,
-
-    student: {
-        connect: {
-            id: 1
-        }
-    },
-
-    subject: {
-        connect: {
-            id: 1
-        }
-    }
-}
-
-const inputUpdate : Prisma.QualificationUpdateInput = {
-    value: 9
-}
 
 
 

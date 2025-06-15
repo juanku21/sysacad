@@ -4,9 +4,17 @@ import { prismaMock } from "../../src/config/singleton"
 import { Prisma } from "@prisma/client"
 import { University } from "@prisma/client"
 import { UniversityService } from "../../src/services/university.service"
-import { UniversityWithRelations } from "../../src/types" 
+import { UniversityWithRelations } from "../../src/types"
+import { 
+    mockUniversity, 
+    mockUniversityWithRelations, 
+    mockUniversityArray,
+    inputCreate,
+    inputUpdate
+ } from "../mocks/university.mock" 
 
 
+ 
 class UniversityServiceTest extends BaseServiceTest 
 <typeof prismaMock.university, University, UniversityService, Prisma.UniversityCreateInput, Prisma.UniversityUpdateInput> {
 
@@ -28,62 +36,6 @@ class UniversityServiceTest extends BaseServiceTest
 }
 
 const universityTest = new UniversityServiceTest()
-
-
-// mocks and input data
-
-export const mockUniversityArray : University[] = [
-    {
-        id: 1,
-        name: 'Universidad Tecnológica Nacional',
-        acronym: "UTN",
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date)
-    }
-]
-
-export const mockUniversity : University = {
-    id: 1,
-    name: 'Universidad Tecnológica Nacional',
-    acronym: "UTN",
-    createdAt: expect.any(Date),
-    updatedAt: expect.any(Date)
-}
-
-export const inputCreate : Prisma.UniversityCreateInput = {
-    name: 'Universidad Tecnológica Nacional',
-    acronym: "UTN"
-}
-
-export const inputUpdate : Prisma.UniversityUpdateInput = {
-    name: 'Universidad Tecnológica Nacional',
-    acronym: "UTN"
-}
-
-export const mockUniversityWithRelations : UniversityWithRelations = {
-    id: 1,
-    name: 'Universidad Tecnológica Nacional',
-    acronym: "UTN",
-    createdAt: expect.any(Date),
-    updatedAt: expect.any(Date),
-    faculty: [
-        {
-            id: 1,
-            name: "Facultad Regional San Rafael",
-            code: 25,
-            description: null,
-            street: "Urquiza",
-            number: 876,
-            email: "utnfrsr@mail.com",
-            phone: expect.any(BigInt),
-            web: null,
-            university_id: 1,
-            cityId: 50,
-            createdAt: expect.any(Date),
-            updatedAt: expect.any(Date)
-        }
-    ]
-}
 
 
 // tests

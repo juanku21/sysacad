@@ -4,7 +4,14 @@ import { prismaMock } from "../../src/config/singleton"
 import { Prisma } from "@prisma/client"
 import { FinalExamRegistration } from "@prisma/client"
 import { FinalExamRegistrationService } from "../../src/services/finalExamRegistration.service"
-import { FinalExamRegistrationWithRelations } from "../../src/types" 
+import { FinalExamRegistrationWithRelations } from "../../src/types"
+import { 
+    mockFinalExamRegistration, 
+    mockFinalExamRegistrationWithRelations, 
+    mockFinalExamRegistrationArray,
+    inputCreate,
+    inputUpdate
+ } from "../mocks/finalExamRegistration.mock"
 
 
 class FinalExamRegistrationServiceTest extends BaseServiceTest 
@@ -28,91 +35,6 @@ class FinalExamRegistrationServiceTest extends BaseServiceTest
 }
 
 const finalExamRegistrationTest = new FinalExamRegistrationServiceTest()
-
-
-// mocks and input data
-
-const mockFinalExamRegistrationArray : FinalExamRegistration[] = [
-    {
-        id: 1,
-        state: "Aprroved",
-        qualification: 10,
-        student_id: 3,
-        final_exam_id: 2,
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date)
-    }
-]
-
-const mockFinalExamRegistration : FinalExamRegistration = {
-    id: 1,
-    state: "Aprroved",
-    qualification: 10,
-    student_id: 3,
-    final_exam_id: 2,
-    createdAt: expect.any(Date),
-    updatedAt: expect.any(Date)
-}
-
-const inputCreate : Prisma.FinalExamRegistrationCreateInput = {
-    qualification: null,
-    state: "NotTaken",
-
-    student: {
-        connect: {
-            id: 3
-        }
-    },
-
-    exam: {
-        connect: {
-            id: 2
-        }
-    }
-}
-
-const inputUpdate : Prisma.FinalExamRegistrationUpdateInput = {
-    state: "Aprroved"
-}
-
-const mockFinalExamRegistrationWithRelations : FinalExamRegistrationWithRelations = {
-    id: 1,
-    state: "Aprroved",
-    qualification: 10,
-    student_id: 3,
-    final_exam_id: 2,
-    createdAt: expect.any(Date),
-    updatedAt: expect.any(Date),
-
-    student: {
-        id: 1,
-        user_id: 1,
-        career_id: 1,
-        legajo: 10000,
-        user: {
-            id: 1,
-            name: "Tomás",
-            last_name: "Montes",
-            email: "tomimo@gmail.com",
-            password: "123456",
-            gender: "F",
-            cuil: 20727828372,
-            phone: 2618009675,
-            facultyId: 3,
-            createdAt: expect.any(Date),
-            updatedAt: expect.any(Date)
-        }
-    },
-
-    exam: {
-        id: 2,
-        date: expect.any(Date),
-        classroom_id: null,
-        subject_info_id: 4,
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date)
-    }
-}
 
 
 // tests
