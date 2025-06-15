@@ -42,8 +42,6 @@ describe("University controller", () => {
 
             expect(response.statusCode).toBe(200)
 
-            console.log(response.body)
-
             expect(response.body).toEqual(dateObjectArrayTransformer(mockUniversityArray))
             expect(UniversityService.get).toHaveBeenCalled()
 
@@ -56,18 +54,10 @@ describe("University controller", () => {
 
             const response = await request(appTest.getApp()).get("/api/university").send()
 
-            console.log(response.body)
-
             expect(response.statusCode).toBe(503)
             expect(response.body.error).toBe('Error: Falló el servicio solicitado')
 
         })
-
-
-    // test("should respond with an array", async () => {
-    //     const response = await request(app).get("/tasks").send();
-    //     expect(response.body).toBeInstanceOf(Array);
-    // })
 
     })
 

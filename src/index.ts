@@ -65,8 +65,3 @@ export class ServerHTTP {
 
 const server = ServerHTTP.getInstance()
 server.start()
-
-
-setTimeout(() => {
-    server.stop()
-}, 5000)
