@@ -1,24 +1,74 @@
 
+import { Prisma, Student } from "@prisma/client"
+import { StudentWithRelations } from "../types"
+import { StudentRepository } from "../repositories/student.repository"
+
+
+const repository = new StudentRepository()
 
 export class StudentService {
 
-    public static async get() {
-
+    public static async get() : Promise<Student[]> {
+        try {
+            const result = await repository.get()
+            return result
+        } 
+        catch (error : any) {
+            throw new Error(`No fue posible obtener la lista de estudiantes: ${error}`)
+        }
     }
 
-    public static async getById() {
-
+    public static async getById(id : number) : Promise<StudentWithRelations | null> {
+        try {
+            const result = await repository.getById(id)
+            return result
+        } 
+        catch (error : any) {
+            throw new Error(`No fue posible obtener el estudiante solicitado: ${error}`)
+        }
     }
 
-    public static async create() {
-
+    public static async create(student : Prisma.StudentCreateInput) : Promise<Student> {
+        try {
+            const result = await repository.create(student)
+            return result
+        } 
+        catch (error : any) {
+            throw new Error(`No fue posible crear una nuevo estudiante: ${error}`)
+        }
     }
 
-    public static async update()  {
+    public static async update(id : number, student : Prisma.StudentCreateInput) : Promise<Student>  {
+        try {
+            const studentExists = await repository.getById(id)
 
+            if (studentExists === null) {
+                throw new Error("El estudiante que desea actualizar no existe")    
+            }
+
+            const result = await repository.update(id, student)
+            return result
+
+        } 
+        catch (error : any) {
+            throw new Error(`No fue posible actualizar el estudiante solicitado: ${error}`)
+        }
     }
 
-    public static async delete() {
+    public static async delete(id : number) : Promise<Student> {
+        try {
+            const studentExists = await repository.getById(id)
+
+            if (studentExists === null) {
+                throw new Error("El estudiante que desea eliminar no existe")    
+            }
+
+            const result = await repository.delete(id)
+            return result
+        } 
+        catch (error : any) {
+            throw new Error(`No fue posible eliminar el estudiante solicitado: ${error}`)
+        }
 
     }
 
