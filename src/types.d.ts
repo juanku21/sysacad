@@ -132,9 +132,7 @@ export type PositionWithRelations = Prisma.PositionGetPayload<{
     include: {
         authority: {
             include: {
-                authority: {
-                    true
-                }
+                authority: true
             }
         }
     }
