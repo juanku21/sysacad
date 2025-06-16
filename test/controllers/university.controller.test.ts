@@ -15,25 +15,26 @@ jest.mock('../../src/services/university.service', () => ({
     }
 }))
 
+const appTest = ServerHTTP.getInstance()
+
+beforeEach(async () => {
+    jest.clearAllMocks()
+})
+        
+
+afterAll(async () => {
+    appTest.stop()
+})
+
 
 describe("University controller", () => {
 
-    const appTest = ServerHTTP.getInstance()
-
     const mockedService = jest.mocked(UniversityService)
 
-    beforeEach(() => {
-        jest.clearAllMocks()
-    })
 
-    afterAll(() => {
-        appTest.stop()
-    })
+    describe("GET /university (all)", () => {
 
 
-    describe("GET /university", () => {
-
-        
         test("Should response with a 200 status code and data", async () => {
 
             mockedService.get.mockResolvedValue(mockUniversityArray)
@@ -56,9 +57,69 @@ describe("University controller", () => {
 
             expect(response.statusCode).toBe(503)
             expect(response.body.error).toBe('Error: Falló el servicio solicitado')
+            expect(UniversityService.get).toHaveBeenCalled()
 
         })
 
     })
 
+
+    describe("GET /university (unique)", () => {
+
+
+        test("Should response with a 200 status code and data", async () => {
+
+            mockedService.getById.mockResolvedValue(mockUniversityWithRelations)
+
+            const response = await request(appTest.getApp()).get("/api/university/1").send()
+
+            expect(response.statusCode).toBe(200)
+
+            expect(response.body).toEqual(dateObjectTransformer(mockUniversityWithRelations))
+            expect(UniversityService.getById).toHaveBeenCalled()
+
+        })
+
+        test("Should response with a 400 status code and message", async () => {
+
+            const response = await request(appTest.getApp()).get("/api/university/hola").send()
+
+            expect(response.statusCode).toBe(400)
+            expect(response.body.error).toBe('El ID debe ser un número')
+
+        })
+
+        test("Should response with a 404 status code and error", async () => {
+
+            mockedService.getById.mockResolvedValue(null)
+
+            const response = await request(appTest.getApp()).get("/api/university/1").send()
+
+            expect(response.statusCode).toBe(404)
+            expect(response.body.error).toBe('Error: El ID solicitado no existe')
+
+            expect(UniversityService.getById).toHaveBeenCalled()
+        })
+
+        test("Should response with a 503 status code and error", async () => {
+
+            mockedService.getById.mockRejectedValue(new Error('Falló el servicio solicitado'))
+
+            const response = await request(appTest.getApp()).get("/api/university/1").send()
+
+            expect(response.statusCode).toBe(503)
+            expect(response.body.error).toBe('Error: Falló el servicio solicitado')
+
+            expect(UniversityService.getById).toHaveBeenCalled()
+        })
+
+    })
+
+    describe("POST /university", () => {
+
+    })
+
 })
+
+
+appTest
