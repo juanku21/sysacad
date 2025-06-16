@@ -3,7 +3,7 @@ import { BaseServiceTest } from "../utils/baseServiceTest"
 import { prismaMock } from "../../src/config/singleton"
 import { Prisma } from "@prisma/client"
 import { CourseRegistration } from "@prisma/client"
-import { CourseRegistrationService } from "../../src/services/couserRegistration.service"
+import { CourseRegistrationService } from "../../src/services/courseRegistration.service"
 import { CourseRegistrationWithRelations } from "../../src/types" 
 import { 
     mockCourseRegistration, 
