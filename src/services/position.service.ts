@@ -38,7 +38,7 @@ export class PositionService {
     }
 
     public static async update(id : number, position : Prisma.PositionCreateInput) : Promise<Position>{
-          try {
+        try {
             const positionExists = await repository.getById(id)
 
             if (positionExists === null) {
