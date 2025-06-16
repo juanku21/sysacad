@@ -27,9 +27,9 @@ export class FinalExamService {
         }
     }
 
-    public static async create(finalexam : Prisma.FinalExamCreateInput) : Promise<FinalExam> {
+    public static async create(finalExam : Prisma.FinalExamCreateInput) : Promise<FinalExam> {
         try {
-            const result = await repository.create(finalexam)
+            const result = await repository.create(finalExam)
             return result
         } 
         catch (error : any) {
@@ -37,15 +37,15 @@ export class FinalExamService {
         }
     }
 
-    public static async update(id : number, finalexam : Prisma.FinalExamCreateInput) : Promise<FinalExam>  {
+    public static async update(id : number, finalExam : Prisma.FinalExamCreateInput) : Promise<FinalExam>  {
         try {
-            const finalexamExists = await repository.getById(id)
+            const finalExamExists = await repository.getById(id)
 
-            if (finalexamExists === null) {
+            if (finalExamExists === null) {
                 throw new Error("El examen final que desea actualizar no existe")    
             }
 
-            const result = await repository.update(id, finalexam)
+            const result = await repository.update(id, finalExam)
             return result
 
         } 
