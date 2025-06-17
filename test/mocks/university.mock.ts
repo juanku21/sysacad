@@ -45,7 +45,7 @@ export const mockUniversityWithRelations : UniversityWithRelations = {
             street: "Urquiza",
             number: 876,
             email: "utnfrsr@mail.com",
-            phone: expect.any(BigInt),
+            phone: 26045670983,
             web: null,
             university_id: 1,
             cityId: 50,

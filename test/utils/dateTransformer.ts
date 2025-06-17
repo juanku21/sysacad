@@ -11,6 +11,9 @@ export const dateObjectTransformer = (objectWithDate : object) => {
         if (atribut instanceof Date) {
             newObjectWithDate[key] = atribut.toISOString()
         }
+        else if (atribut instanceof Array) {
+            newObjectWithDate[key] = dateObjectArrayTransformer(atribut)
+        }
         else{
             newObjectWithDate[key] = atribut
         }

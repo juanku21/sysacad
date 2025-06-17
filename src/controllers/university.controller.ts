@@ -1,10 +1,11 @@
 
-import { Request, Response } from "express";
-import { UniversityService } from "../services/university.service";
+import { Request, Response, RequestHandler } from "express"
+import { UniversityService } from "../services/university.service"
+import { isUniversityCreateInput, isUniversityUpdateInput } from "../utils/typeValidators"
 
 export class UniversityController {
 
-    public static async get(req : Request, res : Response) {
+    public static get : RequestHandler = async (req : Request, res : Response) => {
         try {
             const result = await UniversityService.get()
             res.status(200).json(result)
@@ -14,14 +15,14 @@ export class UniversityController {
         }
     }
 
-    public static async getById(req : Request, res : Response) {
+    public static getById : RequestHandler = async (req : Request, res : Response) => {
 
         const {id} = req.params
 
         const er = /^[-+]?\d+$/
 
         if (!(er.test(id))) {
-            return res.status(400).json({error: "El ID debe ser un número"})
+            res.status(400).json({error: "El ID debe ser un número"})
         }
 
         try {
@@ -36,25 +37,98 @@ export class UniversityController {
         catch (error : any) {
 
             if (error.message === 'El ID solicitado no existe') {
-                return res.status(404).json({error: `${error.message}`})
+                res.status(404).json({error: `${error.message}`})
             }
             else{
-                return res.status(503).json({error: `${error.message}`})
+                res.status(503).json({error: `${error.message}`})
             }
 
         }
     }
 
-    public static async create(req : Request, res : Response) {
+
+    public static create : RequestHandler = async (req : Request, res : Response) => {
+
+        const university = req.body
+
+        if (!isUniversityCreateInput(university)) {
+            res.status(400).json({error: 'El tipo de dato enviado no es correcto'})
+        }
+
+        try {
+            const result = await UniversityService.create(university)
+            res.status(200).json(result)
+        } 
+        catch (error : any) {
+            res.status(503).json({error: `${error.message}`})
+        }
 
     }
 
-    public static async update(req : Request, res : Response) {
+    public static update : RequestHandler = async (req : Request, res : Response) => {
+
+        const {id} = req.params
+        const university = req.body
+
+        const er = /^[-+]?\d+$/
+
+        if (!(er.test(id))) {
+            res.status(400).json({error: "El ID debe ser un número"})
+        }
+
+        if (!isUniversityUpdateInput(university)) {
+            res.status(400).json({error: 'El tipo de dato enviado no es correcto'})
+        }
+
+        try {
+            const result = await UniversityService.update(parseInt(id), university)
+
+            if (result === null) {
+                throw new Error('La universidad que desea actualizar no existe')
+            }
+
+            res.status(200).json(result)
+        } 
+        catch (error : any) {
+            
+            if (error.message == 'La universidad que desea actualizar no existe') {
+                res.status(404).json({error: `${error.message}`})
+            }
+            else{
+                res.status(503).json({error: `${error.message}`})
+            }
+        }
 
     }
 
-    public static async delete(req : Request, res : Response) {
+    public static delete : RequestHandler = async (req : Request, res : Response) => {
 
+        const {id} = req.params
+
+        const er = /^[-+]?\d+$/
+
+        if (!(er.test(id))) {
+            res.status(400).json({error: "El ID debe ser un número"})
+        }
+
+        try {
+            const result = await UniversityService.delete(parseInt(id))
+
+            if (result === null) {
+                throw new Error('La universidad que desea eliminar no existe')
+            }
+
+            res.status(200).json(result)
+        } 
+        catch (error : any) {
+            
+            if (error.message == 'La universidad que desea eliminar no existe') {
+                res.status(404).json({error: `${error.message}`})
+            }
+            else{
+                res.status(503).json({error: `${error.message}`})
+            }
+        }
     }
 
 }

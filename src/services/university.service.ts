@@ -43,13 +43,13 @@ export class UniversityService {
 
     }
 
-    public static async update(id : number, university : Prisma.UniversityUpdateInput) : Promise<University> {
+    public static async update(id : number, university : Prisma.UniversityUpdateInput) : Promise<University | null> {
 
         try {
             const universityExists = await repository.getById(id)
 
             if (universityExists === null) {
-                throw new Error("La universidad que desea actualizar no existe")    
+                return null   
             }
 
             const result = await repository.update(id, university)
@@ -62,13 +62,13 @@ export class UniversityService {
 
     }
 
-    public static async delete(id: number) : Promise<University> {
+    public static async delete(id: number) : Promise<University | null> {
 
         try {
             const universityExists = await repository.getById(id)
 
             if (universityExists === null) {
-                throw new Error("La universidad que desea eliminar no existe")    
+                return null   
             }
 
             const result = await repository.delete(id)

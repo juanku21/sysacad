@@ -2,7 +2,11 @@
 import { Prisma } from "@prisma/client";
 
 
-// tipos correspondientes a objetos del ORM
+// tipos correspondientes a datos que recibe el controlador para resolver una petición post
+
+
+
+// tipos correspondientes a objetos del ORM con sus respectivas relaciones
 
 export type CareerWithRelations = Prisma.CareerGetPayload<{
     include: {
