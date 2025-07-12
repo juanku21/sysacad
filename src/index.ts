@@ -19,7 +19,7 @@ export class ServerHTTP {
         this.routes()
     }
 
-    // // aplicación del patrón de diseño singleton (una única instancia)
+    // aplicación del patrón de diseño singleton (una única instancia)
 
     public static getInstance() : ServerHTTP {
 

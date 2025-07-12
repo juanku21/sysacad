@@ -1,7 +1,7 @@
 
 import { Request, Response, RequestHandler } from "express"
 import { UniversityService } from "../services/university.service"
-import { isUniversityCreateInput, isUniversityUpdateInput } from "../utils/typeValidators"
+import { UniversityValidator } from "../validators/university.validator"
 
 export class UniversityController {
 
@@ -29,14 +29,14 @@ export class UniversityController {
             const result = await UniversityService.getById(parseInt(id))
 
             if (result === null) {
-                throw new Error('El ID solicitado no existe')
+                throw new Error('El recurso con el ID solicitado no existe')
             }
 
             res.status(200).json(result)
         }
         catch (error : any) {
 
-            if (error.message === 'El ID solicitado no existe') {
+            if (error.message === 'El recurso con el ID solicitado no existe') {
                 res.status(404).json({error: `${error.message}`})
             }
             else{
@@ -51,8 +51,8 @@ export class UniversityController {
 
         const university = req.body
 
-        if (!isUniversityCreateInput(university)) {
-            res.status(400).json({error: 'El tipo de dato enviado no es correcto'})
+        if (!UniversityValidator.create(university)) {
+            res.status(400).json({error: 'Los datos enviados son incorrectos'})
         }
 
         try {
@@ -76,22 +76,22 @@ export class UniversityController {
             res.status(400).json({error: "El ID debe ser un número"})
         }
 
-        if (!isUniversityUpdateInput(university)) {
-            res.status(400).json({error: 'El tipo de dato enviado no es correcto'})
+        if (!UniversityValidator.update(university)) {
+            res.status(400).json({error: 'Los datos enviados son incorrectos'})
         }
 
         try {
             const result = await UniversityService.update(parseInt(id), university)
 
             if (result === null) {
-                throw new Error('La universidad que desea actualizar no existe')
+                throw new Error('El recurso que desea actualizar no existe')
             }
 
             res.status(200).json(result)
         } 
         catch (error : any) {
             
-            if (error.message == 'La universidad que desea actualizar no existe') {
+            if (error.message == 'El recurso que desea actualizar no existe') {
                 res.status(404).json({error: `${error.message}`})
             }
             else{
@@ -115,14 +115,14 @@ export class UniversityController {
             const result = await UniversityService.delete(parseInt(id))
 
             if (result === null) {
-                throw new Error('La universidad que desea eliminar no existe')
+                throw new Error('El recurso que desea eliminar no existe')
             }
 
             res.status(200).json(result)
         } 
         catch (error : any) {
             
-            if (error.message == 'La universidad que desea eliminar no existe') {
+            if (error.message == 'El recurso que desea eliminar no existe') {
                 res.status(404).json({error: `${error.message}`})
             }
             else{
