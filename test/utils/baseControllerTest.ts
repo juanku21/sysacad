@@ -101,7 +101,7 @@ export abstract class BaseControllerTest <TMock, TService> {
 
         const response = await request(this.app.getApp()).post(this.route).send(input)
 
-        expect(response.statusCode).toBe(200)
+        expect(response.statusCode).toBe(201)
 
         expect(response.body).toEqual(dateObjectTransformer(IdEncrypter.encodeData(mockData)))
         expect((this.service as any).create).toHaveBeenCalled()
@@ -127,6 +127,58 @@ export abstract class BaseControllerTest <TMock, TService> {
         expect(response.body.error).toBe('Falló el servicio solicitado')
 
         expect((this.service as any).create).toHaveBeenCalled()
+
+    }
+
+
+    // PATCH
+
+    public async put(mockData : ServiceData, input : object) : Promise<void> {
+        
+        (this.mock as any).update.mockResolvedValue(mockData)
+
+        const response = await request(this.app.getApp()).put(`${this.route}/1`).send(input)
+
+        expect(response.statusCode).toBe(200)
+
+        expect(response.body).toEqual(dateObjectTransformer(IdEncrypter.encodeData(mockData)))
+        expect((this.service as any).update).toHaveBeenCalled()
+
+    }
+
+    public async putBadRequestInput(badInput : object) : Promise<void> {
+        
+        const response = await request(this.app.getApp()).put(`${this.route}/1`).send(badInput)
+
+        expect(response.statusCode).toBe(400)
+        expect(response.body.error).toBe('Los datos enviados son incorrectos')
+
+    }
+
+
+    public async putNotFound(input : object) : Promise<void> {
+        
+        (this.mock as any).update.mockResolvedValue(null)
+
+        const response = await request(this.app.getApp()).put(`${this.route}/1`).send(input)
+
+        expect(response.statusCode).toBe(404)
+        expect(response.body.error).toBe(`El recurso que desea actualizar no existe`)
+
+        expect((this.service as any).update).toHaveBeenCalled()
+
+    }
+
+    public async putFail(input : object) : Promise<void> {
+        
+        (this.mock as any).update.mockRejectedValue(new Error('Falló el servicio solicitado'))
+
+        const response = await request(this.app.getApp()).put(`${this.route}/1`).send(input)
+
+        expect(response.statusCode).toBe(503)
+        expect(response.body.error).toBe('Falló el servicio solicitado')
+
+        expect((this.service as any).update).toHaveBeenCalled()
 
     }
 

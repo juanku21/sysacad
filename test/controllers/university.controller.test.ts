@@ -102,7 +102,7 @@ describe("University controller", () => {
 
     describe("POST /university", () => {
 
-        test("Should response with a 200 status code and data", async () => {
+        test("Should response with a 201 status code and data", async () => {
 
             await universityTest.create(university.mockUniversity, university.inputCreate)
 
@@ -117,6 +117,36 @@ describe("University controller", () => {
         test("Should response with a 503 status code and error", async () => {
 
             await universityTest.createFail(university.inputCreate)
+
+        })
+
+    })
+
+
+    describe("PUT /university", () => {
+
+        test("Should response with a 200 status code and data", async () => {
+
+            await universityTest.put(university.mockUniversity, university.inputUpdate)
+
+        })
+
+
+        test("Should response with a 400 status code and message", async () => {
+
+            await universityTest.putBadRequestInput(universityBadInput)
+
+        })
+
+        test("Should response with a 404 status code and error", async () => {
+
+            await universityTest.putNotFound(university.inputUpdate)
+
+        })
+
+        test("Should response with a 503 status code and error", async () => {
+
+            await universityTest.putFail(university.inputUpdate)
 
         })
 

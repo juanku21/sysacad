@@ -61,7 +61,7 @@ export class UniversityController {
 
             const resultSafe = IdEncrypter.encodeData(result)
 
-            res.status(200).json(resultSafe)
+            res.status(201).json(resultSafe)
         } 
         catch (error : any) {
             res.status(503).json({error: `${error.message}`})
