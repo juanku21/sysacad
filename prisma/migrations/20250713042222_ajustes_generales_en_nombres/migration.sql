@@ -121,8 +121,7 @@ ALTER TABLE "correlativities" ADD COLUMN     "type" "TypeCorrelativie" NOT NULL;
 ALTER TABLE "course_registrations" DROP COLUMN "studentId",
 DROP COLUMN "subjectId",
 ADD COLUMN     "dicatation_id" INTEGER NOT NULL,
-ADD COLUMN     "student_id" INTEGER NOT NULL,
-ALTER COLUMN "state" SET DEFAULT 'Attending';
+ADD COLUMN     "student_id" INTEGER NOT NULL;
 
 -- AlterTable
 ALTER TABLE "educational_offers" DROP COLUMN "careerId",
@@ -139,8 +138,7 @@ ALTER TABLE "final_exam_registrations" DROP COLUMN "examId",
 DROP COLUMN "studentId",
 ADD COLUMN     "final_exam_id" INTEGER NOT NULL,
 ADD COLUMN     "student_id" INTEGER NOT NULL,
-ALTER COLUMN "qualification" DROP NOT NULL,
-ALTER COLUMN "state" SET DEFAULT 'NotTaken';
+ALTER COLUMN "qualification" DROP NOT NULL;
 
 -- AlterTable
 ALTER TABLE "final_exams" DROP COLUMN "subject_id",

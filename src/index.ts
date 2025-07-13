@@ -1,9 +1,13 @@
 
 import { Server } from "http"
 import express, { Application } from "express"
-import { RouterManager } from "./routes/routerManager"
 import config from "./config/config"
 import compression from 'compression'
+import { Sanitizer } from "./middlewares/sanitizer"
+import helmet from "helmet"
+import rateLimit from "express-rate-limit"
+import { RouterManager } from "./routes/routerManager"
+
 
 export class ServerHTTP {
 
@@ -46,6 +50,9 @@ export class ServerHTTP {
     public middlewares() : void {
         this.app.use(compression())
         this.app.use(express.json())
+        this.app.use(Sanitizer.xss)
+        this.app.use(rateLimit(config.RateLimit))
+        this.app.use(helmet(config.Helmet))
     }
 
     public routes() : void {
@@ -53,6 +60,7 @@ export class ServerHTTP {
 
         const manager = new RouterManager(this.app)
         manager.loadRoutes()
+
     }
 
     public stop() : void {

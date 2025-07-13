@@ -3,7 +3,8 @@
 import { ServerHTTP } from "../../src" 
 import request from 'supertest'
 import { dateObjectTransformer, dateObjectArrayTransformer } from "./dateTransformer"
-
+import { IdEncrypter } from "../../src/utils/idEncryption"
+import type { ServiceData } from "../../src/types"
 
 export abstract class BaseControllerTest <TMock, TService> {
 
@@ -21,7 +22,7 @@ export abstract class BaseControllerTest <TMock, TService> {
 
     // GET (all)
 
-    public async get(mockData : object[]) : Promise<void> {
+    public async get(mockData : ServiceData[]) : Promise<void> {
 
         (this.mock as any).get.mockResolvedValue(mockData)
 
@@ -29,7 +30,9 @@ export abstract class BaseControllerTest <TMock, TService> {
 
         expect(response.statusCode).toBe(200)
 
-        expect(response.body).toEqual(dateObjectArrayTransformer(mockData))
+        const newMockdata = mockData.map(record => IdEncrypter.encodeData(record))
+
+        expect(response.body).toEqual(dateObjectArrayTransformer(newMockdata))
         expect((this.service as any).get).toHaveBeenCalled()
 
     }
@@ -49,7 +52,7 @@ export abstract class BaseControllerTest <TMock, TService> {
 
     // GET (unique)
 
-    public async getById(mockData : object) : Promise<void> {
+    public async getById(mockData : ServiceData) : Promise<void> {
 
         (this.mock as any).getById.mockResolvedValue(mockData)
         
@@ -57,19 +60,11 @@ export abstract class BaseControllerTest <TMock, TService> {
 
         expect(response.statusCode).toBe(200)
 
-        expect(response.body).toEqual(dateObjectTransformer(mockData))
+        expect(response.body).toEqual(dateObjectTransformer(IdEncrypter.encodeData(mockData)))
         expect((this.service as any).getById).toHaveBeenCalled()
 
     }
 
-    public async getByIdBadRequest() : Promise<void> {
-
-        const response = await request(this.app.getApp()).get(`${this.route}/hola`).send()
-
-        expect(response.statusCode).toBe(400)
-        expect(response.body.error).toBe('El ID debe ser un número')
-
-    }
 
     public async getByIdNotFound() : Promise<void> {
 
@@ -100,7 +95,7 @@ export abstract class BaseControllerTest <TMock, TService> {
 
     // CREATE
 
-    public async create(mockData : object, input : object) : Promise<void> {
+    public async create(mockData : ServiceData, input : object) : Promise<void> {
 
         (this.mock as any).create.mockResolvedValue(mockData)
 
@@ -108,7 +103,7 @@ export abstract class BaseControllerTest <TMock, TService> {
 
         expect(response.statusCode).toBe(200)
 
-        expect(response.body).toEqual(dateObjectTransformer(mockData))
+        expect(response.body).toEqual(dateObjectTransformer(IdEncrypter.encodeData(mockData)))
         expect((this.service as any).create).toHaveBeenCalled()
 
     }
@@ -138,7 +133,7 @@ export abstract class BaseControllerTest <TMock, TService> {
 
     // PATCH
 
-    public async patch(mockData : object, input : object) : Promise<void> {
+    public async patch(mockData : ServiceData, input : object) : Promise<void> {
         
         (this.mock as any).update.mockResolvedValue(mockData)
 
@@ -146,7 +141,7 @@ export abstract class BaseControllerTest <TMock, TService> {
 
         expect(response.statusCode).toBe(200)
 
-        expect(response.body).toEqual(dateObjectTransformer(mockData))
+        expect(response.body).toEqual(dateObjectTransformer(IdEncrypter.encodeData(mockData)))
         expect((this.service as any).update).toHaveBeenCalled()
 
     }
@@ -160,14 +155,6 @@ export abstract class BaseControllerTest <TMock, TService> {
 
     }
 
-    public async patchBadRequestId(input : object) : Promise<void> {
-        
-        const response = await request(this.app.getApp()).patch(`${this.route}/hola`).send(input)
-
-        expect(response.statusCode).toBe(400)
-        expect(response.body.error).toBe('El ID debe ser un número')
-
-    }
 
     public async patchNotFound(input : object) : Promise<void> {
         
@@ -198,7 +185,7 @@ export abstract class BaseControllerTest <TMock, TService> {
 
     // DELETE
 
-    public async delete(mockData : object) : Promise<void> {
+    public async delete(mockData : ServiceData) : Promise<void> {
 
         (this.mock as any).delete.mockResolvedValue(mockData)
 
@@ -206,19 +193,11 @@ export abstract class BaseControllerTest <TMock, TService> {
 
         expect(response.statusCode).toBe(200)
 
-        expect(response.body).toEqual(dateObjectTransformer(mockData))
+        expect(response.body).toEqual(dateObjectTransformer(IdEncrypter.encodeData(mockData)))
         expect((this.service as any).delete).toHaveBeenCalled()
 
     }
 
-    public async deleteBadRequest() : Promise<void> {
-
-        const response = await request(this.app.getApp()).delete(`${this.route}/hola`).send()
-
-        expect(response.statusCode).toBe(400)
-        expect(response.body.error).toBe("El ID debe ser un número")
-
-    }
 
     public async deleteNotFound() : Promise<void> {
 

@@ -5,6 +5,13 @@ import { Prisma } from "@prisma/client";
 // tipos correspondientes a datos que recibe el controlador para resolver una petición post
 
 
+// Otras interfaces útiles para el desarollo
+
+export interface ServiceData {
+    id : number,
+    [key : string] : unknown
+}
+
 
 // tipos correspondientes a objetos del ORM con sus respectivas relaciones
 

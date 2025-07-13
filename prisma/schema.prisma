@@ -14,6 +14,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Gender {
+  M
+  F
+}
+
+
 model User {
   id Int @id @default(autoincrement())
   name String
@@ -35,10 +41,6 @@ model User {
   @@map("users")
 }
 
-enum Gender {
-  M
-  F
-}
 
 model Student {
   id Int @id @default(autoincrement())
@@ -177,6 +179,16 @@ model EducationalOffer {
   @@map("educational_offers")
 }
 
+
+enum Level {
+  Course
+  Engineering
+  Postgraduate
+  Technicality
+  Degree
+  Doctorate
+}
+
 model Career {
   id Int @id @default(autoincrement())
   name String
@@ -193,14 +205,6 @@ model Career {
   @@map("careers")
 }
 
-enum Level {
-  Course
-  Engineering
-  Postgraduate
-  Technicality
-  Degree
-  Doctorate
-}
 
 model StudyPlan {
   id Int @id @default(autoincrement())
@@ -220,9 +224,17 @@ model StudyPlan {
   @@map("study_plans")
 }
 
+enum CourseState {
+  Irregular
+  Regular
+  Aprroved
+  Attending
+}
+
+
 model CourseRegistration {
   id Int @id @default(autoincrement())
-  state CourseState @default(Attending)
+  state CourseState 
   student_id Int
   dicatation_id Int
   createdAt DateTime @default(now())
@@ -234,17 +246,17 @@ model CourseRegistration {
   @@map("course_registrations")
 }
 
-enum CourseState {
-  Irregular
-  Regular
+
+enum ExamState {
+  Disapproved
   Aprroved
-  Attending
+  NotTaken
 }
 
 model FinalExamRegistration {
   id Int @id @default(autoincrement())
   qualification Int?
-  state ExamState @default(NotTaken)
+  state ExamState
   student_id Int
   final_exam_id Int
   createdAt DateTime @default(now())
@@ -256,11 +268,7 @@ model FinalExamRegistration {
   @@map("final_exam_registrations")
 }
 
-enum ExamState {
-  Disapproved
-  Aprroved
-  NotTaken
-}
+
 
 model Subject {
   id Int @id @default(autoincrement())
@@ -276,6 +284,12 @@ model Subject {
   quealifications Qualification[]
 
   @@map("subjects")
+}
+
+
+enum SubjectType {
+  HalfYearly
+  Yearly
 }
 
 model SubjectInfo {
@@ -296,9 +310,9 @@ model SubjectInfo {
   @@map("subjects_info")
 }
 
-enum SubjectType {
-  HalfYearly
-  Yearly
+enum TypeCorrelativie {
+  Attend
+  TakeExam
 }
 
 model Correlativity {
@@ -319,10 +333,6 @@ model Correlativity {
   @@map("correlativities")
 }
 
-enum TypeCorrelativie {
-  Attend
-  TakeExam
-}
 
 model Qualification {
   id Int @id @default(autoincrement())

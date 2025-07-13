@@ -11,7 +11,17 @@ export const isEmpty = (obj : object) : boolean => {
     return result
 
 }
-    
+
+
+export const merge = (objOne : object, objTwo : object) :  object => {
+
+    const result = {...objOne, ...objTwo}
+
+    return result
+
+}
+
+
 
 
 

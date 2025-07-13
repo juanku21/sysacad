@@ -84,11 +84,6 @@ describe("University controller", () => {
 
         })
 
-        test("Should response with a 400 status code and message", async () => {
-
-            await universityTest.getByIdBadRequest()
-
-        })
 
         test("Should response with a 404 status code and error", async () => {
 
@@ -136,11 +131,6 @@ describe("University controller", () => {
 
         })
 
-        test("Should response with a 400 status code and message", async () => {
-
-            await universityTest.patchBadRequestId(university.inputUpdate)
-
-        })
 
         test("Should response with a 400 status code and message", async () => {
 
@@ -171,11 +161,6 @@ describe("University controller", () => {
 
         })
 
-        test("Should response with a 400 status code and message", async () => {
-
-            await universityTest.deleteBadRequest()
-
-        })
 
         test("Should response with a 404 status code and error", async () => {
 
