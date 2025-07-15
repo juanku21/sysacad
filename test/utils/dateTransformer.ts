@@ -38,33 +38,3 @@ export const dateObjectTransformer = (elementWithDate : object | Array<object>) 
     }
 
 }
-
-export const dateObjectArrayTransformer = (objectArrayWithDate : object[]) => {
-
-    let newObjectArray : Array<object> = []
-    let newObjectWithDate : object
-
-    objectArrayWithDate.forEach(record => {
-
-        newObjectWithDate = {}
-
-        Object.keys(record).forEach(key => {
-
-            const atribut = record[key]
-
-            if (atribut instanceof Date) {
-                newObjectWithDate[key] = atribut.toISOString()
-            }
-            else{
-                newObjectWithDate[key] = atribut
-            }
-
-        })
-
-        newObjectArray.push(newObjectWithDate)
-    })
-
-    return newObjectArray
-
-}
-

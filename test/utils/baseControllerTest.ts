@@ -2,7 +2,7 @@
 
 import { ServerHTTP } from "../../src" 
 import request from 'supertest'
-import { dateObjectTransformer, dateObjectArrayTransformer } from "./dateTransformer"
+import { dateObjectTransformer } from "./dateTransformer"
 import { IdEncrypter } from "../../src/utils/idEncryption"
 import type { ServiceData } from "../../src/types"
 
