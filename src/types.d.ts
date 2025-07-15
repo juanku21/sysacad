@@ -8,8 +8,22 @@ import { Prisma } from "@prisma/client";
 // Otras interfaces útiles para el desarollo
 
 export interface ServiceData {
-    id : number,
+    id : number
     [key : string] : unknown
+}
+
+// Interfaz para crear un alumno regular
+
+export interface RegularCertificateInput {
+    name: string
+    last_name: string
+    cuil: number
+    file: number
+    faculty: string
+    university: string
+    career: string
+    city: string
+    date: string
 }
 
 
@@ -158,7 +172,17 @@ export type PositionCategoryWithRelations = Prisma.PositionCategoryGetPayload<{
 
 export type StudentWithRelations = Prisma.StudentGetPayload<{
     include: {
-        user: true,
+        user: {
+            include: {
+                faculty: {
+                    include: {
+                        university: true,
+                        city: true
+                    }
+                }
+            }
+        },
+        career: true,
         quealifications: true,
         courseRegistrations: true,
         examRegistrations: true

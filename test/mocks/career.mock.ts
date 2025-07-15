@@ -10,8 +10,8 @@ export const mockCareerArray : Career[] = [
         code: 300,
         level: "Engineering",
         description: "An excelent career for the futuro",
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date)
+        createdAt: new Date(),
+        updatedAt: new Date()
     }
 ]
 
@@ -21,8 +21,8 @@ export const mockCareer : Career = {
     code: 300,
     level: "Engineering",
     description: "An excelent career for the futuro",
-    createdAt: expect.any(Date),
-    updatedAt: expect.any(Date)
+    createdAt: new Date(),
+    updatedAt: new Date()
 }
 
 export const inputCreate : Prisma.CareerCreateInput = {
@@ -43,8 +43,8 @@ export const mockCareerWithRelations : CareerWithRelations = {
     code: 300,
     level: "Engineering",
     description: "An excelent career for the futuro",
-    createdAt: expect.any(Date),
-    updatedAt: expect.any(Date),
+    createdAt: new Date(),
+    updatedAt: new Date(),
 
     educationalOffers: [
         {
@@ -53,8 +53,8 @@ export const mockCareerWithRelations : CareerWithRelations = {
             career_id: 1,
             faculty_id: 3,
             price: 0,
-            createdAt: expect.any(Date),
-            updatedAt: expect.any(Date)
+            createdAt: new Date(),
+            updatedAt: new Date()
         }
     ],
 
@@ -66,8 +66,8 @@ export const mockCareerWithRelations : CareerWithRelations = {
             effective_from: 2023,
             duration: 5,
             description: "El mejor plan de estudios",
-            createdAt: expect.any(Date),
-            updatedAt: expect.any(Date)
+            createdAt: new Date(),
+            updatedAt: new Date()
         }
     ],
 
@@ -75,7 +75,7 @@ export const mockCareerWithRelations : CareerWithRelations = {
         {
             id: 1,
             user_id: 1,
-            legajo: 10000,
+            file: 10000,
             career_id: 1
         }
     ]

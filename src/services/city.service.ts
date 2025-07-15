@@ -37,12 +37,12 @@ export class CityService {
         }
     }
 
-    public static async update(id : number, city : Prisma.CityCreateInput) : Promise<City> {
+    public static async update(id : number, city : Prisma.CityUpdateInput) : Promise<City | null> {
         try {
             const cityExists = await repository.getById(id)
 
             if (cityExists === null) {
-                throw new Error("La ciudad que desea actualizar no existe")    
+                return null    
             }
 
             const result = await repository.update(id, city)
@@ -54,12 +54,12 @@ export class CityService {
         }
     }
 
-    public static async delete(id : number) : Promise<City>{
+    public static async delete(id : number) : Promise<City | null>{
         try {
             const cityExists = await repository.getById(id)
 
             if (cityExists === null) {
-                throw new Error("La ciudad que desea eliminar no existe")    
+                return null   
             }
 
             const result = await repository.delete(id)

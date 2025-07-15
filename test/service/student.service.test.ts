@@ -5,13 +5,7 @@ import { Prisma } from "@prisma/client"
 import { Student } from "@prisma/client"
 import { StudentService } from "../../src/services/student.service"
 import { StudentWithRelations } from "../../src/types"
-import { 
-    mockStudent, 
-    mockStudentWithRelations, 
-    mockStudentArray,
-    inputCreate,
-    inputUpdate
- } from "../mocks/student.mock" 
+import * as mock from "../mocks/student.mock" 
 
 
 class StudentServiceTest extends BaseServiceTest 
@@ -45,32 +39,32 @@ describe("Student service test", () => {
 
     test("should return a list with all students", async () => {
 
-        await studentTest.get(mockStudentArray)
+        await studentTest.get(mock.mockStudentArray)
 
     })
 
     test("should return one student with all relations", async () => {
 
-        await studentTest.findById(mockStudentWithRelations)
+        await studentTest.findById(mock.mockStudentWithRelations)
 
     })
 
     test("should create a new student", async () => {
 
-        await studentTest.create(mockStudent, inputCreate)
+        await studentTest.create(mock.mockStudent, mock.inputCreate)
 
     })
 
     test("should update student data", async () => {
 
-        await studentTest.update(mockStudent, inputUpdate)
+        await studentTest.update(mock.mockStudent, mock.inputUpdate)
 
     })
 
 
     test("should delete a student", async () => {
 
-        await studentTest.delete(mockStudent)
+        await studentTest.delete(mock.mockStudent)
 
     })
 

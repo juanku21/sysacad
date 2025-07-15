@@ -18,7 +18,17 @@ export class StudentRepository extends BaseRepository
                     id: id
                 },
                 include: {
-                    user: true,
+                    user: {
+                        include: {
+                            faculty: {
+                                include: {
+                                    university: true,
+                                    city: true
+                                }
+                            }
+                        }
+                    },
+                    career: true,
                     quealifications: true,
                     courseRegistrations: true,
                     examRegistrations: true

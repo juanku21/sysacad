@@ -27,6 +27,7 @@
   "devDependencies": {
     "@types/compression": "^1.8.1",
     "@types/express": "^5.0.3",
+    "@types/handlebars": "^4.0.40",
     "@types/jest": "^29.5.14",
     "@types/node": "^22.15.17",
     "@types/supertest": "^6.0.3",
@@ -46,8 +47,9 @@
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "express-rate-limit": "^7.5.1",
-    "express-validator": "^7.2.1",
+    "handlebars": "^4.7.8",
     "helmet": "^8.1.0",
+    "puppeteer": "^24.12.1",
     "sqids": "^0.3.0",
     "xss": "^1.0.15",
     "zod": "^4.0.5"

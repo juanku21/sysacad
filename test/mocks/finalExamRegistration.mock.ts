@@ -10,8 +10,8 @@ export const mockFinalExamRegistrationArray : FinalExamRegistration[] = [
         qualification: 10,
         student_id: 3,
         final_exam_id: 2,
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date)
+        createdAt: new Date(),
+        updatedAt: new Date()
     }
 ]
 
@@ -21,8 +21,8 @@ export const mockFinalExamRegistration : FinalExamRegistration = {
     qualification: 10,
     student_id: 3,
     final_exam_id: 2,
-    createdAt: expect.any(Date),
-    updatedAt: expect.any(Date)
+    createdAt: new Date(),
+    updatedAt: new Date()
 }
 
 export const inputCreate : Prisma.FinalExamRegistrationCreateInput = {
@@ -52,14 +52,14 @@ export const mockFinalExamRegistrationWithRelations : FinalExamRegistrationWithR
     qualification: 10,
     student_id: 3,
     final_exam_id: 2,
-    createdAt: expect.any(Date),
-    updatedAt: expect.any(Date),
+    createdAt: new Date(),
+    updatedAt: new Date(),
 
     student: {
         id: 1,
         user_id: 1,
         career_id: 1,
-        legajo: 10000,
+        file: 10000,
         user: {
             id: 1,
             name: "Tomás",
@@ -70,17 +70,17 @@ export const mockFinalExamRegistrationWithRelations : FinalExamRegistrationWithR
             cuil: 20727828372,
             phone: 2618009675,
             facultyId: 3,
-            createdAt: expect.any(Date),
-            updatedAt: expect.any(Date)
+            createdAt: new Date(),
+            updatedAt: new Date()
         }
     },
 
     exam: {
         id: 2,
-        date: expect.any(Date),
+        date: new Date(),
         classroom_id: null,
         subject_info_id: 4,
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date)
+        createdAt: new Date(),
+        updatedAt: new Date()
     }
 }

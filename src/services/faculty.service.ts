@@ -38,12 +38,12 @@ export class FacultyService {
         }
     }
 
-    public static async update(id : number, faculty : Prisma.FacultyCreateInput) : Promise<Faculty>  {
+    public static async update(id : number, faculty : Prisma.FacultyUpdateInput) : Promise<Faculty | null>  {
         try {
             const facultyExists = await repository.getById(id)
 
             if (facultyExists === null) {
-                throw new Error("La facultad que desea actualizar no existe")    
+                return null   
             }
 
             const result = await repository.update(id, faculty)
@@ -55,12 +55,12 @@ export class FacultyService {
         }
     }
 
-    public static async delete(id : number) : Promise<Faculty> {
+    public static async delete(id : number) : Promise<Faculty | null> {
         try {
             const facultyExists = await repository.getById(id)
 
             if (facultyExists === null) {
-                throw new Error("La facultad que desea eliminar no existe")    
+                return null   
             }
 
             const result = await repository.delete(id)

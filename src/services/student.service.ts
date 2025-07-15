@@ -2,7 +2,8 @@
 import { Prisma, Student } from "@prisma/client"
 import { StudentWithRelations } from "../types"
 import { StudentRepository } from "../repositories/student.repository"
-
+import { PDFGenerator } from "../utils/pdfGenerator"
+import { StudentMapper } from "../mapping/student.mapper"
 
 const repository = new StudentRepository()
 
@@ -38,12 +39,12 @@ export class StudentService {
         }
     }
 
-    public static async update(id : number, student : Prisma.StudentCreateInput) : Promise<Student>  {
+    public static async update(id : number, student : Prisma.StudentUpdateInput) : Promise<Student | null>  {
         try {
             const studentExists = await repository.getById(id)
 
             if (studentExists === null) {
-                throw new Error("El estudiante que desea actualizar no existe")    
+                return null    
             }
 
             const result = await repository.update(id, student)
@@ -55,16 +56,38 @@ export class StudentService {
         }
     }
 
-    public static async delete(id : number) : Promise<Student> {
+    public static async delete(id : number) : Promise<Student | null> {
         try {
             const studentExists = await repository.getById(id)
 
             if (studentExists === null) {
-                throw new Error("El estudiante que desea eliminar no existe")    
+                return null    
             }
 
             const result = await repository.delete(id)
             return result
+        } 
+        catch (error : any) {
+            throw new Error(`No fue posible eliminar el estudiante solicitado: ${error}`)
+        }
+
+    }
+
+    public static async generateRegularCertificatePDF(id : number) : Promise<Uint8Array | null> {
+
+        try {
+            const student = await repository.getById(id)
+
+            if (student === null) {
+                return null    
+            }
+
+            const studentInput = StudentMapper.fromEntityToCertificateObject(student)
+
+            const certificate = await PDFGenerator.regularCertificate(studentInput)
+
+            return certificate
+
         } 
         catch (error : any) {
             throw new Error(`No fue posible eliminar el estudiante solicitado: ${error}`)

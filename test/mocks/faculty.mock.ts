@@ -15,8 +15,8 @@ export const mockFacultyArray : Faculty[] = [
         cityId: 5,
         university_id: 1,
         web: null,
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date)
+        createdAt: new Date(),
+        updatedAt: new Date()
     }
 ]
 
@@ -32,8 +32,8 @@ export const mockFaculty : Faculty = {
     cityId: 5,
     university_id: 1,
     web: null,
-    createdAt: expect.any(Date),
-    updatedAt: expect.any(Date)
+    createdAt: new Date(),
+    updatedAt: new Date()
 }
 
 export const inputCreate : Prisma.FacultyCreateInput = {
@@ -85,23 +85,23 @@ export const mockFacultyWithRelations : FacultyWithRelations = {
     cityId: 5,
     university_id: 1,
     web: null,
-    createdAt: expect.any(Date),
-    updatedAt: expect.any(Date),
+    createdAt: new Date(),
+    updatedAt: new Date(),
 
     university: {
         id: 1,
         name: 'Universidad Tecnológica Nacional',
         acronym: "UTN",
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date)
+        createdAt: new Date(),
+        updatedAt: new Date()
     },
 
     city: {
         id: 5,
         name: "San Rafael",
         zip_code: "5600",
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date)
+        createdAt: new Date(),
+        updatedAt: new Date()
     },
 
     educationalOffers: [
@@ -111,8 +111,8 @@ export const mockFacultyWithRelations : FacultyWithRelations = {
             career_id: 5,
             price: 0,
             faculty_id: 1,
-            createdAt: expect.any(Date),
-            updatedAt: expect.any(Date)
+            createdAt: new Date(),
+            updatedAt: new Date()
         }
     ]
 }

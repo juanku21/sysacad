@@ -7,7 +7,7 @@ export const mockStudentArray : Student[] = [
         id: 1,
         user_id: 1,
         career_id: 1,
-        legajo: 10000,
+        file: 10000,
     }
 ]
 
@@ -15,12 +15,12 @@ export const mockStudent : Student = {
     id: 1,
     user_id: 1,
     career_id: 1,
-    legajo: 10000,
+    file: 10000,
 }
 
 export const inputCreate : Prisma.StudentCreateInput = {
 
-    legajo: 10000,
+    file: 10000,
 
     user: {
         create: {
@@ -43,7 +43,7 @@ export const inputCreate : Prisma.StudentCreateInput = {
 }
 
 export const inputUpdate : Prisma.StudentUpdateInput = {
-    legajo: 8400,
+    file: 8400,
 
     user: {
         update: {
@@ -57,7 +57,7 @@ export const mockStudentWithRelations : StudentWithRelations = {
     id: 1,
     user_id: 1,
     career_id: 1,
-    legajo: 10000,
+    file: 10000,
 
     courseRegistrations: [
         {
@@ -65,8 +65,8 @@ export const mockStudentWithRelations : StudentWithRelations = {
             state: "Irregular",
             student_id: 1,
             dicatation_id: 1,
-            createdAt: expect.any(Date),
-            updatedAt: expect.any(Date)
+            createdAt: new Date(),
+            updatedAt: new Date()
         }
     ],
 
@@ -77,8 +77,8 @@ export const mockStudentWithRelations : StudentWithRelations = {
             state: "Aprroved",
             student_id: 1,
             final_exam_id: 4,
-            createdAt: expect.any(Date),
-            updatedAt: expect.any(Date)
+            createdAt: new Date(),
+            updatedAt: new Date()
         }
     ],
 
@@ -88,10 +88,20 @@ export const mockStudentWithRelations : StudentWithRelations = {
             value: 10,
             student_id: 1,
             subject_id: 1,
-            createdAt: expect.any(Date),
-            updatedAt: expect.any(Date)
+            createdAt: new Date(),
+            updatedAt: new Date()
         }
     ],
+
+    career: {
+        id: 1,
+        name: "Ingeniería en Sistemas",
+        code: 300,
+        level: "Engineering",
+        description: "An excelent career for the futuro",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+    },
 
     user: {
         id: 1,
@@ -103,8 +113,40 @@ export const mockStudentWithRelations : StudentWithRelations = {
         cuil: 20727828372,
         phone: 2618009675,
         facultyId: 3,
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date)
+        createdAt: new Date(),
+        updatedAt: new Date(),
+
+        faculty: {
+            id: 1,
+            name: "FRSR",
+            code: 500,
+            description: null,
+            email: "utnfrsr@gmail.com",
+            phone: 2609876543,
+            street: "Urquiza",
+            number: 100,
+            cityId: 5,
+            university_id: 1,
+            web: null,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+
+            university: {
+                id: 1,
+                name: "Universidad Tecnológica Nacional",
+                acronym: "UTN",
+                createdAt: new Date(),
+                updatedAt: new Date()
+            },
+
+            city: {
+                id: 5,
+                name: 'San Rafael',
+                zip_code: "5600",
+                createdAt: new Date(),
+                updatedAt: new Date()
+            }
+        }
     }
 
 }

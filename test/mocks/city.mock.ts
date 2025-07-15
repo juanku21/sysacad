@@ -7,8 +7,8 @@ export const mockCityArray : City[] = [
         id: 1,
         name: 'Mendoza',
         zip_code: "5500",
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date)
+        createdAt: new Date(),
+        updatedAt: new Date()
     }
 ]
 
@@ -16,8 +16,8 @@ export const mockCity : City = {
     id: 1,
     name: 'Mendoza',
     zip_code: "5500",
-    createdAt: expect.any(Date),
-    updatedAt: expect.any(Date)
+    createdAt: new Date(),
+    updatedAt: new Date()
 }
 
 export const inputCreate : Prisma.CityCreateInput = {
@@ -33,8 +33,8 @@ export const mockCityWithRelations : CityWithRelations = {
     id: 1,
     name: 'Mendoza',
     zip_code: "5500",
-    createdAt: expect.any(Date),
-    updatedAt: expect.any(Date),
+    createdAt: new Date(),
+    updatedAt: new Date(),
 
     faculty: [
         {
@@ -45,12 +45,12 @@ export const mockCityWithRelations : CityWithRelations = {
             street: "Urquiza",
             number: 876,
             email: "utnfrsr@mail.com",
-            phone: expect.any(BigInt),
+            phone: 8327323,
             web: null,
             university_id: 1,
             cityId: 50,
-            createdAt: expect.any(Date),
-            updatedAt: expect.any(Date)
+            createdAt: new Date(),
+            updatedAt: new Date()
         }
     ]
 }

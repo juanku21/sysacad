@@ -47,7 +47,7 @@ export class ServerHTTP {
         }
     }
 
-    public middlewares() : void {
+    private middlewares() : void {
         this.app.use(compression())
         this.app.use(express.json())
         this.app.use(Sanitizer.xss)
@@ -55,7 +55,7 @@ export class ServerHTTP {
         this.app.use(helmet(config.Helmet))
     }
 
-    public routes() : void {
+    private routes() : void {
         // this.app.use(handleErrorMiddlewere)
 
         const manager = new RouterManager(this.app)

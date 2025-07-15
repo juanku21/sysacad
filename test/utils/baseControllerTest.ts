@@ -32,7 +32,7 @@ export abstract class BaseControllerTest <TMock, TService> {
 
         const newMockdata = mockData.map(record => IdEncrypter.encodeData(record))
 
-        expect(response.body).toEqual(dateObjectArrayTransformer(newMockdata))
+        expect(response.body).toEqual(dateObjectTransformer(newMockdata))
         expect((this.service as any).get).toHaveBeenCalled()
 
     }

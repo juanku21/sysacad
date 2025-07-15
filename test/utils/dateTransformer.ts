@@ -1,26 +1,41 @@
 
 
-export const dateObjectTransformer = (objectWithDate : object) => {
+export const dateObjectTransformer = (elementWithDate : object | Array<object>) => {
 
-    const newObjectWithDate : object = {}
+    if (elementWithDate instanceof Array) {
 
-    Object.keys(objectWithDate).forEach(key => {
+        let newObjectArray : Array<object | undefined> = []
+        newObjectArray = elementWithDate.map(element => dateObjectTransformer(element))
 
-        const atribut = objectWithDate[key]
+        return newObjectArray
+    
+    }
+    else{
+        
+        const newObjectWithDate : object = {}
 
-        if (atribut instanceof Date) {
-            newObjectWithDate[key] = atribut.toISOString()
-        }
-        else if (atribut instanceof Array) {
-            newObjectWithDate[key] = dateObjectArrayTransformer(atribut)
-        }
-        else{
-            newObjectWithDate[key] = atribut
-        }
+        Object.keys(elementWithDate).forEach(key => {
 
-    })
+            const atribut = elementWithDate[key]
 
-    return newObjectWithDate
+            if (atribut instanceof Date) {
+                newObjectWithDate[key] = atribut.toISOString()
+            }
+            else if (atribut instanceof Array) {
+                newObjectWithDate[key] = atribut.map(element => dateObjectTransformer(element))
+            }
+            else if(atribut instanceof Object) {
+                newObjectWithDate[key] = dateObjectTransformer(atribut)
+            }
+            else{
+                newObjectWithDate[key] = atribut
+            }
+
+        })
+
+        return newObjectWithDate
+
+    }
 
 }
 
