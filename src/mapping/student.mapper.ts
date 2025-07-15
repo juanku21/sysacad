@@ -34,6 +34,7 @@ export class StudentMapper {
                     last_name: data.last_name,
                     email: data.email,
                     password: data.password,
+                    gender: data.gender,
                     cuil: data.cuil,
                     phone: data.phone,
                     facultyId: IdEncrypter.decodeUUID(data.facultyId)

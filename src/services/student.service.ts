@@ -90,7 +90,7 @@ export class StudentService {
 
         } 
         catch (error : any) {
-            throw new Error(`No fue posible eliminar el estudiante solicitado: ${error}`)
+            throw new Error(`No fue posible obtener el certificado solicitado: ${error}`)
         }
 
     }

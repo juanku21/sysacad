@@ -2,6 +2,7 @@
 import fs from 'fs/promises'
 import Handlebars from 'handlebars'
 import puppeteer, { Browser } from 'puppeteer'
+import path from 'path'
 import { RegularCertificateInput } from '../types'
 
 class TempleteHTML {
@@ -10,8 +11,11 @@ class TempleteHTML {
 
         try {
 
-            const path = `../views/${title}`
-            const templateSource = await fs.readFile(path, 'utf8')
+            const basePath = path.join(__dirname).split(path.sep).slice(0, -1)
+            basePath.push('views')
+
+            const pathFile = path.join(...basePath, title)
+            const templateSource = await fs.readFile(pathFile, 'utf8')
             const template = Handlebars.compile(templateSource)
             const htmlContent = template(data)
 
@@ -59,3 +63,4 @@ export class PDFGenerator {
     }
 
 }
+
