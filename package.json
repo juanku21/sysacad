@@ -25,6 +25,7 @@
   "homepage": "https://github.com/juanku21/sysacad#readme",
   "description": "",
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/compression": "^1.8.1",
     "@types/express": "^5.0.3",
     "@types/handlebars": "^4.0.40",
@@ -42,6 +43,7 @@
   "dependencies": {
     "@prisma/adapter-pg": "^6.7.0",
     "@prisma/client": "^6.7.0",
+    "bcrypt": "^6.0.0",
     "compression": "^1.8.0",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
@@ -49,6 +51,7 @@
     "express-rate-limit": "^7.5.1",
     "handlebars": "^4.7.8",
     "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
     "puppeteer": "^24.12.1",
     "sqids": "^0.3.0",
     "xss": "^1.0.15",

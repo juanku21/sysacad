@@ -3,8 +3,7 @@
 import { ServerHTTP } from "../../src" 
 import request from 'supertest'
 import { dateObjectTransformer } from "./dateTransformer"
-import { IdEncrypter } from "../../src/utils/idEncryption"
-import type { ServiceData } from "../../src/types"
+import { IdEncrypter } from "../../src/utils/encryption"
 
 export abstract class BaseControllerTest <TMock, TService> {
 
@@ -22,7 +21,7 @@ export abstract class BaseControllerTest <TMock, TService> {
 
     // GET (all)
 
-    public async get(mockData : ServiceData[]) : Promise<void> {
+    public async get(mockData : object[]) : Promise<void> {
 
         (this.mock as any).get.mockResolvedValue(mockData)
 
@@ -52,7 +51,7 @@ export abstract class BaseControllerTest <TMock, TService> {
 
     // GET (unique)
 
-    public async getById(mockData : ServiceData) : Promise<void> {
+    public async getById(mockData : object) : Promise<void> {
 
         (this.mock as any).getById.mockResolvedValue(mockData)
         
@@ -95,7 +94,7 @@ export abstract class BaseControllerTest <TMock, TService> {
 
     // CREATE
 
-    public async create(mockData : ServiceData, input : object) : Promise<void> {
+    public async create(mockData : object, input : object) : Promise<void> {
 
         (this.mock as any).create.mockResolvedValue(mockData)
 
@@ -133,7 +132,7 @@ export abstract class BaseControllerTest <TMock, TService> {
 
     // PATCH
 
-    public async put(mockData : ServiceData, input : object) : Promise<void> {
+    public async put(mockData : object, input : object) : Promise<void> {
         
         (this.mock as any).update.mockResolvedValue(mockData)
 
@@ -185,7 +184,7 @@ export abstract class BaseControllerTest <TMock, TService> {
 
     // PATCH
 
-    public async patch(mockData : ServiceData, input : object) : Promise<void> {
+    public async patch(mockData : object, input : object) : Promise<void> {
         
         (this.mock as any).update.mockResolvedValue(mockData)
 
@@ -237,7 +236,7 @@ export abstract class BaseControllerTest <TMock, TService> {
 
     // DELETE
 
-    public async delete(mockData : ServiceData) : Promise<void> {
+    public async delete(mockData : object) : Promise<void> {
 
         (this.mock as any).delete.mockResolvedValue(mockData)
 

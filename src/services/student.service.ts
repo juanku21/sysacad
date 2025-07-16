@@ -4,6 +4,7 @@ import { StudentWithRelations } from "../types"
 import { StudentRepository } from "../repositories/student.repository"
 import { PDFGenerator } from "../utils/pdfGenerator"
 import { StudentMapper } from "../mapping/student.mapper"
+import { Encrypter } from "../utils/encryption"
 
 const repository = new StudentRepository()
 
@@ -31,6 +32,11 @@ export class StudentService {
 
     public static async create(student : Prisma.StudentCreateInput) : Promise<Student> {
         try {
+
+            if (student.user.create?.password) {
+                student.user.create.password = await Encrypter.encode(student.user.create.password)
+            }
+
             const result = await repository.create(student)
             return result
         } 

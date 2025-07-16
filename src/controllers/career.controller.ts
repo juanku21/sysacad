@@ -2,7 +2,7 @@
 import { Request, Response, RequestHandler } from "express"
 import { CareerService } from "../services/career.service"
 import { CareerValidator } from "../validators/career.validator"
-import { IdEncrypter } from "../utils/idEncryption"
+import { IdEncrypter } from "../utils/encryption"
 
 
 export class CareerController {

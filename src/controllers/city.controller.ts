@@ -3,7 +3,7 @@
 import { Request, Response, RequestHandler } from "express"
 import { CityService } from "../services/city.service"
 import { CityValidator } from "../validators/city.validator"
-import { IdEncrypter } from "../utils/idEncryption"
+import { IdEncrypter } from "../utils/encryption"
 
 
 export class CityController {

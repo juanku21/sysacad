@@ -2,7 +2,7 @@
 
 import { Request, Response, RequestHandler } from "express"
 import { StudentService } from "../services/student.service"
-import { IdEncrypter } from "../utils/idEncryption"
+import { IdEncrypter } from "../utils/encryption"
 
 
 export class CertificateController {

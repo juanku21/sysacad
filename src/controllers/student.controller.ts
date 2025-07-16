@@ -3,7 +3,7 @@
 import { Request, Response, RequestHandler } from "express"
 import { StudentService } from "../services/student.service"
 import { StudentValidator } from "../validators/student.validator"
-import { IdEncrypter } from "../utils/idEncryption"
+import { IdEncrypter } from "../utils/encryption"
 import { StudentMapper } from "../mapping/student.mapper"
 
 export class StudentController {
@@ -27,6 +27,8 @@ export class StudentController {
 
         try {
             const result = await StudentService.getById(id)
+
+            console.log(result)
 
             if (result === null) {
                 throw new Error('El recurso con el ID solicitado no existe')

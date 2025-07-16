@@ -2,7 +2,7 @@
 import { RegularCertificateInput, StudentWithRelations } from "../types"
 import { StudentCreateInput, StudentUpdateInput } from "../validators/student.validator"
 import { Prisma } from "@prisma/client"
-import { IdEncrypter } from "../utils/idEncryption"
+import { IdEncrypter } from "../utils/encryption"
 
 
 export class StudentMapper {

@@ -2,7 +2,7 @@
 import { Prisma, Authority } from "@prisma/client"
 import { AuthorityWithRelations } from "../types"
 import { AuthorityRepository } from "../repositories/authority.repository"
-
+import { Encrypter } from "../utils/encryption"
 
 const repository = new AuthorityRepository()
 
@@ -30,6 +30,11 @@ export class AuthorityService {
 
     public static async create(authority : Prisma.AuthorityCreateInput) : Promise<Authority> {
         try {
+
+            if (authority.user.create?.password) {
+                authority.user.create.password = await Encrypter.encode(authority.user.create.password)
+            } 
+
             const result = await repository.create(authority)
             return result
         } 

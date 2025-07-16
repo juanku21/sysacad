@@ -2,7 +2,7 @@
 import { Request, Response, RequestHandler } from "express"
 import { FacultyService } from "../services/faculty.service"
 import { FacultyValidator } from "../validators/faculty.validator"
-import { IdEncrypter } from "../utils/idEncryption"
+import { IdEncrypter } from "../utils/encryption"
 import { FacultyMapper } from "../mapping/faculty.mapper"
 
 

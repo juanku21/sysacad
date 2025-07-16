@@ -41,9 +41,14 @@ export class ServerHTTP {
 
     public start() : void {
         if (!this.server) {
-            this.server = this.app.listen(this.port, () => {
-                console.log("Servidor ejecuntandose correctamente")
-            })
+            try {
+                this.server = this.app.listen(this.port, () => {
+                    console.log("Servidor ejecuntandose correctamente")
+                })
+            } 
+            catch (error : any) {
+                console.log(`Error al levantar el servidor ${error}`)
+            }
         }
     }
 

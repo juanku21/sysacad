@@ -1,7 +1,7 @@
 
 import { FacultyCreateInput, FacultyUpdateInput } from "../validators/faculty.validator"
 import { Prisma } from "@prisma/client"
-import { IdEncrypter } from "../utils/idEncryption"
+import { IdEncrypter } from "../utils/encryption"
 
 
 export class FacultyMapper {

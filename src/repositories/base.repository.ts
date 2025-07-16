@@ -15,7 +15,7 @@ export abstract class BaseRepository <TModel, TEntity, TCreate, TUpdate> {
             return result
         } 
         catch (error : any) {
-            throw new Error(`Error al leer la base de datos: ${error}`)
+            throw new Error(`Error al leer la base de datos`)
         }
     }
 
@@ -28,7 +28,7 @@ export abstract class BaseRepository <TModel, TEntity, TCreate, TUpdate> {
             return result
         } 
         catch (error : any) {
-            throw new Error(`Error al escribir la base de datos: ${error}`)
+            throw new Error(`Error al escribir la base de datos`)
         }
     }
 
@@ -44,7 +44,7 @@ export abstract class BaseRepository <TModel, TEntity, TCreate, TUpdate> {
             return result
         } 
         catch (error : any) {
-            throw new Error(`Error al escribir la base de datos: ${error}`)
+            throw new Error(`Error al escribir la base de datos`)
         }
     }
 
@@ -59,7 +59,7 @@ export abstract class BaseRepository <TModel, TEntity, TCreate, TUpdate> {
             return result
         }
         catch (error : any) {
-            throw new Error(`Error al escribir la base de datos: ${error}`)
+            throw new Error(`Error al escribir la base de datos`)
         }
     }
 
