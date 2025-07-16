@@ -18,7 +18,7 @@ export class StudentMapper {
             faculty: data.user.faculty.name,
             university: data.user.faculty.university.name,
             city: data.user.faculty.city.name,
-            date: new Date().toISOString()
+            date: `${new Date().getDate()}-${new Date().getMonth() + 1}-${new Date().getFullYear()}`
         }
 
     }
