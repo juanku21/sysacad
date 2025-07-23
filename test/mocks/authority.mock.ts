@@ -7,7 +7,7 @@ export const mockAuthorityArray : Authority[] = [
         id: 1,
         user_id: 1,
         tuition: 32000,
-        recruitment: expect.any(Date)
+        recruitment: new Date()
     }
 ]
 
@@ -15,13 +15,13 @@ export const mockAuthority : Authority = {
     id: 1,
     user_id: 1,
     tuition: 32000,
-    recruitment: expect.any(Date)
+    recruitment: new Date()
 }
 
 export const inputCreate : Prisma.AuthorityCreateInput = {
 
     tuition: 32000,
-    recruitment: expect.any(Date),
+    recruitment: new Date(),
 
     user: {
         create: {
@@ -53,7 +53,7 @@ export const mockAuthorityWithRelations : AuthorityWithRelations = {
     id: 1,
     user_id: 1,
     tuition: 32000,
-    recruitment: expect.any(Date),
+    recruitment: new Date(),
 
     user: {
         id: 1,
@@ -65,8 +65,8 @@ export const mockAuthorityWithRelations : AuthorityWithRelations = {
         cuil: 20727828372,
         phone: 2618009675,
         facultyId: 3,
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date)
+        createdAt: new Date(),
+        updatedAt: new Date()
     },
 
     position: [
@@ -80,8 +80,8 @@ export const mockAuthorityWithRelations : AuthorityWithRelations = {
                 puntaje: 3000,
                 area: "Ciencias Básicas",
                 category_id: 2,
-                createdAt: expect.any(Date),
-                updatedAt: expect.any(Date)
+                createdAt: new Date(),
+                updatedAt: new Date()
             }
         }
     ],
@@ -93,10 +93,10 @@ export const mockAuthorityWithRelations : AuthorityWithRelations = {
             finalExam: {
                 id: 4,
                 classroom_id: null,
-                date: expect.any(Date),
+                date: new Date(),
                 subject_info_id: 5,
-                createdAt: expect.any(Date),
-                updatedAt: expect.any(Date)
+                createdAt: new Date(),
+                updatedAt: new Date()
             }
         }
     ],
@@ -110,8 +110,8 @@ export const mockAuthorityWithRelations : AuthorityWithRelations = {
                 year: 2018,
                 classroom_id: 9,
                 subject_info_id: 5,
-                createdAt: expect.any(Date),
-                updatedAt: expect.any(Date)
+                createdAt: new Date(),
+                updatedAt: new Date()
             }
         }
     ]

@@ -1,5 +1,6 @@
 
 import { Prisma, User } from "@prisma/client"
+import { UserWithRelations } from "../types"
 import { BaseRepository } from "./base.repository"
 import prisma from "../config/client"
 
@@ -10,11 +11,19 @@ export class UserRepository extends BaseRepository
         super(prisma.user)
     }
 
-    public async getByEmail(email : string) : Promise<User | null> {
+    public async getByEmail(email : string) : Promise<UserWithRelations | null> {
         try {
             const result = await prisma.user.findUnique({
                 where: {
                     email: email
+                },
+                include: {
+                    student: true,
+                    authority: {
+                        include: {
+                            position: true
+                        }
+                    }
                 }
             })
 

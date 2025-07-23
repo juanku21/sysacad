@@ -6,6 +6,7 @@ import studentRouter from "./student.route"
 import cityRouter from "./city.route"
 import facultyRouter from "./faculty.route"
 import careerRouter from "./career.route"
+import authRouter from "./auth.route"
 
 export class RouterManager {
 
@@ -22,6 +23,7 @@ export class RouterManager {
         this.app.use("/api/city", cityRouter)
         this.app.use("/api/faculty", facultyRouter)
         this.app.use("/api/career", careerRouter)
+        this.app.use("/api/auth", authRouter)
     }
 
 }

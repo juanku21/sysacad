@@ -10,7 +10,7 @@ export abstract class BaseControllerTest <TMock, TService> {
     protected readonly mock : TMock
     protected readonly service : TService
     protected readonly route : string
-    private readonly app : ServerHTTP
+    protected readonly app : ServerHTTP
 
     constructor(mock : TMock, route : string, service : TService, app : ServerHTTP){
         this.mock = mock

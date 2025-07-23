@@ -1,6 +1,24 @@
 
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/client"
+import { JwtPayload } from "jsonwebtoken"
+import { Request } from "express"
 
+// Interfaz del JWT Payload utilizada para usuarios de la API
+
+export interface UserJWTPayload extends JwtPayload {
+    id: string | number
+    email: string
+    roles: string[]
+}
+
+
+// Interdaz de Request con datos propiedades añadidas
+
+export interface AuthRequest extends Request {
+    userId: string | number
+    userEmail: string
+    userRoles: string[]
+}
 
 // Interfaz para crear un alumno regular
 
@@ -18,6 +36,21 @@ export interface RegularCertificateInput {
 
 
 // tipos correspondientes a objetos del ORM con sus respectivas relaciones
+
+export type UserWithRelations = Prisma.UserGetPayload<{
+    include: {
+        student: true,
+        authority: {
+            include: {
+                position: {
+                    include: {
+                        position: true
+                    }
+                }
+            }    
+        }
+    }
+}>
 
 export type CareerWithRelations = Prisma.CareerGetPayload<{
     include: {
@@ -149,7 +182,8 @@ export type PositionWithRelations = Prisma.PositionGetPayload<{
             include: {
                 authority: true
             }
-        }
+        },
+        category: true
     }
 }>
 

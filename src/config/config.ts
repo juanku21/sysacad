@@ -3,14 +3,22 @@ import dotenv from "dotenv"
 
 dotenv.config()
 
+if (!process.env.JWT_SECRET) {
+    console.error("Error crítico: La firma digital para autenticación no se encuentra definida")
+    process.exit(1)
+}
+
+
 interface ConfigI {
     PORT : string
+    JWT_SECRET : string
     Helmet : object
     RateLimit : object
 }
 
 const config : ConfigI = {
     PORT: process.env.PORT || "3000",
+    JWT_SECRET: process.env.JWT_SECRET,
     Helmet: {
         contentSecurityPolicy: { // Configura CSP
             directives: {

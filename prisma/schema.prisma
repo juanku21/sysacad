@@ -104,7 +104,7 @@ model Position {
 
 model PositionCategory {
   id Int @id @default(autoincrement())
-  name String
+  name PositionCategories
   description String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -112,6 +112,13 @@ model PositionCategory {
   positions Position[]
 
   @@map("categories-position")
+}
+
+enum PositionCategories {
+  Teacher
+  Employee
+  Administrator
+  Owner 
 }
 
 model University {

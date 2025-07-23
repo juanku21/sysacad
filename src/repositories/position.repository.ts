@@ -21,7 +21,8 @@ export class PositionRepository extends BaseRepository
                         include: {
                             authority: true
                         }
-                    }
+                    },
+                    category: true
                 }
             })
 

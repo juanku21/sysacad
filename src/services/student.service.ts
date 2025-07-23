@@ -34,7 +34,7 @@ export class StudentService {
         try {
 
             if (student.user.create?.password) {
-                student.user.create.password = await Encrypter.encode(student.user.create.password)
+                student.user.create.password = Encrypter.encode(student.user.create.password)
             }
 
             const result = await repository.create(student)
@@ -51,6 +51,10 @@ export class StudentService {
 
             if (studentExists === null) {
                 return null    
+            }
+
+            if (student.user?.update?.password) {
+                student.user.update.password = Encrypter.encode(student.user.update.password.toString())
             }
 
             const result = await repository.update(id, student)

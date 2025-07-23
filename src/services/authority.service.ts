@@ -32,7 +32,7 @@ export class AuthorityService {
         try {
 
             if (authority.user.create?.password) {
-                authority.user.create.password = await Encrypter.encode(authority.user.create.password)
+                authority.user.create.password = Encrypter.encode(authority.user.create.password)
             } 
 
             const result = await repository.create(authority)
@@ -43,12 +43,16 @@ export class AuthorityService {
         }
     }
 
-    public static async update(id : number, authority : Prisma.AuthorityCreateInput) : Promise<Authority>  {
+    public static async update(id : number, authority : Prisma.AuthorityUpdateInput) : Promise<Authority | null>  {
         try {
             const authorityExists = await repository.getById(id)
 
             if (authorityExists === null) {
-                throw new Error("La autoridad que desea actualizar no existe")    
+                return null   
+            }
+
+            if (authority.user?.update?.password) {
+                authority.user.update.password = Encrypter.encode(authority.user.update.password.toString())
             }
 
             const result = await repository.update(id, authority)
@@ -60,12 +64,12 @@ export class AuthorityService {
         }
     }
 
-    public static async delete(id : number) : Promise<Authority> {
+    public static async delete(id : number) : Promise<Authority | null> {
         try {
             const authorityExists = await repository.getById(id)
 
             if (authorityExists === null) {
-                throw new Error("La autoridad que desea eliminar no existe")    
+                return null    
             }
 
             const result = await repository.delete(id)

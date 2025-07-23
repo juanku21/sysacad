@@ -1,6 +1,7 @@
 
 import express from 'express'
 import { UniversityController } from '../controllers/university.controller'
+import { Auth } from '../middlewares/auth'
 
 const universityRouter = express.Router()
 

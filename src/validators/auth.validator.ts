@@ -5,7 +5,7 @@ import * as z from "zod"
 const LoginSchema = z.object({
 
     email: z.email(),
-    password: z.number().positive().min(8)
+    password: z.string().min(8)
 
 }).strict()
 
@@ -29,5 +29,4 @@ export class AuthValidator {
     }
 
 }
-
 

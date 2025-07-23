@@ -28,8 +28,6 @@ export class StudentController {
         try {
             const result = await StudentService.getById(id)
 
-            console.log(result)
-
             if (result === null) {
                 throw new Error('El recurso con el ID solicitado no existe')
             }

@@ -14,8 +14,13 @@ export class IdEncrypter {
 
     public static decodeUUID = (uuid : string) : number => {
 
-        const result = sqidsPK.decode(uuid)[0]
-        return result
+        try {
+            const result = sqidsPK.decode(uuid)[0]
+            return result
+        } 
+        catch (error : any) {
+            throw new Error(`Fallo de decodificación de ID`)
+        }
 
     }
 
@@ -53,10 +58,11 @@ export class IdEncrypter {
 
 export class Encrypter {
 
-    public static encode = async (plain : string) : Promise<string> => {
+    public static encode = (plain : string) : string => {
         
         try{
-            const hashed = bcrypt.hash(plain, 10)
+            const salt = bcrypt.genSaltSync()
+            const hashed = bcrypt.hashSync(plain, salt)
             return hashed
         }
         catch (error : any) {
@@ -64,10 +70,10 @@ export class Encrypter {
         }
     }
 
-    public static compare = async (value : string, other : string) : Promise<boolean> => {
+    public static compare = (value : string, other : string) : boolean => {
 
         try {
-            const result = await bcrypt.compare(value, other)
+            const result = bcrypt.compareSync(value, other)
             return result
         } 
         catch (error : any) {
@@ -77,3 +83,4 @@ export class Encrypter {
     } 
 
 }
+

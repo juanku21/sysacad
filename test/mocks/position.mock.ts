@@ -10,8 +10,8 @@ export const mockPositionArray : Position[] = [
         puntaje: 1500,
         area: "Administración",
         category_id: 1,
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date)
+        createdAt: new Date(),
+        updatedAt: new Date()
     }
 ]
 
@@ -22,8 +22,8 @@ export const mockPosition : Position = {
     puntaje: 1500,
     area: "Administración",
     category_id: 1,
-    createdAt: expect.any(Date),
-    updatedAt: expect.any(Date)
+    createdAt: new Date(),
+    updatedAt: new Date()
 }
 
 export const inputCreate : Prisma.PositionCreateInput = {
@@ -51,8 +51,8 @@ export const mockPositionWithRelations : PositionWithRelations = {
     puntaje: 1500,
     area: "Administración",
     category_id: 1,
-    createdAt: expect.any(Date),
-    updatedAt: expect.any(Date),
+    createdAt: new Date(),
+    updatedAt: new Date(),
 
     authority: [
         {
@@ -62,9 +62,17 @@ export const mockPositionWithRelations : PositionWithRelations = {
                 id: 1,
                 user_id: 1,
                 tuition: 37328,
-                recruitment: expect.any(Date)
+                recruitment: new Date()
             }
         }
-    ]
+    ],
+
+    category: {
+        id: 1,
+        name: 'Teacher',
+        description: "Esta categoría incluye los profesores de todas las especialidades",
+        createdAt: new Date(),
+        updatedAt: new Date()
+    }
 
 }
