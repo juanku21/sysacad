@@ -8,6 +8,7 @@ import facultyRouter from "./faculty.route"
 import careerRouter from "./career.route"
 import authRouter from "./auth.route"
 import subjectRouter from "./subject.route"
+import authorityRouter from "./authority.route"
 
 export class RouterManager {
 
@@ -25,7 +26,6 @@ export class RouterManager {
         this.app.use("/api/faculty", facultyRouter)
         this.app.use("/api/career", careerRouter)
         this.app.use("/api/auth", authRouter)
-        this.app.use("/api/subject", subjectRouter)
     }
 
 }
