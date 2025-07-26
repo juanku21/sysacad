@@ -37,7 +37,7 @@ export class StudyPlanService {
         }
     }
 
-    public static async update(id : number, studyPlan : Prisma.StudyPlanCreateInput) : Promise<StudyPlan>  {
+    public static async update(id : number, studyPlan : Prisma.StudyPlanUpdateInput) : Promise<StudyPlan>  {
         try {
             const studyPlanExists = await repository.getById(id)
 
