@@ -13,10 +13,6 @@ import positionRouter from "./position.route"
 import studyPlanRouter from "./studyPlan.route"
 import subjectRouter from "./subject.route"
 import subjectInfoRouter from "./subjectInfo.route"
-
-
-
-
 import positionCategoryRouter from "./positionCategory.route"
 import qualificationRouter from "./qualification.route"
 
@@ -42,6 +38,7 @@ export class RouterManager {
         this.app.use("/api/studyPlan", studyPlanRouter)
         this.app.use("/api/subject", subjectRouter )
         this.app.use("/api/subjectInfo", subjectInfoRouter)
+        this.app.use("/api/positionCategory", positionCategoryRouter)
         this.app.use("/api/qualification", qualificationRouter)
     }
 
