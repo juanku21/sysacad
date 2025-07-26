@@ -5,23 +5,23 @@ import { PositionCategoryWithRelations } from "../../src/types"
 export const mockPositionCategoryArray : PositionCategory[] = [
     {
         id: 1,
-        name: 'Administrador',
+        name: 'Administrator',
         description: "Realiza tareas administrativas en la universidad",
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date)
+        createdAt: new Date(),
+        updatedAt: new Date()
     }
 ]
 
 export const mockPositionCategory : PositionCategory = {
     id: 1,
-    name: 'Administrador',
+    name: 'Administrator',
     description: "Realiza tareas administrativas en la universidad",
-    createdAt: expect.any(Date),
-    updatedAt: expect.any(Date)
+    createdAt: new Date(),
+    updatedAt: new Date()
 }
 
 export const inputCreate : Prisma.PositionCategoryCreateInput = {
-    name: 'Administrador',
+    name: 'Administrator',
     description: "Realiza tareas administrativas en la universidad",
 }
 
@@ -31,10 +31,10 @@ export const inputUpdate : Prisma.PositionCategoryUpdateInput = {
 
 export const mockPositionCategoryWithRelations : PositionCategoryWithRelations = {
     id: 1,
-    name: 'Administrador',
+    name: 'Administrator',
     description: "Realiza tareas administrativas en la universidad",
-    createdAt: expect.any(Date),
-    updatedAt: expect.any(Date),
+    createdAt: new Date(),
+    updatedAt: new Date(),
 
     positions: [
         {
@@ -44,8 +44,8 @@ export const mockPositionCategoryWithRelations : PositionCategoryWithRelations =
             area: "Departamento de Ciencias Básicas",
             description: "Excelente cargo",
             category_id: 1,
-            createdAt: expect.any(Date),
-            updatedAt: expect.any(Date),
+            createdAt: new Date(),
+            updatedAt: new Date(),
 
         }
     ]

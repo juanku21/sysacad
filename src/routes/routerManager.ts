@@ -13,6 +13,11 @@ import positionRouter from "./position.route"
 import studyPlanRouter from "./studyPlan.route"
 import subjectRouter from "./subject.route"
 import subjectInfoRouter from "./subjectInfo.route"
+
+
+
+
+import positionCategoryRouter from "./positionCategory.route"
 import qualificationRouter from "./qualification.route"
 
 export class RouterManager {
