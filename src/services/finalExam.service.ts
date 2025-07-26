@@ -37,7 +37,7 @@ export class FinalExamService {
         }
     }
 
-    public static async update(id : number, finalExam : Prisma.FinalExamCreateInput) : Promise<FinalExam>  {
+    public static async update(id : number, finalExam : Prisma.FinalExamUpdateInput) : Promise<FinalExam>  {
         try {
             const finalExamExists = await repository.getById(id)
 

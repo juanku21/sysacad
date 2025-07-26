@@ -5,25 +5,25 @@ import { FinalExamWithRelations } from "../../src/types"
 export const mockFinalExamArray : FinalExam[] = [
     {
         id: 2,
-        date: expect.any(Date),
+        date: new Date(),
         classroom_id: null,
         subject_info_id: 4,
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date)
+        createdAt: new Date(),
+        updatedAt: new Date()
     }
 ]
 
 export const mockFinalExam : FinalExam = {
     id: 2,
-    date: expect.any(Date),
+    date: new Date(),
     classroom_id: null,
     subject_info_id: 4,
-    createdAt: expect.any(Date),
-    updatedAt: expect.any(Date)
+    createdAt: new Date(),
+    updatedAt: new Date()
 }
 
 export const inputCreate : Prisma.FinalExamCreateInput = {
-    date: expect.any(Date),
+    date: new Date(),
 
     subjectInfo: {
         connect: {
@@ -33,7 +33,7 @@ export const inputCreate : Prisma.FinalExamCreateInput = {
 }
 
 export const inputUpdate : Prisma.FinalExamUpdateInput = {
-    date: expect.any(Date),
+    date: new Date(),
 
     classroom: {
         connect: {
@@ -44,11 +44,11 @@ export const inputUpdate : Prisma.FinalExamUpdateInput = {
 
 export const mockFinalExamWithRelations : FinalExamWithRelations = {
     id: 2,
-    date: expect.any(Date),
+    date: new Date(),
     classroom_id: null,
     subject_info_id: 4,
-    createdAt: expect.any(Date),
-    updatedAt: expect.any(Date),
+    createdAt: new Date(),
+    updatedAt: new Date(),
 
     subjectInfo: {
         id: 1,
@@ -56,16 +56,16 @@ export const mockFinalExamWithRelations : FinalExamWithRelations = {
         type: "Yearly",
         subject_id: 6,
         study_plan_id: 1,
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date),
+        createdAt: new Date(),
+        updatedAt: new Date(),
 
         subject: {
             id: 6,
             name: "Análisis 2",
             description: "Busca explicar conceptos matemáticos avanzados",
             code: 700,
-            createdAt: expect.any(Date),
-            updatedAt: expect.any(Date)
+            createdAt: new Date(),
+            updatedAt: new Date()
         }
     },
 
@@ -76,8 +76,8 @@ export const mockFinalExamWithRelations : FinalExamWithRelations = {
             qualification: 10,
             student_id: 3,
             final_exam_id: 2,
-            createdAt: expect.any(Date),
-            updatedAt: expect.any(Date)
+            createdAt: new Date(),
+            updatedAt: new Date()
         }
     ],
 
@@ -90,7 +90,7 @@ export const mockFinalExamWithRelations : FinalExamWithRelations = {
                 id: 1,
                 user_id: 1,
                 tuition: 32000,
-                recruitment: expect.any(Date),
+                recruitment: new Date(),
 
                 user: {
                     id: 1,
@@ -102,8 +102,8 @@ export const mockFinalExamWithRelations : FinalExamWithRelations = {
                     cuil: 20727828372,
                     phone: 2618009675,
                     facultyId: 3,
-                    createdAt: expect.any(Date),
-                    updatedAt: expect.any(Date)
+                    createdAt: new Date(),
+                    updatedAt: new Date()
                 }
             }
         }
