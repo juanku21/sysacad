@@ -10,8 +10,8 @@ export const mockStudyPlanArray : StudyPlan[] = [
         code: 800,
         duration: 5,
         career_id: 1,
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date)
+        createdAt: new Date(),
+        updatedAt: new Date()
     }
 ]
 
@@ -22,8 +22,8 @@ export const mockStudyPlan : StudyPlan = {
     code: 800,
     duration: 5,
     career_id: 1,
-    createdAt: expect.any(Date),
-    updatedAt: expect.any(Date)
+    createdAt: new Date(),
+    updatedAt: new Date()
 }
 
 export const inputCreate : Prisma.StudyPlanCreateInput = {
@@ -51,8 +51,8 @@ export const mockStudyPlanWithRelations : StudyPlanWithRelations = {
     code: 800,
     duration: 5,
     career_id: 1,
-    createdAt: expect.any(Date),
-    updatedAt: expect.any(Date),
+    createdAt: new Date(),
+    updatedAt: new Date(),
 
     subjectInfo: [
         {
@@ -61,16 +61,16 @@ export const mockStudyPlanWithRelations : StudyPlanWithRelations = {
             type: "Yearly",
             subject_id: 6,
             study_plan_id: 1,
-            createdAt: expect.any(Date),
-            updatedAt: expect.any(Date),
+            createdAt: new Date(),
+            updatedAt: new Date(),
 
             subject: {
                 id: 6,
                 name: "Análisis 2",
                 description: "Busca explicar conceptos matemáticos avanzados",
                 code: 700,
-                createdAt: expect.any(Date),
-                updatedAt: expect.any(Date)
+                createdAt: new Date(),
+                updatedAt: new Date()
             }
         }
     ],
@@ -84,8 +84,8 @@ export const mockStudyPlanWithRelations : StudyPlanWithRelations = {
             aprrove: false,
             subject_id: 6,
             correlativitie_id: 3,
-            createdAt: expect.any(Date),
-            updatedAt: expect.any(Date)
+            createdAt: new Date(),
+            updatedAt: new Date()
         }
     ],
 
@@ -95,8 +95,8 @@ export const mockStudyPlanWithRelations : StudyPlanWithRelations = {
         code: 300,
         level: "Engineering",
         description: "An excelent career for the futuro",
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date)
+        createdAt: new Date(),
+        updatedAt: new Date()
     }
 
 }

@@ -14,6 +14,7 @@ import authorityRouter from "./authority.route"
 
 
 import positionRouter from "./position.route"
+import studyPlanRouter from "./studyPlan.route"
 
 export class RouterManager {
 
@@ -31,7 +32,6 @@ export class RouterManager {
         this.app.use("/api/faculty", facultyRouter)
         this.app.use("/api/career", careerRouter)
         this.app.use("/api/auth", authRouter)
-        this.app.use("/api/position", positionRouter)
     }
 
 }
