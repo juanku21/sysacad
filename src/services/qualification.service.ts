@@ -37,7 +37,7 @@ export class QualificationService {
         }
     }
 
-    public static async update(id : number, qualification : Prisma.StudyPlanUpdateInput) : Promise<Qualification>  {
+    public static async update(id : number, qualification : Prisma.QualificationUpdateInput) : Promise<Qualification>  {
         try {
             const qualificationExists = await repository.getById(id)
 

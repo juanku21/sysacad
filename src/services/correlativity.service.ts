@@ -37,7 +37,7 @@ export class CorrelativityService {
         }
     }
 
-    public static async update(id : number, correlativity : Prisma.CorrelativityCreateInput) : Promise<Correlativity> {
+    public static async update(id : number, correlativity : Prisma.CorrelativityUpdateInput) : Promise<Correlativity> {
         try {
             const correlativityExists = await repository.getById(id)
 

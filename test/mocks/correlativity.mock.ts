@@ -11,8 +11,8 @@ export const mockCorrelativityArray : Correlativity[] = [
         correlativitie_id: 4,
         type: "Attend",
         study_plan_id: 1,
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date)
+        createdAt: new Date(),
+        updatedAt: new Date()
     }
 ]
 
@@ -24,8 +24,8 @@ export const mockCorrelativity : Correlativity = {
     correlativitie_id: 4,
     type: "Attend",
     study_plan_id: 1,
-    createdAt: expect.any(Date),
-    updatedAt: expect.any(Date)
+    createdAt: new Date(),
+    updatedAt: new Date()
 }
 
 export const inputCreate : Prisma.CorrelativityCreateInput = {
@@ -67,16 +67,16 @@ export const mockCorrelativityWithRelations : CorrelativityWithRelations = {
     correlativitie_id: 4,
     type: "Attend",
     study_plan_id: 1,
-    createdAt: expect.any(Date),
-    updatedAt: expect.any(Date),
+    createdAt: new Date(),
+    updatedAt: new Date(),
 
     subject: {
         id: 1,
         name: "Análisis Matemático I",
         code: 320,
         description: "Fundamentos matemáticos",
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date)
+        createdAt: new Date(),
+        updatedAt: new Date()
     },
 
     studyPlan: {
@@ -86,8 +86,8 @@ export const mockCorrelativityWithRelations : CorrelativityWithRelations = {
         code: 800,
         duration: 5,
         career_id: 1,
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date),
+        createdAt: new Date(),
+        updatedAt: new Date(),
 
         career: {
             id: 1,
@@ -95,8 +95,8 @@ export const mockCorrelativityWithRelations : CorrelativityWithRelations = {
             code: 300,
             level: "Engineering",
             description: "An excelent career for the futuro",
-            createdAt: expect.any(Date),
-            updatedAt: expect.any(Date)
+            createdAt: new Date(),
+            updatedAt: new Date()
         }
     },
 
@@ -105,8 +105,8 @@ export const mockCorrelativityWithRelations : CorrelativityWithRelations = {
         name: "Física II",
         code: 320,
         description: "Contenidos de física más avanzados",
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date)
+        createdAt: new Date(),
+        updatedAt: new Date()
     }
 
 }

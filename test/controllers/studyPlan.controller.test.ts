@@ -1,4 +1,3 @@
-
 import { ServerHTTP } from "../../src/index"
 import { BaseControllerTest } from "../utils/baseControllerTest"
 import { StudyPlanService } from "../../src/services/studyPlan.service"
@@ -92,7 +91,7 @@ describe("StudyPlan controller", () => {
 
         test("Should response with a 200 status code and data", async () => {
 
-           await studyPlanTest.getById(studyPlan.mockStudyPlanWithRelations)
+        await studyPlanTest.getById(studyPlan.mockStudyPlanWithRelations)
 
         })
 
@@ -105,7 +104,7 @@ describe("StudyPlan controller", () => {
 
         test("Should response with a 503 status code and error", async () => {
 
-           await studyPlanTest.getByIdFail()
+        await studyPlanTest.getByIdFail()
 
         })
 

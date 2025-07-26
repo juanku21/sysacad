@@ -15,6 +15,7 @@ import subjectRouter from "./subject.route"
 import subjectInfoRouter from "./subjectInfo.route"
 import positionCategoryRouter from "./positionCategory.route"
 import qualificationRouter from "./qualification.route"
+import correlativityRouter from "./correlativity.route"
 
 export class RouterManager {
 
@@ -40,6 +41,7 @@ export class RouterManager {
         this.app.use("/api/subjectInfo", subjectInfoRouter)
         this.app.use("/api/positionCategory", positionCategoryRouter)
         this.app.use("/api/qualification", qualificationRouter)
+        this.app.use("/api/correlativity", correlativityRouter)
     }
 
 }
