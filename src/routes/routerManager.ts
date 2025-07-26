@@ -21,6 +21,11 @@ import studyPlanRouter from "./studyPlan.route"
 
 import finalExamRouter from "./finalExam.route"
 
+
+
+
+import positionCategoryRouter from "./positionCategory.route"
+
 export class RouterManager {
 
     private readonly app : Application
@@ -38,6 +43,7 @@ export class RouterManager {
         this.app.use("/api/career", careerRouter)
         this.app.use("/api/auth", authRouter)
         this.app.use("/api/finalExam", finalExamRouter)
+        this.app.use("/api/positionCategory", positionCategoryRouter)
     }
 
 }
