@@ -10,6 +10,11 @@ import authRouter from "./auth.route"
 import subjectRouter from "./subject.route"
 import authorityRouter from "./authority.route"
 
+
+
+
+import positionRouter from "./position.route"
+
 export class RouterManager {
 
     private readonly app : Application
@@ -26,6 +31,7 @@ export class RouterManager {
         this.app.use("/api/faculty", facultyRouter)
         this.app.use("/api/career", careerRouter)
         this.app.use("/api/auth", authRouter)
+        this.app.use("/api/position", positionRouter)
     }
 
 }
