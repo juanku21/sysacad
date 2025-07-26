@@ -9,8 +9,8 @@ export const mockSubjectInfoArray : SubjectInfo[] = [
         type: "Yearly",
         subject_id: 2,
         study_plan_id: 1,
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date)
+        createdAt: new Date(),
+        updatedAt: new Date()
     }
 ]
 
@@ -20,8 +20,8 @@ export const mockSubjectInfo : SubjectInfo = {
     type: "Yearly",
     subject_id: 2,
     study_plan_id: 1,
-    createdAt: expect.any(Date),
-    updatedAt: expect.any(Date)
+    createdAt: new Date(),
+    updatedAt: new Date()
 }
 
 export const inputCreate : Prisma.SubjectInfoCreateInput = {
@@ -52,8 +52,8 @@ export const mockSubjectInfoWithRelations : SubjectInfoWithRelations = {
     type: "Yearly",
     subject_id: 2,
     study_plan_id: 1,
-    createdAt: expect.any(Date),
-    updatedAt: expect.any(Date),
+    createdAt: new Date(),
+    updatedAt: new Date(),
 
     dictation: [
         {
@@ -61,19 +61,19 @@ export const mockSubjectInfoWithRelations : SubjectInfoWithRelations = {
             year: 2019,
             subject_info_id: 1,
             classroom_id: null,
-            createdAt: expect.any(Date),
-            updatedAt: expect.any(Date)
+            createdAt: new Date(),
+            updatedAt: new Date()
         }
     ],
 
     finalExam: [
         {
             id: 1,
-            date: expect.any(Date),
+            date: new Date(),
             subject_info_id: 1,
             classroom_id: null,
-            createdAt: expect.any(Date),
-            updatedAt: expect.any(Date)
+            createdAt: new Date(),
+            updatedAt: new Date()
         }
     ],
 
@@ -82,8 +82,8 @@ export const mockSubjectInfoWithRelations : SubjectInfoWithRelations = {
         name: "Análisis Matemático I",
         code: 320,
         description: "Fundamentos matemáticos",
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date),
+        createdAt: new Date(),
+        updatedAt: new Date(),
     },
 
     studyPlan: {
@@ -93,8 +93,8 @@ export const mockSubjectInfoWithRelations : SubjectInfoWithRelations = {
         code: 800,
         duration: 5,
         career_id: 1,
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date),
+        createdAt: new Date(),
+        updatedAt: new Date(),
 
         career: {
             id: 1,
@@ -102,8 +102,8 @@ export const mockSubjectInfoWithRelations : SubjectInfoWithRelations = {
             code: 300,
             level: "Engineering",
             description: "An excelent career for the futuro",
-            createdAt: expect.any(Date),
-            updatedAt: expect.any(Date)
+            createdAt: new Date(),
+            updatedAt: new Date()
         }
     }
 }

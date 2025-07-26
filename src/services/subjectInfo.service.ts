@@ -13,7 +13,7 @@ export class SubjectInfoService {
             return result
         } 
         catch (error : any) {
-            throw new Error(`No fue posible obtener la lista de informacion de las materias: ${error}`)
+            throw new Error(`No fue posible obtener la lista con informacion de las materias: ${error}`)
         }
     }
 
