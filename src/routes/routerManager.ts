@@ -16,6 +16,7 @@ import subjectInfoRouter from "./subjectInfo.route"
 import positionCategoryRouter from "./positionCategory.route"
 import qualificationRouter from "./qualification.route"
 import subjectDictationRouter from "./subjectDictation.route"
+import finalExamRegistrationRouter from "./finalExamRegistration.route"
 
 export class RouterManager {
 
@@ -42,6 +43,7 @@ export class RouterManager {
         this.app.use("/api/positionCategory", positionCategoryRouter)
         this.app.use("/api/qualification", qualificationRouter)
         this.app.use("/api/subjectDictation", subjectDictationRouter)
+        this.app.use("/api/finalExamRegistration", finalExamRegistrationRouter)
     }
 
 }
