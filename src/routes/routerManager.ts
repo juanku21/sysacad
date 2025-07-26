@@ -7,6 +7,14 @@ import cityRouter from "./city.route"
 import facultyRouter from "./faculty.route"
 import careerRouter from "./career.route"
 import authRouter from "./auth.route"
+import subjectRouter from "./subject.route"
+import authorityRouter from "./authority.route"
+
+
+
+
+import positionRouter from "./position.route"
+import studyPlanRouter from "./studyPlan.route"
 
 
 

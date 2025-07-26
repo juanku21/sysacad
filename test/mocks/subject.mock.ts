@@ -8,8 +8,8 @@ export const mockSubjectArray : Subject[] = [
         name: "Análisis Matemático I",
         code: 320,
         description: "Fundamentos matemáticos",
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date)
+        createdAt: new Date(),
+        updatedAt: new Date()
     }
 ]
 
@@ -18,8 +18,8 @@ export const mockSubject : Subject = {
     name: "Análisis Matemático I",
     code: 320,
     description: "Fundamentos matemáticos",
-    createdAt: expect.any(Date),
-    updatedAt: expect.any(Date)
+    createdAt: new Date(),
+    updatedAt: new Date()
 }
 
 export const inputCreate : Prisma.SubjectCreateInput = {
@@ -37,8 +37,8 @@ export const mockSubjectWithRelations : SubjectWithRelations = {
     name: "Análisis Matemático I",
     code: 320,
     description: "Fundamentos matemáticos",
-    createdAt: expect.any(Date),
-    updatedAt: expect.any(Date),
+    createdAt: new Date(),
+    updatedAt: new Date(),
 
     correlativities: [
         {
@@ -49,8 +49,8 @@ export const mockSubjectWithRelations : SubjectWithRelations = {
             correlativitie_id: 4,
             type: "TakeExam",
             study_plan_id: 1,
-            createdAt: expect.any(Date),
-            updatedAt: expect.any(Date),
+            createdAt: new Date(),
+            updatedAt: new Date(),
 
             studyPlan: {
                 id: 1,
@@ -59,8 +59,8 @@ export const mockSubjectWithRelations : SubjectWithRelations = {
                 code: 800,
                 duration: 5,
                 career_id: 1,
-                createdAt: expect.any(Date),
-                updatedAt: expect.any(Date),
+                createdAt: new Date(),
+                updatedAt: new Date(),
 
                 career: {
                     id: 1,
@@ -68,8 +68,8 @@ export const mockSubjectWithRelations : SubjectWithRelations = {
                     code: 300,
                     level: "Engineering",
                     description: "An excelent career for the futuro",
-                    createdAt: expect.any(Date),
-                    updatedAt: expect.any(Date)
+                    createdAt: new Date(),
+                    updatedAt: new Date()
                 }
             }
         }
@@ -84,8 +84,8 @@ export const mockSubjectWithRelations : SubjectWithRelations = {
             correlativitie_id: 4,
             type: "TakeExam",
             study_plan_id: 1,
-            createdAt: expect.any(Date),
-            updatedAt: expect.any(Date),
+            createdAt: new Date(),
+            updatedAt: new Date(),
 
             studyPlan: {
                 id: 1,
@@ -94,8 +94,8 @@ export const mockSubjectWithRelations : SubjectWithRelations = {
                 code: 800,
                 duration: 5,
                 career_id: 1,
-                createdAt: expect.any(Date),
-                updatedAt: expect.any(Date),
+                createdAt: new Date(),
+                updatedAt: new Date(),
 
                 career: {
                     id: 1,
@@ -103,8 +103,8 @@ export const mockSubjectWithRelations : SubjectWithRelations = {
                     code: 300,
                     level: "Engineering",
                     description: "An excelent career for the futuro",
-                    createdAt: expect.any(Date),
-                    updatedAt: expect.any(Date)
+                    createdAt: new Date(),
+                    updatedAt: new Date()
                 }
             }
         }
