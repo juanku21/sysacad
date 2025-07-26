@@ -7,8 +7,8 @@ export const mockQualificationArray : Qualification[] = [
         value: 10,
         student_id: 1,
         subject_id: 1,
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date)
+        createdAt: new Date(),
+        updatedAt: new Date()
     }
 ]
 
@@ -17,8 +17,8 @@ export const mockQualification : Qualification = {
     value: 10,
     student_id: 1,
     subject_id: 1,
-    createdAt: expect.any(Date),
-    updatedAt: expect.any(Date)
+    createdAt: new Date(),
+    updatedAt: new Date()
 }
 
 export const inputCreate : Prisma.QualificationCreateInput = {
