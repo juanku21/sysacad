@@ -8,8 +8,8 @@ export const mockSubjectDictationArray : SubjectDictation[] = [
         year: 2019,
         subject_info_id: 1,
         classroom_id: null,
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date)
+        createdAt: new Date(),
+        updatedAt: new Date()
     }
 ]
 
@@ -18,8 +18,8 @@ export const mockSubjectDictation : SubjectDictation = {
     year: 2019,
     subject_info_id: 1,
     classroom_id: null,
-    createdAt: expect.any(Date),
-    updatedAt: expect.any(Date)
+    createdAt: new Date(),
+    updatedAt: new Date()
 }
 
 export const inputCreate : Prisma.SubjectDictationCreateInput = {
@@ -41,8 +41,8 @@ export const mockSubjectDictationWithRelations : SubjectDictationWithRelations =
     year: 2019,
     subject_info_id: 1,
     classroom_id: null,
-    createdAt: expect.any(Date),
-    updatedAt: expect.any(Date),
+    createdAt: new Date(),
+    updatedAt: new Date(),
 
     registrations: [
         {
@@ -50,8 +50,8 @@ export const mockSubjectDictationWithRelations : SubjectDictationWithRelations =
             state: "Attending",
             student_id: 1,
             dicatation_id: 4,
-            createdAt: expect.any(Date),
-            updatedAt: expect.any(Date)
+            createdAt: new Date(),
+            updatedAt: new Date()
         }
     ],
 
@@ -64,7 +64,7 @@ export const mockSubjectDictationWithRelations : SubjectDictationWithRelations =
                 id: 1,
                 user_id: 1,
                 tuition: 32000,
-                recruitment: expect.any(Date),
+                recruitment: new Date(),
 
                 user: {
                     id: 1,
@@ -76,8 +76,8 @@ export const mockSubjectDictationWithRelations : SubjectDictationWithRelations =
                     cuil: 20727828372,
                     phone: 2618009675,
                     facultyId: 3,
-                    createdAt: expect.any(Date),
-                    updatedAt: expect.any(Date)
+                    createdAt: new Date(),
+                    updatedAt: new Date()
                 }
             }
         }
@@ -89,7 +89,7 @@ export const mockSubjectDictationWithRelations : SubjectDictationWithRelations =
         type: "Yearly",
         subject_id: 2,
         study_plan_id: 1,
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date)
+        createdAt: new Date(),
+        updatedAt: new Date()
     }
 }
