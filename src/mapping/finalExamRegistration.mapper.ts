@@ -36,7 +36,7 @@ export class FinalExamRegistrationMapper {
             state: data.state
         }
 
-        if (data.student_id && result.exam) result.exam= {connect: {id: IdEncrypter.decodeUUID(data.student_id)}} 
+        if (data.student_id && result.student) result.student= {connect: {id: IdEncrypter.decodeUUID(data.student_id)}} 
         if (data.final_exam_id) result.exam = {connect: {id: IdEncrypter.decodeUUID(data.final_exam_id)}} 
 
         return result  

@@ -9,8 +9,8 @@ export const mockEducationalOfferArray : EducationalOffer[] = [
         price: 0,
         faculty_id: 1,
         career_id: 1,
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date)
+        createdAt: new Date(),
+        updatedAt: new Date()
     }
 ]
 
@@ -20,8 +20,8 @@ export const mockEducationalOffer : EducationalOffer = {
     price: 0,
     faculty_id: 1,
     career_id: 1,
-    createdAt: expect.any(Date),
-    updatedAt: expect.any(Date)
+    createdAt: new Date(),
+    updatedAt: new Date()
 }
 
 export const inputCreate : Prisma.EducationalOfferCreateInput = {
@@ -51,8 +51,8 @@ export const mockEducationalOfferWithRelations : EducationalOfferWithRelations =
     price: 0,
     faculty_id: 1,
     career_id: 1,
-    createdAt: expect.any(Date),
-    updatedAt: expect.any(Date),
+    createdAt: new Date(),
+    updatedAt: new Date(),
 
     career: {
         id: 1,
@@ -60,7 +60,7 @@ export const mockEducationalOfferWithRelations : EducationalOfferWithRelations =
         code: 540,
         description: "La carrera del futuro",
         level: "Engineering",
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date),
+        createdAt: new Date(),
+        updatedAt: new Date(),
     }
 }
