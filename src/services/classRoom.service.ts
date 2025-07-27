@@ -38,7 +38,7 @@ export class ClassRoomService {
         }
     }
 
-    public static async update(id : number, classRoom : Prisma.ClassRoomCreateInput) : Promise<ClassRoom>  {
+    public static async update(id : number, classRoom : Prisma.ClassRoomUpdateInput) : Promise<ClassRoom>  {
         try {
             const classRoomExists = await repository.getById(id)
 

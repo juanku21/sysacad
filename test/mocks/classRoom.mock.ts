@@ -14,8 +14,8 @@ export const mockClassRoomArray : ClassRoom[] = [
         air_conditioning: true,
         heating: null,
         faculty_id: 1,
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date)
+        createdAt: new Date(),
+        updatedAt: new Date()
     }
 ]
 
@@ -30,8 +30,8 @@ export const mockClassRoom : ClassRoom = {
     air_conditioning: true,
     heating: null,
     faculty_id: 1,
-    createdAt: expect.any(Date),
-    updatedAt: expect.any(Date)
+    createdAt: new Date(),
+    updatedAt: new Date()
 }
 
 export const inputCreate : Prisma.ClassRoomCreateInput = {
@@ -69,8 +69,8 @@ export const mockClassRoomWithRelations : ClassRoomWithRelations = {
     air_conditioning: true,
     heating: null,
     faculty_id: 1,
-    createdAt: expect.any(Date),
-    updatedAt: expect.any(Date),
+    createdAt: new Date(),
+    updatedAt: new Date(),
 
     subjectDictation: [
         {
@@ -78,19 +78,19 @@ export const mockClassRoomWithRelations : ClassRoomWithRelations = {
             year: 2019,
             subject_info_id: 1,
             classroom_id: null,
-            createdAt: expect.any(Date),
-            updatedAt: expect.any(Date)
+            createdAt: new Date(),
+            updatedAt: new Date()
         }
     ],
 
     finalExams: [
         {
             id: 2,
-            date: expect.any(Date),
+            date: new Date(),
             classroom_id: null,
             subject_info_id: 4,
-            createdAt: expect.any(Date),
-            updatedAt: expect.any(Date)
+            createdAt: new Date(),
+            updatedAt: new Date()
         }
     ],
 
@@ -106,7 +106,7 @@ export const mockClassRoomWithRelations : ClassRoomWithRelations = {
         cityId: 5,
         university_id: 1,
         web: null,
-        createdAt: expect.any(Date),
-        updatedAt: expect.any(Date)
+        createdAt: new Date(),
+        updatedAt: new Date()
     }
 }

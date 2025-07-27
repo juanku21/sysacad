@@ -19,6 +19,7 @@ import subjectDictationRouter from "./subjectDictation.route"
 import finalExamRegistrationRouter from "./finalExamRegistration.route"
 import correlativityRouter from "./correlativity.route"
 import courseRegistrationRouter from "./courseRegistration.route"
+import classRoomRouter from "./classRoom.route"
 
 export class RouterManager {
 
@@ -48,6 +49,7 @@ export class RouterManager {
         this.app.use("/api/finalExamRegistration", finalExamRegistrationRouter)
         this.app.use("/api/correlativity", correlativityRouter)
         this.app.use("/api/courseRegistration", courseRegistrationRouter)
+        this.app.use("/api/classRoom", classRoomRouter)
     }
 
 }
