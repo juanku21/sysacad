@@ -6,10 +6,10 @@ import { UserJWTPayload } from "../types"
 
 export class JWT {
 
-    public static generate = (id : number, email : string, role : string[]) : string => {
+    public static generate = (id : number, email : string, roles : string[]) : string => {
 
         return jsonwebtoken.sign(
-            {id, email, role}, 
+            {id, email, roles}, 
             config.JWT_SECRET, 
             {expiresIn: '1h'}
         )

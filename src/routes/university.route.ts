@@ -5,7 +5,7 @@ import { Auth } from '../middlewares/auth'
 
 const universityRouter = express.Router()
 
-universityRouter.get('/', UniversityController.get)
+universityRouter.get('/', Auth.verifyToken, Auth.verifyRole(['Owner', 'Student']), UniversityController.get)
 universityRouter.get('/:id', UniversityController.getById)
 universityRouter.post('/', UniversityController.create)
 universityRouter.put('/:id', UniversityController.update)

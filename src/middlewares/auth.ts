@@ -41,4 +41,33 @@ export class Auth {
 
     }
 
+    public static verifyRole = (roles : string[]) => async (req: AuthRequest, res: Response, next: NextFunction) => {
+
+        try {
+
+            const userRoles = req.userRoles
+
+            let authorize = true
+
+            for (let i = 0; i < roles.length; i++) {
+                
+                if (userRoles.includes(roles[i])) {
+                    continue
+                }
+                else{
+                    authorize = false
+                    break
+                }
+
+            }
+
+            authorize ? next() : res.status(403).json({error: 'No tiene los permisos necesarios para utilizar este servicio'})
+            
+        } 
+        catch (error : any) {
+            res.status(503).json({error: 'Fallo de autorización'})
+        }
+
+    }
+
 }
