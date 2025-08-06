@@ -2,6 +2,7 @@
 import { ServerHTTP } from "../../src/index"
 import { BaseControllerTest } from "../utils/baseControllerTest"
 import { UniversityService } from "../../src/services/university.service"
+import { Auth } from "../../src/middlewares/auth"
 import * as university from "../mocks/university.mock"
 
 
@@ -15,9 +16,18 @@ jest.mock('../../src/services/university.service', () => ({
     }
 }))
 
+jest.mock('../../src/middlewares/auth.ts', () => ({
+    Auth: {
+        verifyToken: jest.fn((req, res, next) => next()),
+        verifyRole: jest.fn(() => (req, res, next) => next())
+    }
+}))
+
+
 const appTest = ServerHTTP.getInstance()
 
 const mockedService = jest.mocked(UniversityService)
+
 
 class UniversityControllerTest extends BaseControllerTest <typeof mockedService, UniversityService> {
 
@@ -55,9 +65,7 @@ const universityTest = new UniversityControllerTest()
 describe("University controller", () => {
 
 
-
     describe("GET /university (all)", () => {
-
 
         test("Should response with a 200 status code and data", async () => {
 
@@ -65,7 +73,6 @@ describe("University controller", () => {
 
         })
 
-        
         test("Should response with a 503 status code and error", async () => {
 
             await universityTest.getFail()
