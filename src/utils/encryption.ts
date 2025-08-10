@@ -1,12 +1,13 @@
 
 import Sqids from "sqids"
 import bcrypt from "bcrypt"
+import config from "../config/config"
 
 // Generar IDs aleatorios para no exponer IDs enteros y sencuenciales en el cliente
 
 const sqidsPK = new Sqids({
-    alphabet: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789%$!-',
-    minLength: 10, 
+    alphabet: config.squids.alphabet,
+    minLength: config.squids.minLength,
 })
 
 

@@ -1,5 +1,7 @@
 
-import { Server } from "http"
+import fs from 'fs'
+import path from "path"
+import https, { Server } from 'https'
 import express, { Application } from "express"
 import config from "./config/config"
 import compression from 'compression'
@@ -15,8 +17,10 @@ export class ServerHTTP {
     server : Server
     private readonly app : Application
     private readonly port : string
+    private options : object
 
     private constructor(){
+        this.setOptions()
         this.app = express()
         this.port = config.PORT
         this.middlewares()
@@ -34,15 +38,22 @@ export class ServerHTTP {
         return this.instance
 
     }
+
+    private setOptions = () => {
+        this.options = {
+            key: fs.readFileSync(path.join(__dirname, '../ssl/key.pem')),
+            cert: fs.readFileSync(path.join(__dirname, '../ssl/cert.pem'))
+        }
+    }
     
     public getApp() : Application {
         return this.app
     }
 
     public start() : void {
-        if (!this.server) {
+        if (!this.server && this.options) {
             try {
-                this.server = this.app.listen(this.port, () => {
+                this.server = https.createServer(this.options, this.app).listen(this.port, () => {
                     console.log("Servidor ejecuntandose correctamente")
                 })
             } 
