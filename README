@@ -18,3 +18,11 @@ LEVANTAR LA APLICACIÓN - PASO A PASO:
 4. Ejecutar el comando "docker compose build"
 5. Ejecutar el comando "docker compose up -d"
 6. Ejecutar el comando "docker compose down" (una vez finalizado el uso de la aplicación)
+
+
+Agentes de IA utilizados para investigación, depuración y optimización: 
+
+• GPT 4.1 
+• GPT 5.0
+• Claude Sonnet 3.5
+• Gemini 2.5 Flash 
