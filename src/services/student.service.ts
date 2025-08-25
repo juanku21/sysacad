@@ -2,7 +2,8 @@
 import { Prisma, Student } from "@prisma/client"
 import { StudentWithRelations } from "../types"
 import { StudentRepository } from "../repositories/student.repository"
-import { PDFGenerator } from "../utils/pdfGenerator"
+import { PDFGenerator } from "../utils/pdf"
+import { DOCXGenerator } from "utils/docx"
 import { StudentMapper } from "../mapping/student.mapper"
 import { Encrypter } from "../utils/encryption"
 
@@ -95,6 +96,28 @@ export class StudentService {
             const studentInput = StudentMapper.fromEntityToCertificateObject(student)
 
             const certificate = await PDFGenerator.regularCertificate(studentInput)
+
+            return certificate
+
+        } 
+        catch (error : any) {
+            throw new Error(`No fue posible obtener el certificado solicitado: ${error}`)
+        }
+
+    }
+
+    public static async generateRegularCertificateDOCX(id : number) : Promise<Buffer | null> {
+
+        try {
+            const student = await repository.getById(id)
+
+            if (student === null) {
+                return null    
+            }
+
+            const studentInput = StudentMapper.fromEntityToCertificateObject(student)
+
+            const certificate = await DOCXGenerator.regularCertificate(studentInput)
 
             return certificate
 
