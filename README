@@ -1,0 +1,20 @@
+
+DESARROLLO DE SOFTWARE
+
+PROYECTO SYSACAD
+
+$ DAMIANI MACARENA
+$ DIAZ ROSSI JUAN CRUZ
+$ MATURANO PABLO
+$ MERCADO MARTIN
+$ LIMERES TOMÁS
+
+
+LEVANTAR LA APLICACIÓN - PASO A PASO:
+
+1. Instalar docker (si ya lo tiene instalado, ignorar este paso).
+2. Crear un archivo ".env" basado en la forma indicada en ".env.example"
+3. Crear carpeta "data-postgres" dentro de la carpeta database (crear la misma) ya que se utilizará como volumen 
+4. Ejecutar el comando "docker compose build"
+5. Ejecutar el comando "docker compose up -d"
+6. Ejecutar el comando "docker compose down" (una vez finalizado el uso de la aplicación)
