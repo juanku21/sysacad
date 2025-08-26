@@ -14,7 +14,7 @@ LEVANTAR LA APLICACIÓN - PASO A PASO:
 
 1. Instalar docker (si ya lo tiene instalado, ignorar este paso).
 2. Crear un archivo ".env" basado en la forma indicada en ".env.example"
-3. Crear una carpeta 'ssl' y agregar dentro de la misma los componentes de un certificado SSL
+3. Crear una carpeta 'ssl' en la carpeta raíz y agregar dentro de la misma los componentes de un certificado SSL (cert.pem, key.pem)
 4. Crear carpeta "data-postgres" dentro de la carpeta database (crear la misma) ya que se utilizará como volumen 
 5. Ejecutar el comando "docker compose build"
 6. Ejecutar el comando "docker compose up -d"
