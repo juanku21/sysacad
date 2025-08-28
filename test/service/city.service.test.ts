@@ -1,10 +1,8 @@
-
-
 import { BaseServiceTest } from "../utils/baseServiceTest"
 import { prismaMock } from "../../src/config/singleton"
 import { Prisma } from "@prisma/client"
 import { City } from "@prisma/client"
-import { CityService } from "../../src/services/city.service"
+import { cityService } from "../../src/services/cityRefactor.service"
 import { CityWithRelations } from "../../src/types"
 import { 
     mockCity, 
@@ -16,10 +14,10 @@ import {
 
 
 class CityServiceTest extends BaseServiceTest 
-<typeof prismaMock.city, City, CityService, Prisma.CityCreateInput, Prisma.CityUpdateInput> {
+<typeof prismaMock.city, City, typeof cityService, Prisma.CityCreateInput, Prisma.CityUpdateInput> {
 
     constructor(){
-        super(prismaMock.city, CityService)
+        super(prismaMock.city, cityService)
     }
 
     public async findById(mockCity : CityWithRelations){
