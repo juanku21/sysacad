@@ -10,5 +10,6 @@ studentRouter.post('/', StudentController.create)
 studentRouter.put('/:id', StudentController.update)
 studentRouter.patch('/:id', StudentController.update)
 studentRouter.delete('/:id', StudentController.delete)
+studentRouter.get('/:id/pdf', StudentController.getPDFReport)
 
 export default studentRouter

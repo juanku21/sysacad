@@ -15,12 +15,7 @@ class TempleteHTML {
 
         try {
 
-            const rootPath = path.join(__dirname).split(path.sep).slice(0, -2)
-
-            let viewsPath = rootPath
-            viewsPath.push('src', 'views')
-
-            const pathFile = path.join(...viewsPath, title)
+            const pathFile = path.resolve(__dirname, `../views/${title}`)
             const templateSource = await fs.readFile(pathFile, 'utf8')
             const template = Handlebars.compile(templateSource)
             const htmlContent = template(data)
@@ -45,14 +40,12 @@ export class PDFGenerator {
         try {
 
             // obtenemos la ruta de la imagen como buffer binario y lo codificamos en base64
-            let logoUtnPath = getRootPathArray()
-            logoUtnPath.push('public', 'img', 'logo-utn.png')
-            const imgLogoUtn = (await fs.readFile(path.join(...logoUtnPath))).toString('base64')
+            const logoUtnPath = path.resolve(__dirname, `../../public/img/logo-utn.png`)
+            const imgLogoUtn = (await fs.readFile(logoUtnPath)).toString('base64')
 
             // obtenemos la ruta de la imagen como buffer binario y lo codificamos en base64
-            let logoMinisterioPath = getRootPathArray()
-            logoMinisterioPath.push('public', 'img', 'logo-ministerio.png')
-            const imgLogoMinisterio = (await fs.readFile(path.join(...logoMinisterioPath))).toString('base64')
+            const logoMinisterioPath = path.resolve(__dirname, `../../public/img/logo-ministerio.png`)
+            const imgLogoMinisterio = (await fs.readFile(logoMinisterioPath)).toString('base64')
 
 
             // cargamos las imágenes y el resto de la información en nuestra plantilla de handlebars
@@ -64,7 +57,49 @@ export class PDFGenerator {
 
 
             // Generamos el archivo PDF con la ayuda de la librería puppeteer
-            browser = await puppeteer.launch({ headless: true })
+            browser = await puppeteer.launch({
+                headless: true,
+                args: ['--no-sandbox', '--disable-setuid-sandbox'],
+                executablePath: '/usr/bin/chromium-browser'
+            })
+            const page = await browser.newPage()
+            await page.setContent(htmlContent, { waitUntil: 'networkidle0' })
+
+            const pdfBuffer = await page.pdf({
+                format: 'A4',
+                printBackground: true,
+                margin: {
+                    top: '40px',
+                    right: '40px',
+                    bottom: '40px',
+                    left: '40px'
+                }
+            })
+
+            return pdfBuffer
+
+        } 
+        catch (error : any) {
+            throw new Error(`${error.message}`)
+        }
+
+    }
+
+
+    public static studentReport = async (studentData : RegularCertificateInput) : Promise<Uint8Array<ArrayBufferLike>> => {
+
+        let browser : Browser
+
+        try {
+
+            const htmlContent = await TempleteHTML.render('alumno.hbs', studentData)
+
+            // Generamos el archivo PDF con la ayuda de la librería puppeteer
+            browser = await puppeteer.launch({
+                headless: true,
+                args: ['--no-sandbox', '--disable-setuid-sandbox'],
+                executablePath: '/usr/bin/chromium-browser'
+            })
             const page = await browser.newPage()
             await page.setContent(htmlContent, { waitUntil: 'networkidle0' })
 

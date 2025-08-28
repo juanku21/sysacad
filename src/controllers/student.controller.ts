@@ -138,4 +138,34 @@ export class StudentController {
         }
     }
 
+
+    public static getPDFReport : RequestHandler = async (req : Request, res : Response) => {
+
+        const id = IdEncrypter.decodeUUID(req.params.id)
+
+        try {
+            const result = await StudentService.generateReportPDF(id)
+
+            if (result === null) {
+                throw new Error('El recurso con el ID solicitado no existe')
+            }
+
+            res.setHeader('Content-Type', 'application/pdf')
+            res.setHeader('Content-Disposition', `inline; filename="reporte_alumno_${req.params.id}.pdf"`)
+            
+            res.status(200).send(result)
+
+        }
+        catch (error : any) {
+
+            if (error.message === 'El recurso con el ID solicitado no existe') {
+                res.status(404).json({error: `${error.message}`})
+            }
+            else{
+                res.status(503).json({error: `${error.message}`})
+            }
+
+        }
+    }
+
 }
