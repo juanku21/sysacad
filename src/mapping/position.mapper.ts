@@ -3,7 +3,6 @@ import { RegularCertificateInput, PositionWithRelations } from "../types"
 import { PositionCreateInput, PositionUpdateInput } from "../validators/position.validator"
 import { Prisma } from "@prisma/client"
 import { IdEncrypter } from "../utils/encryption"
-import da from "zod/v4/locales/da.cjs"
 
 
 export class PositiontMapper {

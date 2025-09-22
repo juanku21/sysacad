@@ -9,8 +9,8 @@
     "dev": "tsx --watch src/index.ts",
     "test": "npx jest",
     "build": "tsc",
-    "start": "node build/index.js",
-    "clean": "rmdir /s /q build"
+    "start": "node dist/index.js",
+    "clean": "rmdir /s /q dist"
   },
   "repository": {
     "type": "git",

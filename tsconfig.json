@@ -2,15 +2,15 @@
 {
     "compilerOptions": {
       // Lenguage and envioronment
-      "target": "ES2020",
+      "target": "es2022",
   
       // Módules
       "baseUrl": "./src",
-      "module": "ES2020",
-      "moduleResolution": "node",
+      "module": "nodenext",
+      "moduleResolution": "nodenext",
   
       // Emit
-      "outDir": "./build",
+      "outDir": "./dist",
       "rootDir": "./src",
       "sourceMap": true,
   

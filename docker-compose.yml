@@ -40,7 +40,9 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - ./src:/app/src
+      - /app/dist
+      - /app/node_modules
+      - /app/prisma
     env_file: [".env"]
     depends_on:
       database: { condition: service_healthy }
