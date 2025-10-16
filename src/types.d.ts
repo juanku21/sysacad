@@ -35,6 +35,25 @@ export interface RegularCertificateInput {
 }
 
 
+export interface IRawFilter {
+    field: string
+    op: string
+    value: any
+}
+
+
+export interface IClientFilter {
+    field: string
+    value: string | number | boolean | Date | (string | number | boolean | Date)[]
+    operator: 'eq' | 'neq' | 'gt' | 'lt' | 'gte' | 'lte' | 
+              'contains' | 'startsWith' | 'endsWith' |
+              'in' | 'notIn' | 'is'
+}
+
+
+
+
+
 // tipos correspondientes a objetos del ORM con sus respectivas relaciones
 
 export type UserWithRelations = Prisma.UserGetPayload<{

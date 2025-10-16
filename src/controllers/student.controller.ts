@@ -9,18 +9,48 @@ import { StudentMapper } from "../mapping/student.mapper"
 export class StudentController {
 
     public static get : RequestHandler = async (req : Request, res : Response) => {
+
         try {
-            const result = await StudentService.get()
+
+            let result : object[]
+
+
+            if (typeof req.headers['x-page'] == "string" && typeof req.headers['x-per-page'] == "string") {
+
+                const pageNumber : number = parseInt(req.headers['x-page'])
+                const pageSize : number = parseInt(req.headers['x-per-page'])
+
+                result = await StudentService.get(pageNumber, pageSize)
+
+                typeof req.headers['x-filters'] == 'string' ? result = await StudentService.getFiltered(req.headers['x-filters'], pageSize, pageNumber) : result = await StudentService.get(pageNumber, pageSize)
+            
+            }
+            else {
+
+                typeof req.headers['x-filters'] == 'string' ? result = await StudentService.getFiltered(req.headers['x-filters']) : result = await StudentService.get()
+
+            }
+
 
             const resultSafe = result.map(record => IdEncrypter.encodeData(record))
 
             res.status(200).json(resultSafe)
         }
         catch (error : any) {
-            res.status(503).json({error: `${error.message}`})
+            if (
+                error.message === 'El parámetro de filtros no es un JSON válido.' ||
+                error.message === 'El JSON de filtros debe ser un array.' ||
+                error.message === 'Cada filtro debe contener un "field" (string) y un "op" (string).'
+            ) {
+              res.status(400).json({error: `Error en el encabezado x-filters: ${error.message}`})
+            } 
+            else {
+                res.status(503).json({error: `${error.message}`})    
+            }
         }
     }
 
+    
     public static getById : RequestHandler = async (req : Request, res : Response) => {
 
         const id = IdEncrypter.decodeUUID(req.params.id)

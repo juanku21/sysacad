@@ -47,7 +47,7 @@ model Student {
   id Int @id @default(autoincrement())
   user User @relation(fields: [user_id], references: [id])
   user_id Int @unique
-  file Int
+  file Int @unique
   career_id Int
 
   career Career @relation(fields: [career_id], references: [id])

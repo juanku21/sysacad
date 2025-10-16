@@ -27,7 +27,7 @@ export class ClassRoomRepository extends BaseRepository
             return result
         } 
         catch (error : any) {
-            throw new Error(`Error al leer la base de datos: ${error}`)
+            throw new Error(`Error al leer la base de datos`)
         }
     }   
     

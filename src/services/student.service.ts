@@ -1,6 +1,6 @@
 
 import { Prisma, Student } from "@prisma/client"
-import { StudentWithRelations } from "../types"
+import { StudentWithRelations, IClientFilter } from "../types"
 import { StudentRepository } from "../repositories/student.repository"
 import { PDFGenerator } from "../utils/pdf"
 import { DOCXGenerator } from "../utils/docx"
@@ -11,9 +11,12 @@ const repository = new StudentRepository()
 
 export class StudentService {
 
-    public static async get() : Promise<Student[]> {
+    public static async get(pageNumber : number = 0, pageSize : number = 100) : Promise<Student[]> {
         try {
-            const result = await repository.get()
+
+            if (pageSize > 100) pageSize = 100
+
+            const result = await repository.get(pageNumber, pageSize)
             return result
         } 
         catch (error : any) {
@@ -29,6 +32,22 @@ export class StudentService {
         catch (error : any) {
             throw new Error(`No fue posible obtener el estudiante solicitado: ${error}`)
         }
+    }
+
+    public static async getFiltered(filter : string, pageNumber : number = 0, pageSize : number = 100) : Promise<Student[]> {
+
+        try {
+
+            if (pageSize > 100) pageSize = 100
+
+            const result = await repository.getFiltered(filter, pageNumber, pageSize)
+            return result
+
+        }
+        catch (error : any) {
+            throw new Error(`No fue posible obtener el estudiante solicitado: ${error}`)
+        }
+
     }
 
     public static async create(student : Prisma.StudentCreateInput) : Promise<Student> {

@@ -9,12 +9,19 @@ export abstract class BaseRepository <TModel, TEntity, TCreate, TUpdate> {
         this.model = model
     }
 
-    public async get() : Promise<TEntity[]> {
+    public async get(pageNumber : number = 0, pageSize : number = 100) : Promise<TEntity[]> {
         try {
-            const result = await (this.model as any).findMany()
+
+            const skipAmount : number = pageNumber * pageSize
+
+            const result = await (this.model as any).findMany({
+                skip: skipAmount,
+                take: pageSize
+            })
             return result
         } 
         catch (error : any) {
+            console.log(error)
             throw new Error(`Error al leer la base de datos`)
         }
     }
