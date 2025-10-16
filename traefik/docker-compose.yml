@@ -1,0 +1,32 @@
+
+services:
+    reverse-proxy:
+        image: traefik:v2.11
+        container_name: traefik
+        restart: unless-stopped
+        security_opt:
+            - no-new-privileges:true
+        command:
+            - --providers.docker=true                
+            - --providers.docker.exposedbydefault=false 
+            - --entrypoints.web.address=:80         
+            - --entrypoints.websecure.address=:443   
+            # - --api.insecure=true # Opcional: para acceder al Dashboard
+        ports:
+            - 80:80
+            - 443:443
+            - 6379:6379
+            - 5432:5432
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock:ro
+            - ./config/traefik.yml:/etc/traefik/traefik.yml:ro
+            - ./config/config.yml:/etc/traefik/config.yml:ro
+            - ./certs:/etc/certs:ro
+        networks:
+            - sysacad-network
+        labels:
+            - "traefik.enable=true"
+            - "traefik.http.routers.traefik=true"
+networks:
+    sysacad-network:
+        external: true

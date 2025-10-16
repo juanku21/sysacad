@@ -27,6 +27,9 @@ ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 # Copiamos todos los archivos package+algo.json al directorio de trabajo
 COPY package*.json ./
 
+# Ejecutamos npm installa para generar el archivo package.json
+RUN npm install
+
 # Instalación limpia de todas las dependencias necesarias.
 # La primer flag evita que los scripts de instalación se ejecuten con permisos de superusario 
 # La segunda flag evita que se hagan reportes de auditoría durante la instalación

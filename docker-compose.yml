@@ -18,6 +18,11 @@ services:
       interval: 5s
       timeout: 5s
       retries: 20
+    # labels:
+    #   - "traefik.enable=true"
+    #   - "traefik.tcp.routers.database.rule=HostSNI(`*`)"
+    #   - "traefik.tcp.routers.database.entrypoints=postgresql"
+    #   - "traefik.tcp.services.database.loadbalancer.server.port=5432"
   
   cache:
     container_name: redis-cache-server
@@ -31,14 +36,24 @@ services:
       interval: 5s
       timeout: 3s
       retries: 20
+    # labels:
+    #   - "traefik.enable=true"
+    #   - "traefik.tcp.routers.cache.rule=HostSNI(`*`)"
+    #   - "traefik.tcp.routers.cache.entrypoints=redis"
+    #   - "traefik.tcp.services.cache.loadbalancer.server.port=6379"
   
   backend:
-    container_name: sysacad-backend-server
+    # container_name: sysacad-backend-server
     networks:
-      - sysacad-network
+      sysacad-network:
+        aliases:
+          - backend.sysacad.localhost
     build:
       context: .
       dockerfile: Dockerfile
+    deploy:
+      replicas: 1
+
     volumes:
       - /app/dist
       - /app/node_modules
@@ -49,8 +64,15 @@ services:
       cache: { condition: service_healthy }
     ports:
       - "3000:3000"
+    # labels:
+    #   - "traefik.enable=true"
+    #   - "traefik.http.routers.backend.rule=Host(`backend.sysacad.localhost`)"
+    #   - "traefik.http.routers.tls=true"
+    #   - "traefik.http.services.backend.loadbalancer.server.port=3000"
+    #   - "traefik.docker.network=sysacad-network"
 
 networks:
   sysacad-network:
     name: sysacad-network
     driver: bridge
+    external: true
