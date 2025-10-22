@@ -39,6 +39,10 @@ model User {
   student Student?
   authority Authority?
 
+  @@index([email])
+  @@index([phone])
+  @@index([cuil])
+
   @@map("users")
 }
 
@@ -56,6 +60,9 @@ model Student {
   courseRegistrations CourseRegistration[]
   examRegistrations FinalExamRegistration[]
 
+  @@index([user_id])
+  @@index([file])
+
   @@map("students")
 }
 
@@ -71,6 +78,8 @@ model Authority {
   position AuthorityPosition[]
   finalExam TeacherFinalExam[]
   dictation TeacherSubjectDictation[]
+
+  @@index([user_id])
 
   @@map("authorities")
 }
@@ -157,6 +166,9 @@ model Faculty {
   classRooms ClassRoom[]
   users User[]
 
+  @@index([email])
+  @@index([phone])
+
   @@map("faculties")
 }
 
@@ -210,6 +222,8 @@ model Career {
   studyPlans StudyPlan[]
   students Student[]
 
+  @@index([code])
+
   @@map("careers")
 }
 
@@ -228,6 +242,8 @@ model StudyPlan {
 
   subjectInfo SubjectInfo[]
   correlativities Correlativity[]
+
+  @@index([code])
 
   @@map("study_plans")
 }
@@ -290,6 +306,8 @@ model Subject {
   correlativities Correlativity[] @relation("MainSubject")
   required Correlativity[] @relation("CorrelativeSubject")
   quealifications Qualification[]
+
+  @@index([code])
 
   @@map("subjects")
 }
