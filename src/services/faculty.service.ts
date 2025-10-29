@@ -8,9 +8,11 @@ const repository = new FacultyRepository()
 
 export class FacultyService {
 
-    public static async get() : Promise<Faculty[]> {
+    public static async get(pageNumber : number = 1, pageSize : number = 100) : Promise<Faculty[]> {
         try {
-            const result = await repository.get()
+            if (pageSize > 100) pageSize = 100
+
+            const result = await repository.get(pageNumber, pageSize)
             return result
         } 
         catch (error : any) {
@@ -26,6 +28,22 @@ export class FacultyService {
         catch (error : any) {
             throw new Error(`No fue posible obtener la facultad solicitada: ${error}`)
         }
+    }
+
+    public static async getFiltered(filter : string, pageNumber : number = 1, pageSize : number = 100) : Promise<Faculty[]> {
+
+        try {
+
+            if (pageSize > 100) pageSize = 100
+
+            const result = await repository.getFiltered(filter, pageNumber, pageSize)
+            return result
+
+        }
+        catch (error : any) {
+            throw new Error(`No fue posible obtener el estudiante solicitado: ${error}`)
+        }
+
     }
 
     public static async create(faculty : Prisma.FacultyCreateInput) : Promise<Faculty> {
