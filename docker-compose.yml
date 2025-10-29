@@ -1,12 +1,12 @@
 
 services:
   database:
-    # container_name: postgres-sql-server
+    container_name: postgres-sql-server
     image: postgres:17.5-bullseye
     networks:
       - sysacad-network
-    # ports:
-    #   - "5432:5432"
+    ports:
+      - "5432:5432"
     environment:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
@@ -18,11 +18,11 @@ services:
       interval: 5s
       timeout: 5s
       retries: 20
-    labels:
-      - "traefik.enable=true"
-      - "traefik.tcp.routers.database.rule=HostSNI(`*`)"
-      - "traefik.tcp.routers.database.entrypoints=postgresql"
-      - "traefik.tcp.services.database.loadbalancer.server.port=5432"
+    # labels:
+    #   - "traefik.enable=true"
+    #   - "traefik.tcp.routers.database.rule=HostSNI(`*`)"
+    #   - "traefik.tcp.routers.database.entrypoints=postgresql"
+    #   - "traefik.tcp.services.database.loadbalancer.server.port=5432"
   
   cache:
     # container_name: redis-cache-server
