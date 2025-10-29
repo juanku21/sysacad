@@ -7,8 +7,10 @@ const repository = new CareerRepository()
 
 export class CareerService {
 
-    public static async get() : Promise<Career[]> {
+    public static async get(pageNumber : number = 1, pageSize : number = 100) : Promise<Career[]> {
         try {
+            if (pageSize > 100) pageSize = 100
+
             const result = await repository.get()
             return result
         } 
@@ -26,6 +28,22 @@ export class CareerService {
             throw new Error(`No fue posible obtener la carrera solicitada: ${error}`)
         }
     }
+
+    public static async getFiltered(filter : string, pageNumber : number = 1, pageSize : number = 100) : Promise<Career[]> {
+    
+        try {
+    
+            if (pageSize > 100) pageSize = 100
+    
+            const result = await repository.getFiltered(filter, pageNumber, pageSize)
+            return result
+    
+            }
+            catch (error : any) {
+                throw new Error(`No fue posible obtener el estudiante solicitado: ${error}`)
+            }
+    
+        }
 
     public static async create(career : Prisma.CareerCreateInput) : Promise<Career> {
         try {

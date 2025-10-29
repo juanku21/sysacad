@@ -10,7 +10,26 @@ export class CorrelativityController {
 
     public static get : RequestHandler = async (req : Request, res : Response) => {
         try {
-            const result = await CorrelativityService.get()
+            
+            let result : object[]
+
+
+            if (typeof req.headers['x-page'] == "string" && typeof req.headers['x-per-page'] == "string") {
+
+                const pageNumber : number = parseInt(req.headers['x-page'])
+                const pageSize : number = parseInt(req.headers['x-per-page'])
+
+                result = await CorrelativityService.get(pageNumber, pageSize)
+
+                typeof req.headers['x-filters'] == 'string' ? result = await CorrelativityService.getFiltered(req.headers['x-filters'], pageNumber, pageSize) : result = await CorrelativityService.get(pageNumber, pageSize)
+            
+            }
+            else {
+
+                typeof req.headers['x-filters'] == 'string' ? result = await CorrelativityService.getFiltered(req.headers['x-filters']) : result = await CorrelativityService.get()
+
+            }
+
 
             const resultSafe = result.map(record => IdEncrypter.encodeData(record))
 

@@ -8,20 +8,39 @@ import { FinalExamMapper } from "../mapping/finalExam.mapper"
 
 export class FinalExamController {
 
-    public static get : RequestHandler = async (req : Request, res : Response) => {
+    public static get: RequestHandler = async (req: Request, res: Response) => {
         try {
-            const result = await FinalExamService.get()
+
+            let result: object[]
+
+
+            if (typeof req.headers['x-page'] == "string" && typeof req.headers['x-per-page'] == "string") {
+
+                const pageNumber: number = parseInt(req.headers['x-page'])
+                const pageSize: number = parseInt(req.headers['x-per-page'])
+
+                result = await FinalExamService.get(pageNumber, pageSize)
+
+                typeof req.headers['x-filters'] == 'string' ? result = await FinalExamService.getFiltered(req.headers['x-filters'], pageNumber, pageSize) : result = await FinalExamService.get(pageNumber, pageSize)
+
+            }
+            else {
+
+                typeof req.headers['x-filters'] == 'string' ? result = await FinalExamService.getFiltered(req.headers['x-filters']) : result = await FinalExamService.get()
+
+            }
+
 
             const resultSafe = result.map(record => IdEncrypter.encodeData(record))
 
             res.status(200).json(resultSafe)
         }
-        catch (error : any) {
-            res.status(503).json({error: `${error.message}`})
+        catch (error: any) {
+            res.status(503).json({ error: `${error.message}` })
         }
     }
 
-    public static getById : RequestHandler = async (req : Request, res : Response) => {
+    public static getById: RequestHandler = async (req: Request, res: Response) => {
 
         const id = IdEncrypter.decodeUUID(req.params.id)
 
@@ -36,27 +55,27 @@ export class FinalExamController {
 
             res.status(200).json(resultSafe)
         }
-        catch (error : any) {
+        catch (error: any) {
 
             if (error.message === 'El recurso con el ID solicitado no existe') {
-                res.status(404).json({error: `${error.message}`})
+                res.status(404).json({ error: `${error.message}` })
             }
-            else{
-                res.status(503).json({error: `${error.message}`})
+            else {
+                res.status(503).json({ error: `${error.message}` })
             }
 
         }
     }
 
-    
-    public static create : RequestHandler = async (req : Request, res : Response) => {
+
+    public static create: RequestHandler = async (req: Request, res: Response) => {
 
         const finalExam = req.body
 
         finalExam.date = new Date(finalExam.date)
 
         if (!FinalExamValidator.create(finalExam)) {
-            res.status(400).json({error: 'Los datos enviados son incorrectos'})
+            res.status(400).json({ error: 'Los datos enviados son incorrectos' })
         }
 
         try {
@@ -68,14 +87,14 @@ export class FinalExamController {
             const resultSafe = IdEncrypter.encodeData(result)
 
             res.status(201).json(resultSafe)
-        } 
-        catch (error : any) {
-            res.status(503).json({error: `${error.message}`})
+        }
+        catch (error: any) {
+            res.status(503).json({ error: `${error.message}` })
         }
 
     }
 
-    public static update : RequestHandler = async (req : Request, res : Response) => {
+    public static update: RequestHandler = async (req: Request, res: Response) => {
 
         const finalExam = req.body
 
@@ -86,7 +105,7 @@ export class FinalExamController {
         }
 
         if (!FinalExamValidator.update(finalExam)) {
-            res.status(400).json({error: 'Los datos enviados son incorrectos'})
+            res.status(400).json({ error: 'Los datos enviados son incorrectos' })
         }
 
         try {
@@ -102,25 +121,25 @@ export class FinalExamController {
             const resultSafe = IdEncrypter.encodeData(result)
 
             res.status(200).json(resultSafe)
-        } 
-        catch (error : any) {
-            
+        }
+        catch (error: any) {
+
             if (error.message == 'El recurso que desea actualizar no existe') {
-                res.status(404).json({error: `${error.message}`})
+                res.status(404).json({ error: `${error.message}` })
             }
-            else{
-                res.status(503).json({error: `${error.message}`})
+            else {
+                res.status(503).json({ error: `${error.message}` })
             }
         }
 
     }
 
-    public static delete : RequestHandler = async (req : Request, res : Response) => {
+    public static delete: RequestHandler = async (req: Request, res: Response) => {
 
         const id = IdEncrypter.decodeUUID(req.params.id)
 
         try {
-            
+
             const result = await FinalExamService.delete(id)
 
             if (result === null) {
@@ -131,14 +150,14 @@ export class FinalExamController {
 
             res.status(200).json(resultSafe)
 
-        } 
-        catch (error : any) {
-            
+        }
+        catch (error: any) {
+
             if (error.message == 'El recurso que desea eliminar no existe') {
-                res.status(404).json({error: `${error.message}`})
+                res.status(404).json({ error: `${error.message}` })
             }
-            else{
-                res.status(503).json({error: `${error.message}`})
+            else {
+                res.status(503).json({ error: `${error.message}` })
             }
         }
     }

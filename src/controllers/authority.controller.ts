@@ -9,20 +9,39 @@ import { IdEncrypter } from "../utils/encryption"
 
 export class AuthorityController {
 
-    public static get : RequestHandler = async (req : Request, res : Response) => {
+    public static get: RequestHandler = async (req: Request, res: Response) => {
         try {
-            const result = await AuthorityService.get()
+
+            let result: object[]
+
+
+            if (typeof req.headers['x-page'] == "string" && typeof req.headers['x-per-page'] == "string") {
+
+                const pageNumber: number = parseInt(req.headers['x-page'])
+                const pageSize: number = parseInt(req.headers['x-per-page'])
+
+                result = await AuthorityService.get(pageNumber, pageSize)
+
+                typeof req.headers['x-filters'] == 'string' ? result = await AuthorityService.getFiltered(req.headers['x-filters'], pageNumber, pageSize) : result = await AuthorityService.get(pageNumber, pageSize)
+
+            }
+            else {
+
+                typeof req.headers['x-filters'] == 'string' ? result = await AuthorityService.getFiltered(req.headers['x-filters']) : result = await AuthorityService.get()
+
+            }
+
 
             const resultSafe = result.map(record => IdEncrypter.encodeData(record))
 
             res.status(200).json(resultSafe)
         }
-        catch (error : any) {
-            res.status(503).json({error: `${error.message}`})
+        catch (error: any) {
+            res.status(503).json({ error: `${error.message}` })
         }
     }
 
-    public static getById : RequestHandler = async (req : Request, res : Response) => {
+    public static getById: RequestHandler = async (req: Request, res: Response) => {
 
         const id = IdEncrypter.decodeUUID(req.params.id)
 
@@ -37,27 +56,27 @@ export class AuthorityController {
 
             res.status(200).json(resultSafe)
         }
-        catch (error : any) {
+        catch (error: any) {
 
             if (error.message === 'El recurso con el ID solicitado no existe') {
-                res.status(404).json({error: `${error.message}`})
+                res.status(404).json({ error: `${error.message}` })
             }
-            else{
-                res.status(503).json({error: `${error.message}`})
+            else {
+                res.status(503).json({ error: `${error.message}` })
             }
 
         }
     }
 
-    
-    public static create : RequestHandler = async (req : Request, res : Response) => {
+
+    public static create: RequestHandler = async (req: Request, res: Response) => {
 
         const authority = req.body
 
         authority.recruitment = new Date(authority.recruitment)
 
         if (!AuthorityValidator.create(authority)) {
-            res.status(400).json({error: 'Los datos enviados son incorrectos'})
+            res.status(400).json({ error: 'Los datos enviados son incorrectos' })
         }
 
         try {
@@ -69,14 +88,14 @@ export class AuthorityController {
             const resultSafe = IdEncrypter.encodeData(result)
 
             res.status(201).json(resultSafe)
-        } 
-        catch (error : any) {
-            res.status(503).json({error: `${error.message}`})
+        }
+        catch (error: any) {
+            res.status(503).json({ error: `${error.message}` })
         }
 
     }
 
-    public static update : RequestHandler = async (req : Request, res : Response) => {
+    public static update: RequestHandler = async (req: Request, res: Response) => {
 
         const authority = req.body
 
@@ -87,7 +106,7 @@ export class AuthorityController {
         }
 
         if (!AuthorityValidator.update(authority)) {
-            res.status(400).json({error: 'Los datos enviados son incorrectos'})
+            res.status(400).json({ error: 'Los datos enviados son incorrectos' })
         }
 
         try {
@@ -103,25 +122,25 @@ export class AuthorityController {
             const resultSafe = IdEncrypter.encodeData(result)
 
             res.status(200).json(resultSafe)
-        } 
-        catch (error : any) {
-            
+        }
+        catch (error: any) {
+
             if (error.message == 'El recurso que desea actualizar no existe') {
-                res.status(404).json({error: `${error.message}`})
+                res.status(404).json({ error: `${error.message}` })
             }
-            else{
-                res.status(503).json({error: `${error.message}`})
+            else {
+                res.status(503).json({ error: `${error.message}` })
             }
         }
 
     }
 
-    public static delete : RequestHandler = async (req : Request, res : Response) => {
+    public static delete: RequestHandler = async (req: Request, res: Response) => {
 
         const id = IdEncrypter.decodeUUID(req.params.id)
 
         try {
-            
+
             const result = await AuthorityService.delete(id)
 
             if (result === null) {
@@ -132,14 +151,14 @@ export class AuthorityController {
 
             res.status(200).json(resultSafe)
 
-        } 
-        catch (error : any) {
-            
+        }
+        catch (error: any) {
+
             if (error.message == 'El recurso que desea eliminar no existe') {
-                res.status(404).json({error: `${error.message}`})
+                res.status(404).json({ error: `${error.message}` })
             }
-            else{
-                res.status(503).json({error: `${error.message}`})
+            else {
+                res.status(503).json({ error: `${error.message}` })
             }
         }
     }

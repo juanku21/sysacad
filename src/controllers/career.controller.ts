@@ -1,6 +1,5 @@
-
+import { CareerService } from './../services/career.service';
 import { Request, Response, RequestHandler } from "express"
-import { CareerService } from "../services/career.service"
 import { CareerValidator } from "../validators/career.validator"
 import { IdEncrypter } from "../utils/encryption"
 
@@ -9,7 +8,26 @@ export class CareerController {
 
     public static get : RequestHandler = async (req : Request, res : Response) => {
         try {
-            const result = await CareerService.get()
+            
+            let result : object[]
+
+
+            if (typeof req.headers['x-page'] == "string" && typeof req.headers['x-per-page'] == "string") {
+
+                const pageNumber : number = parseInt(req.headers['x-page'])
+                const pageSize : number = parseInt(req.headers['x-per-page'])
+
+                result = await CareerService.get(pageNumber, pageSize)
+
+                typeof req.headers['x-filters'] == 'string' ? result = await CareerService.getFiltered(req.headers['x-filters'], pageNumber, pageSize) : result = await CareerService.get(pageNumber, pageSize)
+            
+            }
+            else {
+
+                typeof req.headers['x-filters'] == 'string' ? result = await CareerService.getFiltered(req.headers['x-filters']) : result = await CareerService.get()
+
+            }
+
 
             const resultSafe = result.map(record => IdEncrypter.encodeData(record))
 

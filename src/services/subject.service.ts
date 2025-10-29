@@ -1,5 +1,5 @@
 
-import { Prisma, Subject } from "@prisma/client"
+import { Correlativity, Prisma, Subject } from "@prisma/client"
 import { SubjectWithRelations } from "../types"
 import { SubjectRepository } from "../repositories/subject.repository"
 
@@ -8,8 +8,10 @@ const repository = new SubjectRepository()
 
 export class SubjectService {
 
-    public static async get() : Promise<Subject[]> {
+    public static async get(pageNumber : number = 1, pageSize : number = 100) : Promise<Subject[]> {
         try {
+            if (pageSize > 100) pageSize = 100
+
             const result = await repository.get()
             return result
         } 
@@ -27,6 +29,22 @@ export class SubjectService {
             throw new Error(`No fue posible obtener la materia solicitada: ${error}`)
         }
     }
+
+        public static async getFiltered(filter : string, pageNumber : number = 1, pageSize : number = 100) : Promise<Subject[]> {
+    
+            try {
+    
+                if (pageSize > 100) pageSize = 100
+    
+                const result = await repository.getFiltered(filter, pageNumber, pageSize)
+                return result
+    
+            }
+            catch (error : any) {
+                throw new Error(`No fue posible obtener el estudiante solicitado: ${error}`)
+            }
+    
+        }
 
     public static async create(subject : Prisma.SubjectCreateInput) : Promise<Subject> {
         try {
