@@ -9,7 +9,26 @@ export class PositionCategoryController {
 
     public static get : RequestHandler = async (req : Request, res : Response) => {
         try {
-            const result = await PositionCategoryService.get()
+            
+            let result : object[]
+
+
+            if (typeof req.headers['x-page'] == "string" && typeof req.headers['x-per-page'] == "string") {
+
+                const pageNumber : number = parseInt(req.headers['x-page'])
+                const pageSize : number = parseInt(req.headers['x-per-page'])
+
+                result = await PositionCategoryService.get(pageNumber, pageSize)
+
+                typeof req.headers['x-filters'] == 'string' ? result = await PositionCategoryService.getFiltered(req.headers['x-filters'], pageNumber, pageSize) : result = await PositionCategoryService.get(pageNumber, pageSize)
+            
+            }
+            else {
+
+                typeof req.headers['x-filters'] == 'string' ? result = await PositionCategoryService.getFiltered(req.headers['x-filters']) : result = await PositionCategoryService.get()
+
+            }
+
 
             const resultSafe = result.map(record => IdEncrypter.encodeData(record))
 

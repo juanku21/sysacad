@@ -3,12 +3,14 @@ import { Prisma, Correlativity } from "@prisma/client"
 import { CorrelativityWithRelations } from "../types"
 import { CorrelativityRepository } from "../repositories/correlativity.repository"
 
-const repository = new CorrelativityRepository()
+export const repository = new CorrelativityRepository()
 
 export class CorrelativityService {
 
-    public static async get() : Promise<Correlativity[]> {
+    public static async get(pageNumber : number = 1, pageSize : number = 100) : Promise<Correlativity[]> {
         try {
+            if (pageSize > 100) pageSize = 100
+            
             const result = await repository.get()
             return result
         } 
@@ -26,6 +28,22 @@ export class CorrelativityService {
             throw new Error(`No fue posible obtener la correlatividad solicitada: ${error}`)
         }
     }
+
+        public static async getFiltered(filter : string, pageNumber : number = 1, pageSize : number = 100) : Promise<Correlativity[]> {
+    
+            try {
+    
+                if (pageSize > 100) pageSize = 100
+    
+                const result = await repository.getFiltered(filter, pageNumber, pageSize)
+                return result
+    
+            }
+            catch (error : any) {
+                throw new Error(`No fue posible obtener el estudiante solicitado: ${error}`)
+            }
+    
+        }
 
     public static async create(correlativity : Prisma.CorrelativityCreateInput) : Promise<Correlativity> {
         try {

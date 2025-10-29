@@ -1,16 +1,17 @@
-import { Prisma, StudyPlan} from "@prisma/client"
+import { Prisma, StudyPlan } from "@prisma/client"
 import { StudyPlanWithRelations } from "../types"
 import { BaseRepository } from "./base.repository"
+import { PrismaFilterTransformer } from "../utils/filterAdapter"
 import prisma from "../config/client"
 
-export class StudyPlanRepository extends BaseRepository 
-<typeof prisma.studyPlan, StudyPlan, Prisma.StudyPlanCreateInput, Prisma.StudyPlanUpdateInput> {
+export class StudyPlanRepository extends BaseRepository
+    <typeof prisma.studyPlan, StudyPlan, Prisma.StudyPlanCreateInput, Prisma.StudyPlanUpdateInput> {
 
-    constructor(){
+    constructor() {
         super(prisma.studyPlan)
     }
 
-    public async getById(id : number) : Promise<StudyPlanWithRelations | null> {
+    public async getById(id: number): Promise<StudyPlanWithRelations | null> {
         try {
             const result = await prisma.studyPlan.findUnique({
                 where: {
@@ -28,10 +29,33 @@ export class StudyPlanRepository extends BaseRepository
             })
 
             return result
-        } 
-        catch (error : any) {
+        }
+        catch (error: any) {
             throw new Error(`Error al leer la base de datos`)
         }
-    }   
-    
+    }
+
+    public async getFiltered(filter: string, pageNumber: number = 1, pageSize: number = 100): Promise<StudyPlan[]> {
+        try {
+
+            const skipAmount = (pageNumber - 1) * pageSize
+
+            const prismaFilter = filter ? PrismaFilterTransformer.toPrismaWhere(filter) : {}
+
+            console.log(prismaFilter)
+
+            const result = await prisma.studyPlan.findMany({
+                where: prismaFilter,
+                skip: skipAmount,
+                take: pageSize
+            })
+
+            return result
+
+        }
+        catch (error: any) {
+            throw new Error(`Error al leer la base de datos: ${error}`)
+        }
+    }
+
 }

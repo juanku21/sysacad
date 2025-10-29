@@ -8,13 +8,15 @@ const repository = new PositionCategoryRepository()
 
 export class PositionCategoryService {
 
-    public static async get() : Promise<PositionCategory[]> {
+    public static async get(pageNumber : number = 1, pageSize : number = 100) : Promise<PositionCategory[]> {
         try {
-            const result = await repository.get()
+            if (pageSize > 100) pageSize = 100
+
+            const result = await repository.get(pageNumber, pageSize)
             return result
         } 
         catch (error : any) {
-            throw new Error(`No fue posible obtener la lista de categorias de cargos: ${error}`)
+            throw new Error(`No fue posible obtener la lista de facultades: ${error}`)
         }
     }
 
@@ -26,6 +28,22 @@ export class PositionCategoryService {
         catch (error : any) {
             throw new Error(`No fue posible obtener la categoria de cargo solicitada: ${error}`)
         }
+    }
+
+    public static async getFiltered(filter : string, pageNumber : number = 1, pageSize : number = 100) : Promise<PositionCategory[]> {
+
+        try {
+
+            if (pageSize > 100) pageSize = 100
+
+            const result = await repository.getFiltered(filter, pageNumber, pageSize)
+            return result
+
+        }
+        catch (error : any) {
+            throw new Error(`No fue posible obtener el estudiante solicitado: ${error}`)
+        }
+
     }
 
     public static async create(positionCategory : Prisma.PositionCategoryCreateInput) : Promise<PositionCategory> {
