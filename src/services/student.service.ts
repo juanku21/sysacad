@@ -11,7 +11,7 @@ const repository = new StudentRepository()
 
 export class StudentService {
 
-    public static async get(pageNumber : number = 0, pageSize : number = 100) : Promise<Student[]> {
+    public static async get(pageNumber : number = 1, pageSize : number = 100) : Promise<Student[]> {
         try {
 
             if (pageSize > 100) pageSize = 100
@@ -34,7 +34,7 @@ export class StudentService {
         }
     }
 
-    public static async getFiltered(filter : string, pageNumber : number = 0, pageSize : number = 100) : Promise<Student[]> {
+    public static async getFiltered(filter : string, pageNumber : number = 1, pageSize : number = 100) : Promise<Student[]> {
 
         try {
 

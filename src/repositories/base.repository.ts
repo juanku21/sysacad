@@ -9,10 +9,10 @@ export abstract class BaseRepository <TModel, TEntity, TCreate, TUpdate> {
         this.model = model
     }
 
-    public async get(pageNumber : number = 0, pageSize : number = 100) : Promise<TEntity[]> {
+    public async get(pageNumber : number = 1, pageSize : number = 100) : Promise<TEntity[]> {
         try {
 
-            const skipAmount : number = pageNumber * pageSize
+            const skipAmount = (pageNumber - 1) * pageSize
 
             const result = await (this.model as any).findMany({
                 skip: skipAmount,

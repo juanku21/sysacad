@@ -1,6 +1,7 @@
 
 import { Prisma, Authority} from "@prisma/client"
 import { AuthorityWithRelations } from "../types"
+import { PrismaFilterTransformer } from "../utils/filterAdapter"
 import { BaseRepository } from "./base.repository"
 import prisma from "../config/client"
 
@@ -42,6 +43,26 @@ export class AuthorityRepository extends BaseRepository
         catch (error : any) {
             throw new Error(`Error al leer la base de datos`)
         }
-    }   
+    }
+    
+    public async getFiltered(filter : string, pageNumber : number = 0, pageSize : number = 100) : Promise<Authority[]> {
+        try {
+
+            const skipAmount : number = pageNumber * pageSize
+
+            const prismaFilter : object = PrismaFilterTransformer.toPrismaWhere(filter)
+
+            const result = await prisma.authority.findMany({
+                where: prismaFilter,
+                skip: skipAmount,
+                take: pageSize,
+            }) 
+
+            return result
+        } 
+        catch (error : any) {
+            throw new Error(`Error al leer la base de datos: ${error}`)
+        }
+    } 
     
 }
