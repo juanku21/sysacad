@@ -3,7 +3,6 @@ import { Prisma, Student} from "@prisma/client"
 import { StudentWithRelations } from "../types"
 import { BaseRepository } from "./base.repository"
 import { PrismaFilterTransformer } from "../utils/filterAdapter"
-import { IClientFilter } from "../types"
 import prisma from "../config/client"
 
 export class StudentRepository extends BaseRepository 
@@ -44,20 +43,23 @@ export class StudentRepository extends BaseRepository
         }
     }
     
-    public async getFiltered(filter : string, pageNumber : number = 0, pageSize : number = 100) : Promise<Student[]> {
+    public async getFiltered(filter : string, pageNumber : number = 1, pageSize : number = 100) : Promise<Student[]> {
         try {
 
-            const skipAmount : number = pageNumber * pageSize
+            const skipAmount = (pageNumber - 1) * pageSize
+            
+            const prismaFilter = filter ? PrismaFilterTransformer.toPrismaWhere(filter) : {}
 
-            const prismaFilter : object = PrismaFilterTransformer.toPrismaWhere(filter)
+            console.log(prismaFilter)
 
             const result = await prisma.student.findMany({
                 where: prismaFilter,
                 skip: skipAmount,
-                take: pageSize,
-            }) 
+                take: pageSize
+            })
 
             return result
+
         } 
         catch (error : any) {
             throw new Error(`Error al leer la base de datos: ${error}`)

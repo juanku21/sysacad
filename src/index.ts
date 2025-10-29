@@ -1,6 +1,4 @@
 
-import fs from 'fs'
-import path from "path"
 import http, { Server } from 'http'
 import express, { Application } from "express"
 import config from "./config/config"

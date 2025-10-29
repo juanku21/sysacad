@@ -1,6 +1,8 @@
-import { Prisma, Career} from "@prisma/client"
+
+import { Prisma, Career } from "@prisma/client"
 import { CareerWithRelations } from "../types"
 import { BaseRepository } from "./base.repository"
+import { PrismaFilterTransformer } from "../utils/filterAdapter"
 import prisma from "../config/client"
 
 export class CareerRepository extends BaseRepository 
@@ -28,6 +30,27 @@ export class CareerRepository extends BaseRepository
         catch (error : any) {
             throw new Error(`Error al leer la base de datos`)
         }
-    }   
+    }
+
+    public async getFiltered(filter : string, pageNumber : number = 0, pageSize : number = 100) : Promise<Career[]> {
+        try {
+
+            const skipAmount = (pageNumber - 1) * pageSize;
+            
+            const prismaFilter = filter ? PrismaFilterTransformer.toPrismaWhere(filter) : {};
+
+            const result = await prisma.career.findMany({
+                where: prismaFilter,
+                skip: skipAmount,
+                take: pageSize
+            })
+
+            return result
+
+        } 
+        catch (error : any) {
+            throw new Error(`Error al leer la base de datos: ${error}`)
+        }
+    } 
     
 }

@@ -22,7 +22,7 @@ export class StudentController {
 
                 result = await StudentService.get(pageNumber, pageSize)
 
-                typeof req.headers['x-filters'] == 'string' ? result = await StudentService.getFiltered(req.headers['x-filters'], pageSize, pageNumber) : result = await StudentService.get(pageNumber, pageSize)
+                typeof req.headers['x-filters'] == 'string' ? result = await StudentService.getFiltered(req.headers['x-filters'], pageNumber, pageSize) : result = await StudentService.get(pageNumber, pageSize)
             
             }
             else {
