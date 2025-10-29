@@ -8,8 +8,10 @@ const repository = new CourseRegistrationRepository()
 
 export class CourseRegistrationService {
 
-    public static async get() : Promise<CourseRegistration[]> {
+    public static async get(pageNumber : number = 1, pageSize : number = 100) : Promise<CourseRegistration[]> {
         try {
+            if (pageSize > 100) pageSize = 100
+
             const result = await repository.get()
             return result
         } 
@@ -26,6 +28,22 @@ export class CourseRegistrationService {
         catch (error : any) {
             throw new Error(`No fue posible obtener la registracion de curso solicitada: ${error}`)
         }
+    }
+
+    public static async getFiltered(filter : string, pageNumber : number = 1, pageSize : number = 100) : Promise<CourseRegistration[]> {
+    
+        try {
+
+            if (pageSize > 100) pageSize = 100
+
+            const result = await repository.getFiltered(filter, pageNumber, pageSize)
+            return result
+
+        }
+        catch (error : any) {
+            throw new Error(`No fue posible obtener el estudiante solicitado: ${error}`)
+        }
+
     }
 
     public static async create(courseRegistration : Prisma.CourseRegistrationCreateInput) : Promise<CourseRegistration> {
