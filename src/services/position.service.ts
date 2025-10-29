@@ -7,13 +7,15 @@ const repository = new PositionRepository()
 
 export class PositionService {
 
-    public static async get() : Promise<Position[]>{
+    public static async get(pageNumber : number = 1, pageSize : number = 100) : Promise<Position[]> {
         try {
-            const result = await repository.get()
+            if (pageSize > 100) pageSize = 100
+
+            const result = await repository.get(pageNumber, pageSize)
             return result
         } 
         catch (error : any) {
-            throw new Error(`No fue posible obtener la lista de cargos: ${error}`)
+            throw new Error(`No fue posible obtener la lista de facultades: ${error}`)
         }
     }
 
@@ -25,6 +27,22 @@ export class PositionService {
         catch (error : any) {
             throw new Error(`No fue posible obtener el cargo solicitado: ${error}`)
         }
+    }
+
+    public static async getFiltered(filter : string, pageNumber : number = 1, pageSize : number = 100) : Promise<Position[]> {
+
+        try {
+
+            if (pageSize > 100) pageSize = 100
+
+            const result = await repository.getFiltered(filter, pageNumber, pageSize)
+            return result
+
+        }
+        catch (error : any) {
+            throw new Error(`No fue posible obtener el estudiante solicitado: ${error}`)
+        }
+
     }
 
     public static async create(position : Prisma.PositionCreateInput) : Promise<Position> {

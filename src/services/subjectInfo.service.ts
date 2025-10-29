@@ -7,13 +7,15 @@ const repository = new SubjectInfoRepository()
 
 export class SubjectInfoService {
 
-    public static async get() : Promise<SubjectInfo[]>{
+    public static async get(pageNumber : number = 1, pageSize : number = 100) : Promise<SubjectInfo[]>{
         try {
-            const result = await repository.get()
+            if (pageSize > 100) pageSize = 100
+
+            const result = await repository.get(pageNumber, pageSize)
             return result
         } 
         catch (error : any) {
-            throw new Error(`No fue posible obtener la lista con informacion de las materias: ${error}`)
+            throw new Error(`No fue posible obtener la lista de facultades: ${error}`)
         }
     }
 
@@ -26,6 +28,22 @@ export class SubjectInfoService {
             throw new Error(`No fue posible obtener la informacion de la materia: ${error}`)
         }
     }
+
+    public static async getFiltered(filter : string, pageNumber : number = 1, pageSize : number = 100) : Promise<SubjectInfo[]> {
+
+        try {
+
+            if (pageSize > 100) pageSize = 100
+
+            const result = await repository.getFiltered(filter, pageNumber, pageSize)
+            return result
+
+        }
+        catch (error : any) {
+            throw new Error(`No fue posible obtener el estudiante solicitado: ${error}`)
+        }
+
+    }    
 
     public static async create(subjectInfo : Prisma.SubjectInfoCreateInput) : Promise<SubjectInfo>{
         try {
