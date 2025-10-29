@@ -11,7 +11,26 @@ export class PositionController {
 
     public static get : RequestHandler = async (req : Request, res : Response) => {
         try {
-            const result = await PositionService.get()
+            
+            let result : object[]
+
+
+            if (typeof req.headers['x-page'] == "string" && typeof req.headers['x-per-page'] == "string") {
+
+                const pageNumber : number = parseInt(req.headers['x-page'])
+                const pageSize : number = parseInt(req.headers['x-per-page'])
+
+                result = await PositionService.get(pageNumber, pageSize)
+
+                typeof req.headers['x-filters'] == 'string' ? result = await PositionService.getFiltered(req.headers['x-filters'], pageNumber, pageSize) : result = await PositionService.get(pageNumber, pageSize)
+            
+            }
+            else {
+
+                typeof req.headers['x-filters'] == 'string' ? result = await PositionService.getFiltered(req.headers['x-filters']) : result = await PositionService.get()
+
+            }
+
 
             const resultSafe = result.map(record => IdEncrypter.encodeData(record))
 

@@ -9,7 +9,25 @@ export class SubjectInfoController {
 
     public static get : RequestHandler = async (req : Request, res : Response) => {
         try {
-            const result = await SubjectInfoService.get()
+            let result : object[]
+
+
+            if (typeof req.headers['x-page'] == "string" && typeof req.headers['x-per-page'] == "string") {
+
+                const pageNumber : number = parseInt(req.headers['x-page'])
+                const pageSize : number = parseInt(req.headers['x-per-page'])
+
+                result = await SubjectInfoService.get(pageNumber, pageSize)
+
+                typeof req.headers['x-filters'] == 'string' ? result = await SubjectInfoService.getFiltered(req.headers['x-filters'], pageNumber, pageSize) : result = await SubjectInfoService.get(pageNumber, pageSize)
+            
+            }
+            else {
+
+                typeof req.headers['x-filters'] == 'string' ? result = await SubjectInfoService.getFiltered(req.headers['x-filters']) : result = await SubjectInfoService.get()
+
+            }
+
 
             const resultSafe = result.map(record => IdEncrypter.encodeData(record))
 
