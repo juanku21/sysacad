@@ -44,9 +44,6 @@ COPY prisma ./prisma
 # Copiamos la carpeta con archivos públicos
 COPY public ./public
 
-# Copiamos la carpeta con el certificado SSL del servidor
-COPY ssl ./ssl
-
 # Copiamos el código fuente del proyecto de '/src' (escrito en TS) al directorio de trabajo
 COPY src ./src
 
@@ -71,7 +68,6 @@ FROM gcr.io/distroless/nodejs22:nonroot
 WORKDIR /app
 
 # Copiamos desde la imagen de preconstrucción a la imagen de construcción, únicamente las carpetas y archivos necesarios 
-COPY --from=build /app/ssl ./ssl
 COPY --from=build /app/prisma ./prisma
 COPY --from=build /app/public ./public
 COPY --from=build /app/dist ./dist
