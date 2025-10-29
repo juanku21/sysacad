@@ -7,8 +7,10 @@ const repository = new CityRepository()
 
 export class CityService {
 
-    public static async get() : Promise<City[]> {
+    public static async get(pageNumber : number = 1, pageSize : number = 100) : Promise<City[]> {
         try {
+            if (pageSize > 100) pageSize = 100
+
             const result = await repository.get()
             return result
         } 
@@ -25,6 +27,23 @@ export class CityService {
         catch (error : any) {
             throw new Error(`No fue posible obtener la ciudad solicitada: ${error}`)
         }
+    }
+
+    
+    public static async getFiltered(filter : string, pageNumber : number = 1, pageSize : number = 100) : Promise<City[]> {
+
+        try {
+
+            if (pageSize > 100) pageSize = 100
+
+            const result = await repository.getFiltered(filter, pageNumber, pageSize)
+            return result
+
+        }
+        catch (error : any) {
+            throw new Error(`No fue posible obtener el estudiante solicitado: ${error}`)
+        }
+
     }
 
     public static async create(city : Prisma.CityCreateInput) : Promise<City>{
