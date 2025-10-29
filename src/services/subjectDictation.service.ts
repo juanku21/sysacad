@@ -8,15 +8,34 @@ const repository = new SubjectDictationRepository()
 
 export class SubjectDictationService {
 
-    public static async get() : Promise<SubjectDictation[]>{
+    public static async get(pageNumber : number = 1, pageSize : number = 100) : Promise<SubjectDictation[]>{
         try {
-            const result = await repository.get()
+            if (pageSize > 100) pageSize = 100
+
+            const result = await repository.get(pageNumber, pageSize)
             return result
         } 
         catch (error : any) {
             throw new Error(`No fue posible obtener la lista de dictado de materia: ${error}`)
         }
     }
+
+    public static async getFiltered(filter : string, pageNumber : number = 1, pageSize : number = 100) : Promise<SubjectDictation[]> {
+        
+        try {
+
+            if (pageSize > 100) pageSize = 100
+
+            const result = await repository.getFiltered(filter, pageNumber, pageSize)
+            return result
+
+        }
+        catch (error : any) {
+            throw new Error(`No fue posible obtener el estudiante solicitado: ${error}`)
+        }
+        
+    }
+    
 
     public static async getById(id : number) : Promise<SubjectDictationWithRelations | null> {
         try {

@@ -9,11 +9,23 @@ export class SubjectDictationController {
 
     public static get : RequestHandler = async (req : Request, res : Response) => {
         try {
-            const result = await SubjectDictationService.get()
+            let result : object[]
 
-            const resultSafe = result.map(record => IdEncrypter.encodeData(record))
+            if (typeof req.headers['x-page'] == "string" && typeof req.headers['x-per-page'] == "string") {
 
-            res.status(200).json(resultSafe)
+                const pageNumber : number = parseInt(req.headers['x-page'])
+                const pageSize : number = parseInt(req.headers['x-per-page'])
+
+                result = await SubjectDictationService.get(pageNumber, pageSize)
+
+                typeof req.headers['x-filters'] == 'string' ? result = await SubjectDictationService.getFiltered(req.headers['x-filters'], pageNumber, pageSize) : result = await SubjectDictationService.get(pageNumber, pageSize)
+            
+            }
+            else {
+
+                typeof req.headers['x-filters'] == 'string' ? result = await SubjectDictationService.getFiltered(req.headers['x-filters']) : result = await SubjectDictationService.get()
+
+            }
         }
         catch (error : any) {
             res.status(503).json({error: `${error.message}`})
