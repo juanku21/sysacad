@@ -44,20 +44,14 @@ services:
   
   backend:
     # container_name: sysacad-backend-server
+    image: sysacad-project-backend:0.9.0
     networks:
       sysacad-network:
         aliases:
           - backend.sysacad.localhost
-    build:
-      context: .
-      dockerfile: Dockerfile
     deploy:
       replicas: 1
 
-    volumes:
-      - /app/dist
-      - /app/node_modules
-      - /app/prisma
     env_file: [".env"]
     depends_on:
       database: { condition: service_healthy }
@@ -67,12 +61,13 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.backend.rule=Host(`backend.sysacad.localhost`)"
-      - "traefik.http.routers.tls=true"
+      - "traefik.http.routers.backend.tls=true"
       - "traefik.http.services.backend.loadbalancer.server.port=3000"
       - "traefik.docker.network=sysacad-network"
 
 networks:
   sysacad-network:
-    name: sysacad-network
-    driver: bridge
+    # name: sysacad-network
+    # driver: bridge
     external: true
+
