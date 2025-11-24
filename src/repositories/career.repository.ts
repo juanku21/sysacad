@@ -2,7 +2,7 @@
 import { Prisma, Career } from "@prisma/client"
 import { CareerWithRelations } from "../types"
 import { BaseRepository } from "./base.repository"
-import { PrismaFilterTransformer } from "../utils/filterAdapter"
+import { PrismaFilterTransformer } from "../utils/whereAdapter"
 import prisma from "../config/client"
 
 export class CareerRepository extends BaseRepository 

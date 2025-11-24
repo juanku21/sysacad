@@ -2,7 +2,7 @@
 import { Prisma, City} from "@prisma/client"
 import { CityWithRelations} from "../types"
 import { BaseRepository } from "./base.repository"
-import { PrismaFilterTransformer } from "../utils/filterAdapter"
+import { PrismaFilterTransformer } from "../utils/whereAdapter"
 import prisma from "../config/client"
 
 export class CityRepository extends BaseRepository 

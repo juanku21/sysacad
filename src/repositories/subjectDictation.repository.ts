@@ -2,7 +2,7 @@
 import { Prisma, SubjectDictation} from "@prisma/client"
 import { SubjectDictationWithRelations } from "../types"
 import { BaseRepository } from "./base.repository"
-import { PrismaFilterTransformer } from "../utils/filterAdapter"
+import { PrismaFilterTransformer } from "../utils/whereAdapter"
 import prisma from "../config/client"
 
 export class SubjectDictationRepository extends BaseRepository 

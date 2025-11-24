@@ -18,6 +18,7 @@ export abstract class BaseRepository <TModel, TEntity, TCreate, TUpdate> {
                 skip: skipAmount,
                 take: pageSize
             })
+
             return result
         } 
         catch (error : any) {

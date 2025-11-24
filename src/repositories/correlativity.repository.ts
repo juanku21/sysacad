@@ -1,7 +1,7 @@
 import { Prisma, Correlativity} from "@prisma/client"
 import { CorrelativityWithRelations} from "../types"
 import { BaseRepository } from "./base.repository"
-import { PrismaFilterTransformer } from "../utils/filterAdapter"
+import { PrismaFilterTransformer } from "../utils/whereAdapter"
 import prisma from "../config/client"
 
 export class CorrelativityRepository extends BaseRepository 
