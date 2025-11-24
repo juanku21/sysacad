@@ -1,7 +1,7 @@
 import { Prisma, Faculty} from "@prisma/client"
 import { FacultyWithRelations } from "../types"
 import { BaseRepository } from "./base.repository"
-import { PrismaFilterTransformer } from "../utils/filterAdapter"
+import { PrismaFilterTransformer } from "../utils/whereAdapter"
 import prisma from "../config/client"
 
 export class FacultyRepository extends BaseRepository 

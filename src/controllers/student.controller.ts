@@ -43,7 +43,14 @@ export class StudentController {
                 error.message === 'Cada filtro debe contener un "field" (string) y un "op" (string).'
             ) {
               res.status(400).json({error: `Error en el encabezado x-filters: ${error.message}`})
-            } 
+            }
+            else if (
+                error.message === 'El parámetro de ordenamiento no es un JSON válido.' ||
+                error.message === 'El JSON de ordenamiento debe ser un array.' ||
+                error.message === 'Cada objeto de ordenamiento debe contener un "field" (string) y un "order" (string).'
+            ) {
+                res.status(400).json({error: `Error en el encabezado x-sort: ${error.message}`})
+            }
             else {
                 res.status(503).json({error: `${error.message}`})    
             }

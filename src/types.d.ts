@@ -35,6 +35,8 @@ export interface RegularCertificateInput {
 }
 
 
+// Interfaces para construir objetos especiales para el ORM (prisma)
+
 export interface IRawFilter {
     field: string
     op: string
@@ -51,6 +53,13 @@ export interface IClientFilter {
 }
 
 
+export interface IRawOrder {
+    field: string;
+    order: string; // 'asc' o 'desc'
+}
+
+
+export type PrismaOrder = Record<string, 'asc' | 'desc'>;
 
 
 

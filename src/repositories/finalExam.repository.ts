@@ -1,7 +1,7 @@
 import { Prisma, FinalExam } from "@prisma/client"
 import { FinalExamWithRelations } from "../types"
 import { BaseRepository } from "./base.repository"
-import { PrismaFilterTransformer } from "../utils/filterAdapter"
+import { PrismaFilterTransformer } from "../utils/whereAdapter"
 import prisma from "../config/client"
 
 export class FinalExamRepository extends BaseRepository

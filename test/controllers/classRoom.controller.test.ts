@@ -30,7 +30,7 @@ class ClassRoomControllerTest extends BaseControllerTest <typeof mockedService, 
 }
 
 
-beforeAll(() => {
+beforeAll(async () => {
     appTest.start()
 })
 

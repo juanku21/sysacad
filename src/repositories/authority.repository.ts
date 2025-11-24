@@ -1,7 +1,7 @@
 
 import { Prisma, Authority} from "@prisma/client"
 import { AuthorityWithRelations } from "../types"
-import { PrismaFilterTransformer } from "../utils/filterAdapter"
+import { PrismaFilterTransformer } from "../utils/whereAdapter"
 import { BaseRepository } from "./base.repository"
 import prisma from "../config/client"
 
