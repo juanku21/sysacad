@@ -37,7 +37,7 @@ export class StudentMapper {
                     gender: data.gender,
                     cuil: data.cuil,
                     phone: data.phone,
-                    facultyId: IdEncrypter.decodeUUID(data.facultyId)
+                    facultyId: IdEncrypter.decodeUUID(data.faculty_id)
                 }
             },
             career: {
@@ -66,7 +66,7 @@ export class StudentMapper {
             }
         }
 
-        if (data.facultyId && result.user?.update) result.user.update.facultyId = IdEncrypter.decodeUUID(data.facultyId) 
+        if (data.faculty_id && result.user?.update) result.user.update.facultyId = IdEncrypter.decodeUUID(data.faculty_id) 
         if (data.career_id) result.career = {connect: {id: IdEncrypter.decodeUUID(data.career_id)}} 
 
         return result  

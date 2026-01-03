@@ -2,6 +2,6 @@
 .env
 node_modules
 package-lock.json
-build
+dist
 ssl
 /prisma/migrations

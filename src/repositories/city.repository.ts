@@ -1,8 +1,9 @@
 
-import { Prisma, City} from "@prisma/client"
-import { CityWithRelations} from "../types"
+import { Prisma, City } from "@prisma/client"
+import { CityWithRelations, IGetFilteredParams } from "../types"
 import { BaseRepository } from "./base.repository"
 import { PrismaFilterTransformer } from "../utils/whereAdapter"
+import { PrismaOrderByTransformer } from "../utils/orderByAdapter"
 import prisma from "../config/client"
 
 export class CityRepository extends BaseRepository 
@@ -30,23 +31,27 @@ export class CityRepository extends BaseRepository
         }
     }   
     
-    public async getFiltered(filter : string, pageNumber : number = 1, pageSize : number = 100) : Promise<City[]> {
+    public async getFiltered(params : IGetFilteredParams) : Promise<City[]> {
         try {
 
-            const skipAmount = (pageNumber - 1) * pageSize
+            const skipAmount = (params.pageNumber - 1) * params.pageSize
             
-            const prismaFilter = filter ? PrismaFilterTransformer.toPrismaWhere(filter) : {}
+            const prismaFilter = params.filter ? PrismaFilterTransformer.toPrismaWhere(params.filter) : {}
+
+            const prismaOrder = params.order ? PrismaOrderByTransformer.toPrismaOrderBy(params.order) : {}
 
             const result = await prisma.city.findMany({
                 where: prismaFilter,
                 skip: skipAmount,
-                take: pageSize
+                take: params.pageSize,
+                orderBy: prismaOrder
             })
 
             return result
 
         } 
         catch (error : any) {
+            console.log(error)
             throw new Error(`Error al leer la base de datos: ${error}`)
         }
     } 

@@ -11,7 +11,7 @@ export class PrismaOrderByTransformer {
 
         let rawOrders: IRawOrder[]
 
-        // 1. Manejo de Errores: Deserialización JSON
+        
         try {
             rawOrders = JSON.parse(jsonString);
         } 
@@ -26,7 +26,6 @@ export class PrismaOrderByTransformer {
         const orderByArray: PrismaOrder[] = []
 
         
-        // 2. Mapeo y Validación
         for (const rawOrder of rawOrders) {
             
             if (typeof rawOrder.field !== 'string' || typeof rawOrder.order !== 'string') {

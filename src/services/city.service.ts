@@ -1,6 +1,6 @@
 
 import { Prisma, City } from "@prisma/client"
-import { CityWithRelations } from "../types"
+import { CityWithRelations, IGetFilteredParams } from "../types"
 import { CityRepository } from "../repositories/city.repository"
 
 const repository = new CityRepository()
@@ -9,10 +9,12 @@ export class CityService {
 
     public static async get(pageNumber : number = 1, pageSize : number = 100) : Promise<City[]> {
         try {
+
             if (pageSize > 100) pageSize = 100
 
-            const result = await repository.get()
+            const result = await repository.get(pageNumber, pageSize)
             return result
+            
         } 
         catch (error : any) {
             throw new Error(`No fue posible obtener la lista de ciudades: ${error}`)
@@ -30,18 +32,18 @@ export class CityService {
     }
 
     
-    public static async getFiltered(filter : string, pageNumber : number = 1, pageSize : number = 100) : Promise<City[]> {
+    public static async getFiltered(params : IGetFilteredParams) : Promise<City[]> {
 
         try {
 
-            if (pageSize > 100) pageSize = 100
+            if (params.pageSize > 100) params.pageSize = 100
 
-            const result = await repository.getFiltered(filter, pageNumber, pageSize)
+            const result = await repository.getFiltered(params)
             return result
 
         }
         catch (error : any) {
-            throw new Error(`No fue posible obtener el estudiante solicitado: ${error}`)
+            throw new Error(`No fue posible obtener la ciudad solicitada: ${error}`)
         }
 
     }

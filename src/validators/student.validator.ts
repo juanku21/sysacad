@@ -14,6 +14,8 @@ const StudentInputCreateSchema = z.object({
     phone: z.number().positive().min(1),
     gender: z.optional(z.literal(["M", "F"])),
     file: z.number().positive().min(1),
+    faculty_id: z.string().min(1),
+    career_id: z.string().min(1)
 
 }).strict()
 
@@ -27,6 +29,8 @@ const StudentInputUpdateSchema = z.object({
     phone: z.optional(z.number().positive().min(1)),
     gender: z.optional(z.literal(["M", "F"])),
     file: z.optional(z.number().positive().min(1)),
+    faculty_id: z.optional(z.string().min(1)),
+    career_id: z.optional(z.string().min(1))
 
 }).strict()
 

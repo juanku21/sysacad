@@ -20,6 +20,26 @@ export interface AuthRequest extends Request {
     userRoles: string[]
 }
 
+
+// Interfaz de peticiones get filtradas
+
+export interface IGetFilteredParams {
+    filter: string | null
+    order: string | null
+    pageNumber: number 
+    pageSize: number
+}
+
+export interface IService {
+    get(pageNumber: number, pageSize: number): Promise<object[]>
+    getFiltered(props : IGetFilteredProps): Promise<object[]>
+    getById(id : number) : Promise<object | null>
+    create(created: object) : Promise<object>
+    update(id: number, updated: object) : Promise<object | null>
+    delete(id: number) : Promise<object | null>
+}
+
+
 // Interfaz para crear un alumno regular
 
 export interface RegularCertificateInput {
