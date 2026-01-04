@@ -3,35 +3,22 @@ import { Request, Response, RequestHandler } from "express"
 import { SubjectInfoService } from "../services/subjectInfo.service"
 import { SubjectinfoValidator } from "../validators/subjectInfo.validator"
 import { IdEncrypter } from "../utils/encryption"
+import { HeaderStrategy } from "../utils/headerStrategy"
 
 
 export class SubjectInfoController {
 
     public static get : RequestHandler = async (req : Request, res : Response) => {
         try {
-            let result : object[]
+        
+            const strategy = new HeaderStrategy(SubjectInfoService)
 
-
-            if (typeof req.headers['x-page'] == "string" && typeof req.headers['x-per-page'] == "string") {
-
-                const pageNumber : number = parseInt(req.headers['x-page'])
-                const pageSize : number = parseInt(req.headers['x-per-page'])
-
-                result = await SubjectInfoService.get(pageNumber, pageSize)
-
-                typeof req.headers['x-filters'] == 'string' ? result = await SubjectInfoService.getFiltered(req.headers['x-filters'], pageNumber, pageSize) : result = await SubjectInfoService.get(pageNumber, pageSize)
-            
-            }
-            else {
-
-                typeof req.headers['x-filters'] == 'string' ? result = await SubjectInfoService.getFiltered(req.headers['x-filters']) : result = await SubjectInfoService.get()
-
-            }
-
+            const result = await strategy.get(req)
 
             const resultSafe = result.map(record => IdEncrypter.encodeData(record))
 
             res.status(200).json(resultSafe)
+
         }
         catch (error : any) {
             res.status(503).json({error: `${error.message}`})

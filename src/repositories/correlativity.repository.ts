@@ -1,7 +1,9 @@
+
 import { Prisma, Correlativity} from "@prisma/client"
-import { CorrelativityWithRelations} from "../types"
+import { CorrelativityWithRelations, IGetFilteredParams } from "../types"
 import { BaseRepository } from "./base.repository"
 import { PrismaFilterTransformer } from "../utils/whereAdapter"
+import { PrismaOrderByTransformer } from "../utils/orderByAdapter"
 import prisma from "../config/client"
 
 export class CorrelativityRepository extends BaseRepository 
@@ -35,19 +37,20 @@ export class CorrelativityRepository extends BaseRepository
         }
     }
     
-    public async getFiltered(filter : string, pageNumber : number = 1, pageSize : number = 100) : Promise<Correlativity[]> {
+    public async getFiltered(params : IGetFilteredParams) : Promise<Correlativity[]> {
             try {
     
-                const skipAmount = (pageNumber - 1) * pageSize
+                const skipAmount = (params.pageNumber - 1) * params.pageSize
                 
-                const prismaFilter = filter ? PrismaFilterTransformer.toPrismaWhere(filter) : {}
-    
-                console.log(prismaFilter)
+                const prismaFilter = params.filter ? PrismaFilterTransformer.toPrismaWhere(params.filter) : {}
+
+                const prismaOrder = params.order ? PrismaOrderByTransformer.toPrismaOrderBy(params.order) : {}
     
                 const result = await prisma.correlativity.findMany({
                     where: prismaFilter,
                     skip: skipAmount,
-                    take: pageSize
+                    take: params.pageSize,
+                    orderBy: prismaOrder
                 })
     
                 return result

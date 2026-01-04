@@ -1,7 +1,9 @@
+
 import { CareerService } from './../services/career.service';
 import { Request, Response, RequestHandler } from "express"
 import { CareerValidator } from "../validators/career.validator"
 import { IdEncrypter } from "../utils/encryption"
+import { HeaderStrategy } from '../utils/headerStrategy';
 
 
 export class CareerController {
@@ -9,25 +11,9 @@ export class CareerController {
     public static get : RequestHandler = async (req : Request, res : Response) => {
         try {
             
-            let result : object[]
+            const strategy = new HeaderStrategy(CareerService)
 
-
-            if (typeof req.headers['x-page'] == "string" && typeof req.headers['x-per-page'] == "string") {
-
-                const pageNumber : number = parseInt(req.headers['x-page'])
-                const pageSize : number = parseInt(req.headers['x-per-page'])
-
-                result = await CareerService.get(pageNumber, pageSize)
-
-                typeof req.headers['x-filters'] == 'string' ? result = await CareerService.getFiltered(req.headers['x-filters'], pageNumber, pageSize) : result = await CareerService.get(pageNumber, pageSize)
-            
-            }
-            else {
-
-                typeof req.headers['x-filters'] == 'string' ? result = await CareerService.getFiltered(req.headers['x-filters']) : result = await CareerService.get()
-
-            }
-
+            const result = await strategy.get(req)
 
             const resultSafe = result.map(record => IdEncrypter.encodeData(record))
 

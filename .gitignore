@@ -1,7 +1,8 @@
-/database/data-postgres
+
 .env
 node_modules
 package-lock.json
 dist
-ssl
+/postgres/volumes
+/postgres/.env
 /prisma/migrations

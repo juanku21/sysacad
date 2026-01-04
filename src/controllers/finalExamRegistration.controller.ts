@@ -3,31 +3,17 @@ import { Request, Response, RequestHandler } from "express"
 import { FinalExamRegistrationService } from "../services/finalExamRegistration.service"
 import { FinalExamRegistrationValidator } from "../validators/finalExamRegistration.validator"
 import { IdEncrypter } from "../utils/encryption"
+import { HeaderStrategy } from "../utils/headerStrategy"
 
 
 export class FinalExamRegistrationController {
 
     public static get : RequestHandler = async (req : Request, res : Response) => {
         try {
-            let result : object[]
+        
+            const strategy = new HeaderStrategy(FinalExamRegistrationService)
 
-
-            if (typeof req.headers['x-page'] == "string" && typeof req.headers['x-per-page'] == "string") {
-
-                const pageNumber : number = parseInt(req.headers['x-page'])
-                const pageSize : number = parseInt(req.headers['x-per-page'])
-
-                result = await FinalExamRegistrationService.get(pageNumber, pageSize)
-
-                typeof req.headers['x-filters'] == 'string' ? result = await FinalExamRegistrationService.getFiltered(req.headers['x-filters'], pageNumber, pageSize) : result = await FinalExamRegistrationService.get(pageNumber, pageSize)
-            
-            }
-            else {
-
-                typeof req.headers['x-filters'] == 'string' ? result = await FinalExamRegistrationService.getFiltered(req.headers['x-filters']) : result = await FinalExamRegistrationService.get()
-
-            }
-
+            const result = await strategy.get(req)
 
             const resultSafe = result.map(record => IdEncrypter.encodeData(record))
 

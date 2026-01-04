@@ -1,6 +1,6 @@
 
 import { Prisma, Student } from "@prisma/client"
-import { StudentWithRelations, IClientFilter } from "../types"
+import { StudentWithRelations, IGetFilteredParams } from "../types"
 import { StudentRepository } from "../repositories/student.repository"
 import { PDFGenerator } from "../utils/pdf"
 import { DOCXGenerator } from "../utils/docx"
@@ -34,13 +34,13 @@ export class StudentService {
         }
     }
 
-    public static async getFiltered(filter : string, pageNumber : number = 1, pageSize : number = 100) : Promise<Student[]> {
+    public static async getFiltered(params: IGetFilteredParams) : Promise<Student[]> {
 
         try {
 
-            if (pageSize > 100) pageSize = 100
+            if (params.pageSize > 100) params.pageSize = 100
 
-            const result = await repository.getFiltered(filter, pageNumber, pageSize)
+            const result = await repository.getFiltered(params)
             return result
 
         }

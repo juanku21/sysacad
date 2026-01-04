@@ -1,6 +1,6 @@
 
 import { Prisma, Position } from "@prisma/client"
-import { PositionWithRelations } from "../types"
+import { PositionWithRelations, IGetFilteredParams } from "../types"
 import { PositionRepository } from "../repositories/position.repository"
 
 const repository = new PositionRepository()
@@ -29,13 +29,13 @@ export class PositionService {
         }
     }
 
-    public static async getFiltered(filter : string, pageNumber : number = 1, pageSize : number = 100) : Promise<Position[]> {
+    public static async getFiltered(params: IGetFilteredParams) : Promise<Position[]> {
 
         try {
 
-            if (pageSize > 100) pageSize = 100
+            if (params.pageSize > 100) params.pageSize = 100
 
-            const result = await repository.getFiltered(filter, pageNumber, pageSize)
+            const result = await repository.getFiltered(params)
             return result
 
         }

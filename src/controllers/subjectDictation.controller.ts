@@ -3,29 +3,21 @@ import { Request, Response, RequestHandler } from "express"
 import { SubjectDictationService } from "../services/subjectDictation.service"
 import { SubjectDictationValidator } from "../validators/subjectDictation.validator"
 import { IdEncrypter } from "../utils/encryption"
+import { HeaderStrategy } from "../utils/headerStrategy"
 
 
 export class SubjectDictationController {
 
     public static get : RequestHandler = async (req : Request, res : Response) => {
         try {
-            let result : object[]
+        
+            const strategy = new HeaderStrategy(SubjectDictationService)
 
-            if (typeof req.headers['x-page'] == "string" && typeof req.headers['x-per-page'] == "string") {
+            const result = await strategy.get(req)
 
-                const pageNumber : number = parseInt(req.headers['x-page'])
-                const pageSize : number = parseInt(req.headers['x-per-page'])
+            const resultSafe = result.map(record => IdEncrypter.encodeData(record))
 
-                result = await SubjectDictationService.get(pageNumber, pageSize)
-
-                typeof req.headers['x-filters'] == 'string' ? result = await SubjectDictationService.getFiltered(req.headers['x-filters'], pageNumber, pageSize) : result = await SubjectDictationService.get(pageNumber, pageSize)
-            
-            }
-            else {
-
-                typeof req.headers['x-filters'] == 'string' ? result = await SubjectDictationService.getFiltered(req.headers['x-filters']) : result = await SubjectDictationService.get()
-
-            }
+            res.status(200).json(resultSafe)
         }
         catch (error : any) {
             res.status(503).json({error: `${error.message}`})

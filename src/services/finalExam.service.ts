@@ -1,5 +1,6 @@
+
 import { Prisma, FinalExam } from "@prisma/client"
-import { FinalExamWithRelations } from "../types"
+import { FinalExamWithRelations, IGetFilteredParams } from "../types"
 import { FinalExamRepository } from "../repositories/finalExam.repository"
 
 
@@ -11,7 +12,7 @@ export class FinalExamService {
         try {
             if (pageSize > 100) pageSize = 100
 
-            const result = await repository.get()
+            const result = await repository.get(pageNumber, pageNumber)
             return result
         }
         catch (error: any) {
@@ -29,13 +30,13 @@ export class FinalExamService {
         }
     }
 
-    public static async getFiltered(filter: string, pageNumber: number = 1, pageSize: number = 100): Promise<FinalExam[]> {
+    public static async getFiltered(params: IGetFilteredParams): Promise<FinalExam[]> {
 
         try {
 
-            if (pageSize > 100) pageSize = 100
+            if (params.pageSize > 100) params.pageSize = 100
 
-            const result = await repository.getFiltered(filter, pageNumber, pageSize)
+            const result = await repository.getFiltered(params)
             return result
 
         }

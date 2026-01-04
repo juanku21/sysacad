@@ -1,6 +1,6 @@
 
 import { Prisma, Correlativity } from "@prisma/client"
-import { CorrelativityWithRelations } from "../types"
+import { CorrelativityWithRelations, IGetFilteredParams } from "../types"
 import { CorrelativityRepository } from "../repositories/correlativity.repository"
 
 export const repository = new CorrelativityRepository()
@@ -11,7 +11,7 @@ export class CorrelativityService {
         try {
             if (pageSize > 100) pageSize = 100
             
-            const result = await repository.get()
+            const result = await repository.get(pageNumber, pageSize)
             return result
         } 
         catch (error : any) {
@@ -29,13 +29,13 @@ export class CorrelativityService {
         }
     }
 
-        public static async getFiltered(filter : string, pageNumber : number = 1, pageSize : number = 100) : Promise<Correlativity[]> {
+        public static async getFiltered(params: IGetFilteredParams) : Promise<Correlativity[]> {
     
             try {
     
-                if (pageSize > 100) pageSize = 100
+                if (params.pageSize > 100) params.pageSize = 100
     
-                const result = await repository.getFiltered(filter, pageNumber, pageSize)
+                const result = await repository.getFiltered(params)
                 return result
     
             }

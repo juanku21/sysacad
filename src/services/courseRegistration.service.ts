@@ -1,6 +1,6 @@
 
 import { Prisma, CourseRegistration } from "@prisma/client"
-import { CourseRegistrationWithRelations } from "../types"
+import { CourseRegistrationWithRelations, IGetFilteredParams } from "../types"
 import { CourseRegistrationRepository } from "../repositories/courseRegistration.repository"
 
 
@@ -12,7 +12,7 @@ export class CourseRegistrationService {
         try {
             if (pageSize > 100) pageSize = 100
 
-            const result = await repository.get()
+            const result = await repository.get(pageNumber, pageSize)
             return result
         } 
         catch (error : any) {
@@ -30,13 +30,13 @@ export class CourseRegistrationService {
         }
     }
 
-    public static async getFiltered(filter : string, pageNumber : number = 1, pageSize : number = 100) : Promise<CourseRegistration[]> {
+    public static async getFiltered(params: IGetFilteredParams) : Promise<CourseRegistration[]> {
     
         try {
 
-            if (pageSize > 100) pageSize = 100
+            if (params.pageSize > 100) params.pageSize = 100
 
-            const result = await repository.getFiltered(filter, pageNumber, pageSize)
+            const result = await repository.getFiltered(params)
             return result
 
         }

@@ -1,33 +1,20 @@
 
-
 import { Request, Response, RequestHandler } from "express"
 import { ClassRoomService } from "../services/classRoom.service"
 import { ClassRoomValidator } from "../validators/classRoom.validator"
 import { IdEncrypter } from "../utils/encryption"
 import { ClassRoomMapper } from "../mapping/classRoom.mapper"
+import { HeaderStrategy } from "../utils/headerStrategy"
+
 
 export class ClassRoomController {
 
     public static get : RequestHandler = async (req : Request, res : Response) => {
         try {
-            let result : object[]
                     
-            if (typeof req.headers['x-page'] == "string" && typeof req.headers['x-per-page'] == "string") {
+            const strategy = new HeaderStrategy(ClassRoomService)
 
-                const pageNumber : number = parseInt(req.headers['x-page'])
-                const pageSize : number = parseInt(req.headers['x-per-page'])
-
-                result = await ClassRoomService.get(pageNumber, pageSize)
-
-                typeof req.headers['x-filters'] == 'string' ? result = await ClassRoomService.getFiltered(req.headers['x-filters'], pageNumber, pageSize) : result = await ClassRoomService.get(pageNumber, pageSize)
-            
-            }
-            else {
-
-                typeof req.headers['x-filters'] == 'string' ? result = await ClassRoomService.getFiltered(req.headers['x-filters']) : result = await ClassRoomService.get()
-
-            }
-
+            const result = await strategy.get(req)
 
             const resultSafe = result.map(record => IdEncrypter.encodeData(record))
 

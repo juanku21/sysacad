@@ -5,6 +5,7 @@ import { AuthorityService } from "../services/authority.service"
 import { AuthorityValidator } from "../validators/authority.validator"
 import { AuthorityMapper } from "../mapping/authority.mapper"
 import { IdEncrypter } from "../utils/encryption"
+import { HeaderStrategy } from "../utils/headerStrategy"
 
 
 export class AuthorityController {
@@ -12,25 +13,9 @@ export class AuthorityController {
     public static get: RequestHandler = async (req: Request, res: Response) => {
         try {
 
-            let result: object[]
+            const strategy = new HeaderStrategy(AuthorityService)
 
-
-            if (typeof req.headers['x-page'] == "string" && typeof req.headers['x-per-page'] == "string") {
-
-                const pageNumber: number = parseInt(req.headers['x-page'])
-                const pageSize: number = parseInt(req.headers['x-per-page'])
-
-                result = await AuthorityService.get(pageNumber, pageSize)
-
-                typeof req.headers['x-filters'] == 'string' ? result = await AuthorityService.getFiltered(req.headers['x-filters'], pageNumber, pageSize) : result = await AuthorityService.get(pageNumber, pageSize)
-
-            }
-            else {
-
-                typeof req.headers['x-filters'] == 'string' ? result = await AuthorityService.getFiltered(req.headers['x-filters']) : result = await AuthorityService.get()
-
-            }
-
+            const result = await strategy.get(req)
 
             const resultSafe = result.map(record => IdEncrypter.encodeData(record))
 

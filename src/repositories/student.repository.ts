@@ -1,8 +1,9 @@
 
 import { Prisma, Student} from "@prisma/client"
-import { StudentWithRelations } from "../types"
+import { StudentWithRelations, IGetFilteredParams } from "../types"
 import { BaseRepository } from "./base.repository"
 import { PrismaFilterTransformer } from "../utils/whereAdapter"
+import { PrismaOrderByTransformer } from "../utils/orderByAdapter"
 import prisma from "../config/client"
 
 export class StudentRepository extends BaseRepository 
@@ -43,19 +44,20 @@ export class StudentRepository extends BaseRepository
         }
     }
     
-    public async getFiltered(filter : string, pageNumber : number = 1, pageSize : number = 100) : Promise<Student[]> {
+    public async getFiltered(params : IGetFilteredParams) : Promise<Student[]> {
         try {
 
-            const skipAmount = (pageNumber - 1) * pageSize
+            const skipAmount = (params.pageNumber - 1) * params.pageSize
             
-            const prismaFilter = filter ? PrismaFilterTransformer.toPrismaWhere(filter) : {}
+            const prismaFilter = params.filter ? PrismaFilterTransformer.toPrismaWhere(params.filter) : {}
 
-            console.log(prismaFilter)
+            const prismaOrder = params.order ? PrismaOrderByTransformer.toPrismaOrderBy(params.order) : {}
 
             const result = await prisma.student.findMany({
                 where: prismaFilter,
                 skip: skipAmount,
-                take: pageSize
+                take: params.pageSize,
+                orderBy: prismaOrder
             })
 
             return result

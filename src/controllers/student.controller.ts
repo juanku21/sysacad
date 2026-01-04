@@ -1,36 +1,21 @@
 
-
 import { Request, Response, RequestHandler } from "express"
 import { StudentService } from "../services/student.service"
 import { StudentValidator } from "../validators/student.validator"
 import { IdEncrypter } from "../utils/encryption"
 import { StudentMapper } from "../mapping/student.mapper"
+import { HeaderStrategy } from "../utils/headerStrategy"
+
 
 export class StudentController {
 
     public static get : RequestHandler = async (req : Request, res : Response) => {
 
         try {
+        
+            const strategy = new HeaderStrategy(StudentService)
 
-            let result : object[]
-
-
-            if (typeof req.headers['x-page'] == "string" && typeof req.headers['x-per-page'] == "string") {
-
-                const pageNumber : number = parseInt(req.headers['x-page'])
-                const pageSize : number = parseInt(req.headers['x-per-page'])
-
-                result = await StudentService.get(pageNumber, pageSize)
-
-                typeof req.headers['x-filters'] == 'string' ? result = await StudentService.getFiltered(req.headers['x-filters'], pageNumber, pageSize) : result = await StudentService.get(pageNumber, pageSize)
-            
-            }
-            else {
-
-                typeof req.headers['x-filters'] == 'string' ? result = await StudentService.getFiltered(req.headers['x-filters']) : result = await StudentService.get()
-
-            }
-
+            const result = await strategy.get(req)
 
             const resultSafe = result.map(record => IdEncrypter.encodeData(record))
 

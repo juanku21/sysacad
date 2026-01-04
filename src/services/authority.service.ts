@@ -1,6 +1,6 @@
 
 import { Prisma, Authority } from "@prisma/client"
-import { AuthorityWithRelations } from "../types"
+import { AuthorityWithRelations, IGetFilteredParams } from "../types"
 import { AuthorityRepository } from "../repositories/authority.repository"
 import { Encrypter } from "../utils/encryption"
 
@@ -12,7 +12,7 @@ export class AuthorityService {
         try {
             if (pageSize > 100) pageSize = 100
 
-            const result = await repository.get()
+            const result = await repository.get(pageNumber, pageSize)
             return result
         }
         catch (error: any) {
@@ -30,13 +30,13 @@ export class AuthorityService {
         }
     }
 
-    public static async getFiltered(filter: string, pageNumber: number = 1, pageSize: number = 100): Promise<Authority[]> {
+    public static async getFiltered(params: IGetFilteredParams): Promise<Authority[]> {
 
         try {
 
-            if (pageSize > 100) pageSize = 100
+            if (params.pageSize > 100) params.pageSize = 100
 
-            const result = await repository.getFiltered(filter, pageNumber, pageSize)
+            const result = await repository.getFiltered(params)
             return result
 
         }

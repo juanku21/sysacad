@@ -1,7 +1,8 @@
 
 import { Prisma, Authority} from "@prisma/client"
-import { AuthorityWithRelations } from "../types"
+import { AuthorityWithRelations , IGetFilteredParams} from "../types"
 import { PrismaFilterTransformer } from "../utils/whereAdapter"
+import { PrismaOrderByTransformer } from "../utils/orderByAdapter"
 import { BaseRepository } from "./base.repository"
 import prisma from "../config/client"
 
@@ -45,17 +46,19 @@ export class AuthorityRepository extends BaseRepository
         }
     }
     
-    public async getFiltered(filter : string, pageNumber : number = 0, pageSize : number = 100) : Promise<Authority[]> {
+    public async getFiltered(params : IGetFilteredParams) : Promise<Authority[]> {
         try {
 
-            const skipAmount : number = pageNumber * pageSize
+            const skipAmount : number = params.pageNumber * params.pageSize
 
-            const prismaFilter : object = PrismaFilterTransformer.toPrismaWhere(filter)
+            const prismaFilter = params.filter ? PrismaFilterTransformer.toPrismaWhere(params.filter) : {}
+
+            const prismaOrder = params.order ? PrismaOrderByTransformer.toPrismaOrderBy(params.order) : {}
 
             const result = await prisma.authority.findMany({
                 where: prismaFilter,
                 skip: skipAmount,
-                take: pageSize,
+                take: params.pageSize,
             }) 
 
             return result

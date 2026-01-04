@@ -1,6 +1,6 @@
 
 import { Prisma, SubjectInfo } from "@prisma/client"
-import { SubjectInfoWithRelations } from "../types"
+import { SubjectInfoWithRelations, IGetFilteredParams } from "../types"
 import { SubjectInfoRepository } from "../repositories/subjectinfo.repository"
 
 const repository = new SubjectInfoRepository()
@@ -29,13 +29,13 @@ export class SubjectInfoService {
         }
     }
 
-    public static async getFiltered(filter : string, pageNumber : number = 1, pageSize : number = 100) : Promise<SubjectInfo[]> {
+    public static async getFiltered(params: IGetFilteredParams) : Promise<SubjectInfo[]> {
 
         try {
 
-            if (pageSize > 100) pageSize = 100
+            if (params.pageSize > 100) params.pageSize = 100
 
-            const result = await repository.getFiltered(filter, pageNumber, pageSize)
+            const result = await repository.getFiltered(params)
             return result
 
         }

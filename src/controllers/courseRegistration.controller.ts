@@ -1,10 +1,9 @@
 
-
 import { Request, Response, RequestHandler } from "express"
 import { CourseRegistrationService } from "../services/courseRegistration.service"
 import { CourseRegistrationValidator } from "../validators/courseRegistration.validator"
 import { IdEncrypter } from "../utils/encryption"
-
+import { HeaderStrategy } from "../utils/headerStrategy"
 
 
 export class CourseRegistrationController {
@@ -12,24 +11,9 @@ export class CourseRegistrationController {
     public static get : RequestHandler = async (req : Request, res : Response) => {
         try {
             
-            let result : object[]
-        
-            if (typeof req.headers['x-page'] == "string" && typeof req.headers['x-per-page'] == "string") {
+            const strategy = new HeaderStrategy(CourseRegistrationService)
 
-                const pageNumber : number = parseInt(req.headers['x-page'])
-                const pageSize : number = parseInt(req.headers['x-per-page'])
-
-                result = await CourseRegistrationService.get(pageNumber, pageSize)
-
-                typeof req.headers['x-filters'] == 'string' ? result = await CourseRegistrationService.getFiltered(req.headers['x-filters'], pageNumber, pageSize) : result = await CourseRegistrationService.get(pageNumber, pageSize)
-            
-            }
-            else {
-
-                typeof req.headers['x-filters'] == 'string' ? result = await CourseRegistrationService.getFiltered(req.headers['x-filters']) : result = await CourseRegistrationService.get()
-
-            }
-
+            const result = await strategy.get(req)
 
             const resultSafe = result.map(record => IdEncrypter.encodeData(record))
 

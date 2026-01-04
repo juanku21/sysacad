@@ -1,8 +1,9 @@
 
 import { Prisma, EducationalOffer} from "@prisma/client"
-import { EducationalOfferWithRelations } from "../types"
+import { EducationalOfferWithRelations, IGetFilteredParams } from "../types"
 import { BaseRepository } from "./base.repository"
 import { PrismaFilterTransformer } from "../utils/whereAdapter"
+import { PrismaOrderByTransformer } from "../utils/orderByAdapter"
 import prisma from "../config/client"
 
 export class EducationalOfferRepository extends BaseRepository 
@@ -30,17 +31,20 @@ export class EducationalOfferRepository extends BaseRepository
         }
     }   
     
-    public async getFiltered(filter : string, pageNumber : number = 1, pageSize : number = 100) : Promise<EducationalOffer[]> {
+    public async getFiltered(params : IGetFilteredParams) : Promise<EducationalOffer[]> {
         try {
 
-            const skipAmount = (pageNumber - 1) * pageSize
+            const skipAmount = (params.pageNumber - 1) * params.pageSize
             
-            const prismaFilter = filter ? PrismaFilterTransformer.toPrismaWhere(filter) : {}
+            const prismaFilter = params.filter ? PrismaFilterTransformer.toPrismaWhere(params.filter) : {}
+
+            const prismaOrder = params.order ? PrismaOrderByTransformer.toPrismaOrderBy(params.order) : {}
 
             const result = await prisma.educationalOffer.findMany({
                 where: prismaFilter,
                 skip: skipAmount,
-                take: pageSize
+                take: params.pageSize,
+                orderBy: prismaOrder
             })
 
             return result

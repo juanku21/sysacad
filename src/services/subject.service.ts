@@ -1,6 +1,6 @@
 
-import { Correlativity, Prisma, Subject } from "@prisma/client"
-import { SubjectWithRelations } from "../types"
+import { Prisma, Subject } from "@prisma/client"
+import { SubjectWithRelations, IGetFilteredParams } from "../types"
 import { SubjectRepository } from "../repositories/subject.repository"
 
 
@@ -12,7 +12,7 @@ export class SubjectService {
         try {
             if (pageSize > 100) pageSize = 100
 
-            const result = await repository.get()
+            const result = await repository.get(pageNumber, pageSize)
             return result
         } 
         catch (error : any) {
@@ -30,13 +30,13 @@ export class SubjectService {
         }
     }
 
-        public static async getFiltered(filter : string, pageNumber : number = 1, pageSize : number = 100) : Promise<Subject[]> {
+        public static async getFiltered(params: IGetFilteredParams) : Promise<Subject[]> {
     
             try {
     
-                if (pageSize > 100) pageSize = 100
+                if (params.pageSize > 100) params.pageSize = 100
     
-                const result = await repository.getFiltered(filter, pageNumber, pageSize)
+                const result = await repository.getFiltered(params)
                 return result
     
             }

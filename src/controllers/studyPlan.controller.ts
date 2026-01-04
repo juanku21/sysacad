@@ -1,11 +1,10 @@
 
-
-
 import { Request, Response, RequestHandler } from "express"
 import { StudyPlanService } from "../services/studyPlan.service"
 import { StudyPlanValidator } from "../validators/studyPlan.validator"
 import { StudyPlanMapper } from "../mapping/studyPlan.mapper"
 import { IdEncrypter } from "../utils/encryption"
+import { HeaderStrategy } from "../utils/headerStrategy"
 
 
 export class StudyPlanController {
@@ -13,25 +12,10 @@ export class StudyPlanController {
     public static get: RequestHandler = async (req: Request, res: Response) => {
         try {
 
-            let result: object[]
+        
+            const strategy = new HeaderStrategy(StudyPlanService)
 
-
-            if (typeof req.headers['x-page'] == "string" && typeof req.headers['x-per-page'] == "string") {
-
-                const pageNumber: number = parseInt(req.headers['x-page'])
-                const pageSize: number = parseInt(req.headers['x-per-page'])
-
-                result = await StudyPlanService.get(pageNumber, pageSize)
-
-                typeof req.headers['x-filters'] == 'string' ? result = await StudyPlanService.getFiltered(req.headers['x-filters'], pageNumber, pageSize) : result = await StudyPlanService.get(pageNumber, pageSize)
-
-            }
-            else {
-
-                typeof req.headers['x-filters'] == 'string' ? result = await StudyPlanService.getFiltered(req.headers['x-filters']) : result = await StudyPlanService.get()
-
-            }
-
+            const result = await strategy.get(req)
 
             const resultSafe = result.map(record => IdEncrypter.encodeData(record))
 

@@ -4,6 +4,7 @@ import { FacultyService } from "../services/faculty.service"
 import { FacultyValidator } from "../validators/faculty.validator"
 import { IdEncrypter } from "../utils/encryption"
 import { FacultyMapper } from "../mapping/faculty.mapper"
+import { HeaderStrategy } from "../utils/headerStrategy"
 
 
 export class FacultyController {
@@ -11,29 +12,14 @@ export class FacultyController {
     public static get : RequestHandler = async (req : Request, res : Response) => {
         try {
             
-            let result : object[]
+            const strategy = new HeaderStrategy(FacultyService)
 
-
-            if (typeof req.headers['x-page'] == "string" && typeof req.headers['x-per-page'] == "string") {
-
-                const pageNumber : number = parseInt(req.headers['x-page'])
-                const pageSize : number = parseInt(req.headers['x-per-page'])
-
-                result = await FacultyService.get(pageNumber, pageSize)
-
-                typeof req.headers['x-filters'] == 'string' ? result = await FacultyService.getFiltered(req.headers['x-filters'], pageNumber, pageSize) : result = await FacultyService.get(pageNumber, pageSize)
-            
-            }
-            else {
-
-                typeof req.headers['x-filters'] == 'string' ? result = await FacultyService.getFiltered(req.headers['x-filters']) : result = await FacultyService.get()
-
-            }
-
+            const result = await strategy.get(req)
 
             const resultSafe = result.map(record => IdEncrypter.encodeData(record))
 
             res.status(200).json(resultSafe)
+
         }
         catch (error : any) {
             res.status(503).json({error: `${error.message}`})

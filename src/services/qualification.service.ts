@@ -1,6 +1,7 @@
 
 import { Prisma, Qualification } from "@prisma/client"
 import { QualificationRepository } from "../repositories/qualification.repository"
+import { IGetFilteredParams } from "../types"
 
 
 const repository = new QualificationRepository()
@@ -29,13 +30,13 @@ export class QualificationService {
         }
     }
 
-    public static async getFiltered(filter : string, pageNumber : number = 1, pageSize : number = 100) : Promise<Qualification[]> {
+    public static async getFiltered(params: IGetFilteredParams) : Promise<Qualification[]> {
 
         try {
 
-            if (pageSize > 100) pageSize = 100
+            if (params.pageSize > 100) params.pageSize = 100
 
-            const result = await repository.getFiltered(filter, pageNumber, pageSize)
+            const result = await repository.getFiltered(params)
             return result
 
         }

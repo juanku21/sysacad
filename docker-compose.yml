@@ -1,47 +1,5 @@
 
 services:
-  database:
-    container_name: postgres-sql-server
-    image: postgres:17.5-bullseye
-    networks:
-      - sysacad-network
-    ports:
-      - "5432:5432"
-    environment:
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: ${DB_NAME}
-    volumes:
-      - ./database/data-postgres:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-juanku} -d ${DB_NAME:-sysacad} || exit 1"]
-      interval: 5s
-      timeout: 5s
-      retries: 20
-    # labels:
-    #   - "traefik.enable=true"
-    #   - "traefik.tcp.routers.database.rule=HostSNI(`*`)"
-    #   - "traefik.tcp.routers.database.entrypoints=postgresql"
-    #   - "traefik.tcp.services.database.loadbalancer.server.port=5432"
-  
-  cache:
-    container_name: redis-cache-server
-    image: redis:alpine3.22
-    networks:
-      - sysacad-network
-    ports:
-      - "6379:6379"
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 5s
-      timeout: 3s
-      retries: 20
-    # labels:
-    #   - "traefik.enable=true"
-    #   - "traefik.tcp.routers.cache.rule=HostSNI(`*`)"
-    #   - "traefik.tcp.routers.cache.entrypoints=redis"
-    #   - "traefik.tcp.services.cache.loadbalancer.server.port=6379"
-  
   backend:
     container_name: sysacad-backend-server
     image: sysacad-project-backend:0.9.0

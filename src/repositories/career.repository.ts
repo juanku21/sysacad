@@ -1,8 +1,9 @@
 
 import { Prisma, Career } from "@prisma/client"
-import { CareerWithRelations } from "../types"
+import { CareerWithRelations, IGetFilteredParams } from "../types"
 import { BaseRepository } from "./base.repository"
 import { PrismaFilterTransformer } from "../utils/whereAdapter"
+import { PrismaOrderByTransformer } from "../utils/orderByAdapter"
 import prisma from "../config/client"
 
 export class CareerRepository extends BaseRepository 
@@ -32,17 +33,20 @@ export class CareerRepository extends BaseRepository
         }
     }
 
-    public async getFiltered(filter : string, pageNumber : number = 0, pageSize : number = 100) : Promise<Career[]> {
+    public async getFiltered(params: IGetFilteredParams) : Promise<Career[]> {
         try {
 
-            const skipAmount = (pageNumber - 1) * pageSize;
+            const skipAmount = (params.pageNumber - 1) * params.pageSize;
             
-            const prismaFilter = filter ? PrismaFilterTransformer.toPrismaWhere(filter) : {};
+            const prismaFilter = params.filter ? PrismaFilterTransformer.toPrismaWhere(params.filter) : {};
+
+            const prismaOrder = params.order ? PrismaOrderByTransformer.toPrismaOrderBy(params.order) : {}
 
             const result = await prisma.career.findMany({
                 where: prismaFilter,
                 skip: skipAmount,
-                take: pageSize
+                take: params.pageSize,
+                orderBy: prismaOrder
             })
 
             return result

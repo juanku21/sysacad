@@ -1,10 +1,9 @@
 
-
 import { Request, Response, RequestHandler } from "express"
 import { PositionService } from "../services/position.service"
 import { PositionValidator } from "../validators/position.validator"
 import { IdEncrypter } from "../utils/encryption"
-
+import { HeaderStrategy } from "../utils/headerStrategy"
 
 
 export class PositionController {
@@ -12,25 +11,9 @@ export class PositionController {
     public static get : RequestHandler = async (req : Request, res : Response) => {
         try {
             
-            let result : object[]
+            const strategy = new HeaderStrategy(PositionService)
 
-
-            if (typeof req.headers['x-page'] == "string" && typeof req.headers['x-per-page'] == "string") {
-
-                const pageNumber : number = parseInt(req.headers['x-page'])
-                const pageSize : number = parseInt(req.headers['x-per-page'])
-
-                result = await PositionService.get(pageNumber, pageSize)
-
-                typeof req.headers['x-filters'] == 'string' ? result = await PositionService.getFiltered(req.headers['x-filters'], pageNumber, pageSize) : result = await PositionService.get(pageNumber, pageSize)
-            
-            }
-            else {
-
-                typeof req.headers['x-filters'] == 'string' ? result = await PositionService.getFiltered(req.headers['x-filters']) : result = await PositionService.get()
-
-            }
-
+            const result = await strategy.get(req)
 
             const resultSafe = result.map(record => IdEncrypter.encodeData(record))
 

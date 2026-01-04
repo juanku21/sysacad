@@ -1,7 +1,9 @@
+
 import { Prisma, SubjectInfo} from "@prisma/client"
-import { SubjectInfoWithRelations} from "../types"
+import { SubjectInfoWithRelations, IGetFilteredParams } from "../types"
 import { BaseRepository } from "./base.repository"
 import { PrismaFilterTransformer } from "../utils/whereAdapter"
+import { PrismaOrderByTransformer } from "../utils/orderByAdapter"
 import prisma from "../config/client"
 
 export class SubjectInfoRepository extends BaseRepository 
@@ -36,19 +38,20 @@ export class SubjectInfoRepository extends BaseRepository
         }
     }   
 
-    public async getFiltered(filter : string, pageNumber : number = 1, pageSize : number = 100) : Promise<SubjectInfo[]> {
+    public async getFiltered(params : IGetFilteredParams) : Promise<SubjectInfo[]> {
         try {
 
-            const skipAmount = (pageNumber - 1) * pageSize
+            const skipAmount = (params.pageNumber - 1) * params.pageSize
             
-            const prismaFilter = filter ? PrismaFilterTransformer.toPrismaWhere(filter) : {}
+            const prismaFilter = params.filter ? PrismaFilterTransformer.toPrismaWhere(params.filter) : {}
 
-            console.log(prismaFilter)
+            const prismaOrder = params.order ? PrismaOrderByTransformer.toPrismaOrderBy(params.order) : {}
 
             const result = await prisma.subjectInfo.findMany({
                 where: prismaFilter,
                 skip: skipAmount,
-                take: pageSize
+                take: params.pageSize,
+                orderBy: prismaOrder
             })
 
             return result

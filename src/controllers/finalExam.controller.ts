@@ -5,31 +5,16 @@ import { FinalExamService } from "../services/finalExam.service"
 import { FinalExamValidator } from "../validators/finalExam.validator"
 import { IdEncrypter } from "../utils/encryption"
 import { FinalExamMapper } from "../mapping/finalExam.mapper"
+import { HeaderStrategy } from "../utils/headerStrategy"
 
 export class FinalExamController {
 
     public static get: RequestHandler = async (req: Request, res: Response) => {
         try {
 
-            let result: object[]
+            const strategy = new HeaderStrategy(FinalExamService)
 
-
-            if (typeof req.headers['x-page'] == "string" && typeof req.headers['x-per-page'] == "string") {
-
-                const pageNumber: number = parseInt(req.headers['x-page'])
-                const pageSize: number = parseInt(req.headers['x-per-page'])
-
-                result = await FinalExamService.get(pageNumber, pageSize)
-
-                typeof req.headers['x-filters'] == 'string' ? result = await FinalExamService.getFiltered(req.headers['x-filters'], pageNumber, pageSize) : result = await FinalExamService.get(pageNumber, pageSize)
-
-            }
-            else {
-
-                typeof req.headers['x-filters'] == 'string' ? result = await FinalExamService.getFiltered(req.headers['x-filters']) : result = await FinalExamService.get()
-
-            }
-
+            const result = await strategy.get(req)
 
             const resultSafe = result.map(record => IdEncrypter.encodeData(record))
 

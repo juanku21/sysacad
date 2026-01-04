@@ -1,8 +1,9 @@
 
 import { Prisma, FinalExamRegistration} from "@prisma/client"
-import { FinalExamRegistrationWithRelations } from "../types"
+import { FinalExamRegistrationWithRelations, IGetFilteredParams } from "../types"
 import { BaseRepository } from "./base.repository"
 import { PrismaFilterTransformer } from "../utils/whereAdapter"
+import { PrismaOrderByTransformer } from "../utils/orderByAdapter"
 import prisma from "../config/client"
 
 export class FinalExamRegistrationRepository extends BaseRepository 
@@ -35,19 +36,20 @@ export class FinalExamRegistrationRepository extends BaseRepository
         }
     }
 
-    public async getFiltered(filter : string, pageNumber : number = 1, pageSize : number = 100) : Promise<FinalExamRegistration[]> {
+    public async getFiltered(params : IGetFilteredParams) : Promise<FinalExamRegistration[]> {
         try {
 
-            const skipAmount = (pageNumber - 1) * pageSize
+            const skipAmount = (params.pageNumber - 1) * params.pageSize
             
-            const prismaFilter = filter ? PrismaFilterTransformer.toPrismaWhere(filter) : {}
+            const prismaFilter = params.filter ? PrismaFilterTransformer.toPrismaWhere(params.filter) : {}
 
-            console.log(prismaFilter)
+            const prismaOrder = params.order ? PrismaOrderByTransformer.toPrismaOrderBy(params.order) : {}
 
             const result = await prisma.finalExamRegistration.findMany({
                 where: prismaFilter,
                 skip: skipAmount,
-                take: pageSize
+                take: params.pageSize,
+                orderBy: prismaOrder
             })
 
             return result
